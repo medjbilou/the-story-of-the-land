@@ -1,0 +1,13 @@
+{
+  "width": 2049,
+  "height": 2049,
+  "lon0": 34.2,
+  "lon1": 35.9,
+  "lat0": 29.45,
+  "lat1": 33.35,
+  "elev_min_m": -427.0436706542969,
+  "elev_max_m": 2367.419921875,
+  "width_km": 161.52936707957164,
+  "length_km": 431.2230000000002,
+  "attribution": "produced using Copernicus WorldDEM-30 (c) DLR e.V. 2010-2014 and (c) Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved"
+}

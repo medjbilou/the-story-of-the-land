@@ -1,0 +1,15 @@
+# The family resources of The Story of the Land (F4, docs/palestine-model.md). They replace the older national-game
+# indicators: each runs 0..1, and an event effect of n points in ../../../content/*.tsv is a delta of n / 100 here.
+# DESIGN VALUES, not historical facts: every resource starts at 0.5 until each chapter has its own start values (F5).
+# `name` is what the Cause log shows; `name_ar` is the Arabic name (PlayerText.Livelihood with arabic: true).
+indicators:
+  - { id: land, base: 0.5, name: Land, name_ar: "الأرض" }
+  - { id: home, base: 0.5, name: Home, name_ar: "البيت" }
+  - { id: family, base: 0.5, name: Family, name_ar: "العائلة" }
+  - { id: documents, base: 0.5, name: Documents, name_ar: "الوثائق" }
+  - { id: livelihood, base: 0.5, name: Livelihood, name_ar: "الرزق" }
+  - { id: memory, base: 0.5, name: Memory, name_ar: "الذاكرة" }
+  - { id: sumud, base: 0.5, name: Sumud, name_ar: "الصمود" }
+  - { id: community, base: 0.5, name: Community, name_ar: "المجتمع" }
+  - { id: safety, base: 0.5, name: Safety, name_ar: "الأمان" }
+  - { id: solidarity, base: 0.5, name: Solidarity, name_ar: "التضامن" }

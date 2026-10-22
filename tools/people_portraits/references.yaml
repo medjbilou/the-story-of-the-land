@@ -1,0 +1,20 @@
+# Reference photos used by gen_ref.py (2026-10-22) for the People portraits that were symbolic still lifes. Each photo was a
+# likeness reference only: the portrait is a new drawing. Licence is the reference's own; news photos are third-party.
+
+fig_abd_al_rahim_hajj_muhammad: {page: "https://commons.wikimedia.org/wiki/File:Abd_al-Rahim_Hajj_Muhammad_portrait,_cropped.jpg", licence: "Public domain"}
+fig_anas_al_sharif: {page: "https://www.aljazeera.com/news/2025/8/11/tributes-condemnation-pour-in-for-slain-al-jazeera-journalists-in-gaz", licence: "news photo, reference only"}
+fig_arouri: {page: "https://commons.wikimedia.org/wiki/File:Saleh_al-Arouri_at_Russia%E2%80%93Hamas_meeting,_2022_(cropped).jpg", licence: "CC BY 4.0"}
+fig_dalal_mughrabi: {page: "https://www.aljazeera.net/icons/strugglers/2017/6/1/", licence: "news photo, reference only"}
+fig_deif: {page: "https://www.aljazeera.com/news/2025/1/30/hamas-confirms-the-killing-of-military-commander-mohammed-deif", licence: "news photo, reference only"}
+fig_fathi_shaqaqi: {page: "https://www.aljazeera.net/encyclopedia/2014/12/6/%D9%81%D8%AA%D8%AD%D9%8A-%D8%A7%D9%84%D8%B4%D9%82%D8%A7%D9%82%D9%8A", licence: "news photo (reference only)"}
+fig_hamza_dahdouh: {page: "https://cpj.org/data/people/hamza-al-dahdouh/", licence: "news photo, reference only"}
+fig_hasan_salama: {page: "https://commons.wikimedia.org/wiki/File:Hasan_Salama_Portrait.jpg", licence: "Public domain"}
+fig_hind_rajab: {page: "https://www.middleeasteye.net/news/forensic-architecture-probe-says-israeli-tank-fire-likely-killed-palestinian-child-hind-rajab", licence: "news photo (reference only)"}
+fig_ibrahim_tuqan: {page: "https://commons.wikimedia.org/wiki/File:Ibrahim_Touqan.jpg", licence: "Attribution"}
+fig_issa_amro: {page: "https://commons.wikimedia.org/wiki/File:Issa_amro.png", licence: "CC0"}
+fig_matiel_mogannam: {page: "https://www.palquest.org/en/biography/30018/matiel-mogannam", licence: "news photo, reference only"}
+fig_naji_al_ali: {page: "https://www.palquest.org/en/biography/14303/naji-al-ali", licence: "news photo (reference only)"}
+fig_saadat: {page: "https://www.masrawy.com/news/news_publicaffairs/details/2025/10/8/2868846", licence: "news photo, reference only"}
+fig_salah_shehadeh: {page: "https://www.aljazeera.net/encyclopedia/2010/12/9/%D8%B5%D9%84%D8%A7%D8%AD-%D8%B4%D8%AD%D8%A7%D8%AF%D8%A9", licence: "news photo (reference only)"}
+fig_wadie_haddad: {page: "https://commons.wikimedia.org/wiki/File:Wadie_Addad2.jpg", licence: "Public domain"}
+fig_yahya_ayyash: {page: "https://www.aljazeera.net/icons/fighters/2014/9/25/%D9%8A%D8%AD%D9%8A%D9%89-%D8%B9%D9%8A%D8%A7%D8%B4", licence: "news photo (reference only)"}

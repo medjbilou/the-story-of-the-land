@@ -1,0 +1,3 @@
+# This file makes the maintainer the code owner of every path, so a change under .github/ is the maintainer's to review.
+# The Story of the Land has no maintainer handle recorded yet. When it does, add one rule line:
+#   * @<maintainer-github-username>

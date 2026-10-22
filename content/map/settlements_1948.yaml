@@ -1,0 +1,308 @@
+# Key places that existed in May 1948 (M2 map seed). Coordinates: Wikipedia API prop=coordinates;
+# founding years: the cited article's text. founded: null + pre_modern: true = pre-19th-century city.
+# Naming (owner, 2026-10-20; audits/place_names_palestinian.md): a Palestinian Arab town carries its Palestinian Arabic
+# name in the Khalidi / Palestine Remembered transliteration (Yafa, 'Akka, al-Lydd), its English exonym in `tip`
+# ("Also: Jaffa"); a pre-1948 colony that Palestinian sources name by the Arab place it took (Mulabbis, 'Uyun Qara,
+# Zammarin, al-Khudayra) carries that name and the colony in `tip`; a place with no Palestinian name keeps its own,
+# never an invented Arabic one, and `tip` names the depopulated village it was built on or beside where a source says so.
+# tip / tip_ar: the pill's tooltip line in each UI language (optional); their sources are in names_ar.yaml (tip_sources).
+# name_ar: the Arabic name the Arabic UI's map label shows (audits/map_names_ar.md). Its sources, review flag and note are
+# in names_ar.yaml (one row per id here); tools/tests/test_names_ar.py keeps the two equal.
+settlements:
+- id: jerusalem
+  name: al-Quds
+  name_ar: القدس
+  tip: 'Also: Jerusalem'
+  lon: 35.2256
+  lat: 31.7789
+  type: city
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Jerusalem
+    checked: '2026-10-09'
+- id: tel_aviv
+  name: Tel Aviv
+  name_ar: تل أبيب
+  lon: 34.78
+  lat: 32.08
+  type: city
+  founded: 1909
+  sources:
+  - url: https://en.wikipedia.org/wiki/Tel_Aviv
+    checked: '2026-10-09'
+- id: jaffa
+  name: Yafa
+  name_ar: يافا
+  tip: 'Also: Jaffa'
+  lon: 34.7531
+  lat: 32.0522
+  type: arab_town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Jaffa
+    checked: '2026-10-09'
+- id: haifa
+  name: Hayfa
+  name_ar: حيفا
+  tip: 'Also: Haifa'
+  lon: 34.9992
+  lat: 32.8192
+  type: city
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Haifa
+    checked: '2026-10-09'
+- id: acre
+  name: '''Akka'
+  name_ar: عكا
+  tip: 'Also: Acre'
+  lon: 35.0817
+  lat: 32.9278
+  type: arab_town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Acre,_Israel
+    checked: '2026-10-09'
+- id: tiberias
+  name: Tabariyya
+  name_ar: طبريا
+  tip: 'Also: Tiberias'
+  lon: 35.5333
+  lat: 32.7944
+  type: town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Tiberias
+    checked: '2026-10-09'
+- id: safed
+  name: Safad
+  name_ar: صفد
+  tip: 'Also: Safed'
+  lon: 35.4983
+  lat: 32.9658
+  type: town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Safed
+    checked: '2026-10-09'
+- id: nazareth
+  name: al-Nasira
+  name_ar: الناصرة
+  tip: 'Also: Nazareth'
+  lon: 35.3033
+  lat: 32.7019
+  type: arab_town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Nazareth
+    checked: '2026-10-09'
+- id: lod
+  name: al-Lydd
+  name_ar: اللد
+  tip: 'Also: Lydda'
+  lon: 34.8881
+  lat: 31.9519
+  type: arab_town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Lod
+    checked: '2026-10-09'
+  - url: https://en.wikipedia.org/w/index.php?title=Village_Statistics,_1945&oldid=1359600351
+    checked: '2026-10-12'
+- id: ramla
+  name: al-Ramla
+  name_ar: الرملة
+  tip: 'Also: Ramle'
+  lon: 34.8625
+  lat: 31.9275
+  type: arab_town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Ramla
+    checked: '2026-10-09'
+  - url: https://en.wikipedia.org/w/index.php?title=Village_Statistics,_1945&oldid=1359600351
+    checked: '2026-10-12'
+- id: gaza
+  name: Ghazza
+  name_ar: غزة
+  tip: 'Also: Gaza'
+  lon: 34.4597
+  lat: 31.5075
+  type: arab_town
+  founded: null
+  pre_modern: true
+  sources:
+  - url: https://en.wikipedia.org/wiki/Gaza_City
+    checked: '2026-10-09'
+- id: beersheba
+  name: 'Bir al-Sab'''
+  name_ar: بئر السبع
+  tip: 'Also: Beersheba'
+  lon: 34.7867
+  lat: 31.2522
+  type: arab_town
+  founded: 1900
+  sources:
+  - url: https://en.wikipedia.org/wiki/Beersheba
+    checked: '2026-10-09'
+- id: petah_tikva
+  name: Mulabbis
+  name_ar: ملبس
+  tip: 'The colony of Petah Tikva (1878), beside Fajja'
+  tip_ar: 'مستعمرة بتاح تكفا (1878)، قرب فجّة'
+  lon: 34.8864
+  lat: 32.0889
+  type: town
+  founded: 1878
+  sources:
+  - url: https://en.wikipedia.org/wiki/Petah_Tikva
+    checked: '2026-10-09'
+- id: rishon_lezion
+  name: '''Uyun Qara'
+  name_ar: عيون قارة
+  tip: 'The colony of Rishon LeZion (1882)'
+  tip_ar: 'مستعمرة ريشون لتسيون (1882)'
+  lon: 34.8
+  lat: 31.95
+  type: town
+  founded: 1882
+  sources:
+  - url: https://en.wikipedia.org/wiki/Rishon_LeZion
+    checked: '2026-10-09'
+- id: zikhron_yaakov
+  name: Zammarin
+  name_ar: زمارين
+  tip: 'The colony of Zikhron Ya''akov (1882)'
+  tip_ar: 'مستعمرة زخرون يعقوب (1882)'
+  lon: 34.9517
+  lat: 32.5708
+  type: town
+  founded: 1882
+  sources:
+  - url: https://en.wikipedia.org/wiki/Zikhron_Ya'akov
+    checked: '2026-10-09'
+- id: rosh_pinna
+  name: Rosh Pinna
+  name_ar: روش بينا
+  tip: 'Built on land bought from the villagers of al-Ja''una, depopulated 1948'
+  tip_ar: 'أُقيمت على أرض اشتُريت من أهالي قرية الجاعونة التي هُجّر أهلها سنة 1948'
+  lon: 35.5422
+  lat: 32.97
+  type: town
+  founded: 1878
+  sources:
+  - url: https://en.wikipedia.org/wiki/Rosh_Pinna
+    checked: '2026-10-09'
+- id: rehovot
+  name: Rehovot
+  name_ar: رحوفوت
+  tip: 'Built beside Zarnuqa, depopulated 1948'
+  tip_ar: 'أُقيمت قرب قرية زرنوقة التي هُجّر أهلها سنة 1948'
+  lon: 34.8167
+  lat: 31.8969
+  type: town
+  founded: 1890
+  sources:
+  - url: https://en.wikipedia.org/wiki/Rehovot
+    checked: '2026-10-09'
+- id: hadera
+  name: al-Khudayra
+  name_ar: الخضيرة
+  tip: 'The colony of Hadera (1891)'
+  tip_ar: 'مستعمرة الخضيرة (1891)'
+  lon: 34.9167
+  lat: 32.45
+  type: town
+  founded: 1891
+  sources:
+  - url: https://en.wikipedia.org/wiki/Hadera
+    checked: '2026-10-09'
+- id: netanya
+  name: Netanya
+  name_ar: نتانيا
+  tip: 'Founded beside Umm Khalid, depopulated 1948; its suburbs now cover the village''s land'
+  tip_ar: 'أُقيمت قرب قرية أم خالد التي هُجّر أهلها سنة 1948، وتغطي أحياء المدينة اليوم أراضي القرية'
+  lon: 34.8567
+  lat: 32.3286
+  type: town
+  founded: 1929
+  sources:
+  - url: https://en.wikipedia.org/wiki/Netanya
+    checked: '2026-10-09'
+- id: degania_alef
+  name: Degania Alef
+  name_ar: كيبوتس دغانيا ألف
+  tip: 'Built near Samakh, depopulated 1948'
+  tip_ar: 'أُقيم قرب سمخ التي هُجّر أهلها سنة 1948'
+  lon: 35.5747
+  lat: 32.7081
+  type: kibbutz
+  founded: 1910
+  sources:
+  - url: https://en.wikipedia.org/wiki/Degania_Alef
+    checked: '2026-10-09'
+- id: ein_harod
+  name: Ein Harod
+  name_ar: كيبوتس عين حارود
+  tip: 'Built on the land of Qumya, depopulated 1948'
+  tip_ar: 'أُقيم على أراضي قرية قُومية التي هُجّر أهلها سنة 1948'
+  lon: 35.3908
+  lat: 32.5603
+  type: kibbutz
+  founded: 1921
+  sources:
+  - url: https://en.wikipedia.org/wiki/Ein_Harod
+    checked: '2026-10-09'
+- id: nahalal
+  name: Nahalal
+  name_ar: موشاف نهلال
+  lon: 35.1967
+  lat: 32.69
+  type: moshav
+  founded: 1921
+  sources:
+  - url: https://en.wikipedia.org/wiki/Nahalal
+    checked: '2026-10-09'
+- id: hanita
+  name: Hanita
+  name_ar: كيبوتس حانيتا
+  tip: 'Built on the land of al-Bassa, depopulated 1948'
+  tip_ar: 'أُقيم على أراضي قرية البصة التي هُجّر أهلها سنة 1948'
+  lon: 35.1736
+  lat: 33.0875
+  type: kibbutz
+  founded: 1938
+  sources:
+  - url: https://en.wikipedia.org/wiki/Hanita
+    checked: '2026-10-09'
+- id: revivim
+  name: Revivim
+  name_ar: كيبوتس رفيفيم
+  lon: 34.7211
+  lat: 31.0436
+  type: kibbutz
+  founded: 1943
+  sources:
+  - url: https://en.wikipedia.org/wiki/Revivim
+    checked: '2026-10-09'
+- id: yad_mordechai
+  name: Yad Mordechai
+  name_ar: كيبوتس ياد مردخاي
+  tip: 'Built just north of the land of Dayr Sunayd, depopulated 1948'
+  tip_ar: 'أُقيم مباشرةً شمال أراضي قرية دير سنيد التي هُجّر أهلها سنة 1948'
+  lon: 34.5583
+  lat: 31.5886
+  type: kibbutz
+  founded: 1943
+  sources:
+  - url: https://en.wikipedia.org/wiki/Yad_Mordechai
+    checked: '2026-10-09'

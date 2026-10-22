@@ -1,0 +1,6 @@
+Amiri 1.003 (Regular and Bold), SIL Open Font License 1.1 (OFL.txt in this folder).
+Copyright 2010-2022 The Amiri Project Authors (https://github.com/aliftype/amiri).
+Source: https://github.com/aliftype/amiri/releases/download/1.003/Amiri-1.003.zip (released 2025-06-13),
+sha256 81af0aff7d2086d8af24cea7202f7546130997982534691373485cd96744d05e. The two files are unmodified.
+sha256 cd2550c0f4c05eb341bf97958211aaa39382bca96577ba3a67d4a3b4912c43c0  Amiri-Regular.ttf
+sha256 8cfed49b66de57e360ac61631d882dddfa23095d3ddb39fc2133eaf93892e79a  Amiri-Bold.ttf

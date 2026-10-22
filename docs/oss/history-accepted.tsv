@@ -1,0 +1,2 @@
+# Rows of scripts/oss/scan_history.py that are known and handled. Columns: commit, path, kind, action, date.
+# A rotated key stays in history (owner ruling: no rewriting); its row here records the rotation.

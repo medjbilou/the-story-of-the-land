@@ -1,0 +1,471 @@
+# The railways and main roads of May 1948 (issue #35). Map-only: the sim never reads this file (ContentLoader reads
+# only its own files), so it does not move the content hash; the map draws it (RouteLayer) and the sim could own the
+# network later through road map actions (spec section 3: hexes hold infrastructure).
+#
+# Geometry: tools/routes_1948.py traces each route on the Survey of Palestine 1:250,000 map of 1946 (public domain;
+# scanned and georeferenced by Palestine Open Maps), from one waypoint to the next along the route's own map symbol (the
+# black railway line, the red main road; for the Burma Road, any track). The traced lines are in route_paths_1948.yaml.
+# Waypoints are towns or stations the sources name on the route, at the coordinates their Wikipedia article gives
+# (Wikipedia API prop=coordinates, as settlements_1948.yaml), or Wikidata's (CC0) where the article has none; they only
+# steer the trace, which snaps them to the symbol. Where an article's point is a modern town off the 1946 road (Kfar
+# Yona, Holon, Ashkelon for al-Majdal), the trace reaches it by a spur that the tool cuts, so the line passes up to
+# about 3 km from that waypoint and stays on the road.
+#
+# trace: the map symbol the trace follows when it is not the kind's own (the 1,050 mm narrow-gauge lines are a thin
+# line on the 1946 map, so they trace as `track`).
+# status: draft = traced and checked by eye against the 1946 map (route previews), not yet by a historian.
+# reviewed_by and reviewed_on (both or neither, beside status): a person's sign-off, their GitHub handle and the day; only
+# that person writes them (owner, 15 October 2026, #375; docs/HISTORIAN_REVIEW.md). tools/routes_1948.py checks them; the
+# traced route_paths_1948.yaml does not carry them.
+# to_verify: what the sources leave open; a route with a to_verify line is not to be relied on beyond it.
+# opened: the year a cited source gives for the route's opening; left out where no source states it. Every route
+# except the Burma Road (1948) is on the 1946 map, so it ran by 1946 at the latest.
+# from / to: the window in which the map draws the route (RouteLayer shows it while the game date is inside it): a year
+# or a 'YYYY-MM-DD' date, quoted. `from` is the earliest date the cited sources support for the whole line as drawn
+# (1946, the map's date, where no source gives an earlier one); `to` is left out while the line still exists.
+# service (a railway only, optional): the train in normal play, from the sourced date regular service on the line
+# resumed (`from`), with its own status, to_verify and sources, and its stretches: in order along the line, each between
+# two named stations (start, end: with coordinates and a url, as the waypoints), with a status and sources; a stretch
+# with `gated: true` runs only once a person has signed it off. tools/route_paths_bake.py gives the map the span of the
+# stretches that run.
+map_source:
+  name: Survey of Palestine, Palestine 1:250,000, 1946 (three sheets)
+  url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+  tiles: https://palopenmaps.org/tiles/pal250k-1946/{z}/{x}/{y}.jpg
+  licence: Public-Domain
+  note: PD-UKGov (expired Crown copyright, 50 years from publication for published works; HMSO treats the expiry as
+    worldwide) and PD-scan, as Wikimedia Commons files these sheets (e.g. File:Gaza_sh._04,_1946.jpg). Palestine Open
+    Maps scanned and georeferenced it; its About page calls its maps public domain under the UK Copyright, Designs and
+    Patents Act and publishes no terms of its own for the tiles or the georeferencing. The traced lines are our own
+    derivative and copy none of its layers. Checked against station coordinates (about 100 m).
+  checked: '2026-10-11'
+routes:
+# --- Railways (Palestine Railways, 1920-1948) ------------------------------------------------------------------------
+- id: jaffa_jerusalem_railway
+  name: Yafa–al-Quds railway
+  kind: rail
+  opened: 1892
+  from: '1920-10-05'
+  status: draft
+  note: Jaffa terminus to Lydda junction, then Ramla, the Sorek valley and Battir to Jerusalem; opened 1892 as a metre
+    gauge line. The Jaffa–Lydda track was removed by the Ottoman army in 1915 (Palestine Railways), relaid as a 600 mm
+    line in February 1918, and rebuilt to standard gauge, finished in September 1920 and inaugurated on 5 October 1920
+    (Jaffa–Jerusalem railway), so the line as drawn dates from then. Service stopped during the 1948 war (Jaffa–Jerusalem
+    railway); regular trains between Ramla and Jerusalem resumed in March 1950 (Palestine Railways).
+  to_verify:
+  - The Jaffa station's closing date (August 1948 in the earlier note) is not in the cited articles' text.
+  via:
+  - {name: Yafa railway station, lon: 34.7614, lat: 32.059, url: 'https://en.wikipedia.org/wiki/Jaffa_railway_station'}
+  - {name: al-Lydd railway station, lon: 34.87556, lat: 31.94583, url: 'https://en.wikipedia.org/wiki/Lod_railway_station'}
+  - {name: al-Ramla railway station, lon: 34.87684, lat: 31.92936, url: 'https://en.wikipedia.org/wiki/Ramla_railway_station'}
+  - {name: Beit Shemesh railway station (Artuf), lon: 34.99088, lat: 31.75744, url: 'https://en.wikipedia.org/wiki/Beit_Shemesh_railway_station'}
+  - {name: Battir, lon: 35.13667, lat: 31.72472, url: 'https://en.wikipedia.org/wiki/Battir'}
+  - {name: al-Quds (Khan) railway station, lon: 35.22471, lat: 31.76685, url: 'https://www.wikidata.org/wiki/Q2920513'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Jaffa%E2%80%93Jerusalem_railway
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Palestine_Railways
+    checked: '2026-10-11'
+  # service: the train in normal play (maintainer decision on #35, 16 October 2026; issue #668), from the date regular
+  # service resumed after the 1948 war. No train runs on the line before `from`.
+  service:
+    from: '1950-03-02'
+    status: draft
+    note: Israel Railways opened a regular passenger service from Haifa to Jerusalem on 2 March 1950, one train a day
+      each way, about four hours, by the old Tel Aviv North station (Bnei Brak) on the Eastern Railway (Israel Railways,
+      50 Years of Israel Railways, 1998, p. 15; Jaffa–Jerusalem railway). That service joined this line at al-Lydd, so on this
+      line it ran from al-Lydd to al-Quds. The symbolic first train to Jerusalem, which carried flour and Torah scrolls, was
+      not a regular service and is not counted; its date is in to_verify.
+    to_verify:
+    - The date awaits a human check against the cited sources (CONTENT_POLICY section 2.6). The 1998 booklet is a scan
+      with no text layer; its sentence was read from the page image. A contemporary report, Al HaMishmar of 1 March
+      1950 ("tomorrow a passenger train from Haifa and Tel Aviv to Jerusalem"), is cited by he Wikipedia and was not
+      opened.
+    - The sources disagree on the symbolic first train to Jerusalem, 17 August 1948 in the 1998 booklet (Israel Railways,
+      1998, p. 15, the same page as the 2 March 1950 service) and 7 August 1949 in Jaffa–Jerusalem railway (en
+      Wikipedia). The game uses neither date; it is left to the human check.
+    sources:
+    - url: https://web.archive.org/web/20140327112217/http://www.rail.co.il/HE/Fun/Museum/Documents/50Years.pdf
+      checked: '2026-10-16'
+    - url: https://en.wikipedia.org/wiki/Jaffa%E2%80%93Jerusalem_railway
+      checked: '2026-10-16'
+    # stretches: the line's stretches the train may run, in order along it, each ending where the next starts. A gated
+    # stretch runs only once a person has signed it off (reviewed_by and reviewed_on beside its status, as every status
+    # row; docs/HISTORIAN_REVIEW.md); the others run from `from`. tools/route_paths_bake.py gives the map the span of the
+    # stretches that run.
+    stretches:
+    - start: {name: Tel Aviv South railway station (Beit Hadar, its 1920-1970 site), lon: 34.777, lat: 32.0636, url: 'https://en.wikipedia.org/wiki/Tel_Aviv_South_railway_station'}
+      end: {name: al-Lydd railway station, lon: 34.87556, lat: 31.94583, url: 'https://en.wikipedia.org/wiki/Lod_railway_station'}
+      gated: true
+      status: draft
+      note: A connecting train between Tel Aviv South and al-Lydd from 2 March 1950 (he Wikipedia, the Jaffa–Jerusalem
+        railway and Israel Railways). The 1998 booklet does not name it, so it rests on Wikipedia alone and runs only
+        once a person has checked it. The track from Tel Aviv South to Jaffa station was lifted in September 1949, when
+        Tel Aviv South became the terminus (Tel Aviv South railway station), so no train runs to Jaffa.
+      sources:
+      - url: https://he.wikipedia.org/wiki/%D7%9E%D7%A1%D7%99%D7%9C%D7%AA_%D7%94%D7%A8%D7%9B%D7%91%D7%AA_%D7%99%D7%A4%D7%95%E2%80%93%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D
+        checked: '2026-10-16'
+      - url: https://he.wikipedia.org/wiki/%D7%A8%D7%9B%D7%91%D7%AA_%D7%99%D7%A9%D7%A8%D7%90%D7%9C
+        checked: '2026-10-16'
+      - url: https://en.wikipedia.org/wiki/Tel_Aviv_South_railway_station
+        checked: '2026-10-16'
+    - start: {name: al-Lydd railway station, lon: 34.87556, lat: 31.94583, url: 'https://en.wikipedia.org/wiki/Lod_railway_station'}
+      end: {name: al-Quds (Khan) railway station, lon: 35.22471, lat: 31.76685, url: 'https://www.wikidata.org/wiki/Q2920513'}
+      status: draft
+      note: The Haifa–Jerusalem service's stretch on this line (Israel Railways, 1998, p. 15).
+      sources:
+      - url: https://web.archive.org/web/20140327112217/http://www.rail.co.il/HE/Fun/Museum/Documents/50Years.pdf
+        checked: '2026-10-16'
+- id: kantara_main_line_south
+  name: Hayfa–El Kantara main line (al-Lydd to Rafah)
+  kind: rail
+  opened: 1920
+  from: '1946'
+  status: draft
+  note: The Palestine Railways main line south of Lydda. It opened to passengers on 1 November 1920, linking El Kantara
+    by Ghazza and al-Majdal to al-Lydd (Wikipedia's "Lod–Ashkelon railway"); the more direct section al-Majdal–Isdud–Yibna–al-Lydd drawn here (the
+    1946 map's) was built after it. Severed at the Ghazza front in 1948; freight ran al-Lydd–al-Majdal (Wikipedia's "Lod–Ashkelon railway").
+  to_verify:
+  - The year the direct Majdal–Isdud–Yibna–Lydda section opened (not given by the cited source), so the line as drawn
+    is dated from the 1946 map.
+  via:
+  - {name: al-Lydd railway station, lon: 34.87556, lat: 31.94583, url: 'https://en.wikipedia.org/wiki/Lod_railway_station'}
+  - {name: Rehovot railway station, lon: 34.80639, lat: 31.90889, url: 'https://en.wikipedia.org/wiki/Rehovot_railway_station'}
+  - {name: Yibna, lon: 34.74639, lat: 31.86611, url: 'https://en.wikipedia.org/wiki/Yibna'}
+  - {name: Isdud, lon: 34.66167, lat: 31.75361, url: 'https://en.wikipedia.org/wiki/Isdud'}
+  - {name: 'al-Majdal (the Ashkelon article''s point)', lon: 34.56667, lat: 31.66667, url: 'https://en.wikipedia.org/wiki/Ashkelon'}
+  - {name: Dir Snid station, lon: 34.55776, lat: 31.58195, url: 'https://www.wikidata.org/wiki/Q6880658'}
+  - {name: Beit Hanoun, lon: 34.5372, lat: 31.5386, url: 'https://en.wikipedia.org/wiki/Beit_Hanoun'}
+  - {name: Ghazza, lon: 34.45972, lat: 31.5075, url: 'https://en.wikipedia.org/wiki/Gaza_City'}
+  - {name: Deir al-Balah, lon: 34.35167, lat: 31.41889, url: 'https://en.wikipedia.org/wiki/Deir_al-Balah'}
+  - {name: Khan Yunis, lon: 34.30306, lat: 31.34444, url: 'https://en.wikipedia.org/wiki/Khan_Yunis'}
+  - {name: Rafah, lon: 34.25861, lat: 31.2725, url: 'https://en.wikipedia.org/wiki/Rafah'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Lod%E2%80%93Ashkelon_railway
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Palestine_Railways
+    checked: '2026-10-11'
+- id: eastern_railway
+  name: Eastern Railway (al-Lydd to al-Khudayra)
+  kind: rail
+  opened: 1915
+  from: '1915'
+  status: draft
+  note: Built by the Ottoman army in 1915 and converted to standard gauge by the British; the main north-south line of
+    the Mandate. Mandate stations Lydda, Kafr Jinis, Rantiya, Rosh HaAyin, Qalqilya, Tulkarm, Qaqun, Hadera. Israel
+    later bypassed the stretch through Tulkarm (not drawn here).
+  to_verify:
+  - The Tulkarm bypass date. The sources disagree. Palestine Railways says August 1948; Eastern Railway (Israel) says
+    1949.
+  via:
+  - {name: al-Lydd railway station, lon: 34.87556, lat: 31.94583, url: 'https://en.wikipedia.org/wiki/Lod_railway_station'}
+  - {name: Rosh HaAyin South railway station, lon: 34.93472, lat: 32.10417, url: 'https://www.wikidata.org/wiki/Q7223530'}
+  - {name: Qalqilya, lon: 34.96861, lat: 32.19028, url: 'https://en.wikipedia.org/wiki/Qalqilya'}
+  - {name: Tulkarm, lon: 35.02667, lat: 32.3125, url: 'https://en.wikipedia.org/wiki/Tulkarm'}
+  - {name: Qaqun (Ahituv station), lon: 35.00194, lat: 32.38356, url: 'https://www.wikidata.org/wiki/Q6777881'}
+  - {name: al-Khudayra East railway station, lon: 34.95, lat: 32.44611, url: 'https://www.wikidata.org/wiki/Q7012759'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Eastern_Railway_(Israel)
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Palestine_Railways
+    checked: '2026-10-11'
+- id: hadera_haifa_railway
+  name: Main line, al-Khudayra to Hayfa
+  kind: rail
+  opened: 1918
+  from: '1918'
+  status: draft
+  note: The British Army's standard gauge line from Tulkarm "on a new route northwest to the coast and then northwards,
+    reaching Haifa by the end of 1918" (Palestine Railways); part of the main line. In 1948 Israel's trains ran on it
+    from Haifa as far south as Hadera (Palestine Railways).
+  via:
+  - {name: al-Khudayra East railway station, lon: 34.95, lat: 32.44611, url: 'https://www.wikidata.org/wiki/Q7012759'}
+  - {name: Binyamina railway station, lon: 34.94972, lat: 32.51389, url: 'https://en.wikipedia.org/wiki/Binyamina_railway_station'}
+  - {name: Atlit railway station, lon: 34.9402, lat: 32.69275, url: 'https://en.wikipedia.org/wiki/Atlit_railway_station'}
+  - {name: Hayfa East railway station, lon: 35.00472, lat: 32.81194, url: 'https://en.wikipedia.org/wiki/Haifa_East_railway_station'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Eastern_Railway_(Israel)
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Palestine_Railways
+    checked: '2026-10-11'
+- id: haifa_beirut_railway
+  name: Hayfa–'Akka line and the Hayfa–Beirut–Tripoli railway
+  kind: rail
+  opened: 1913
+  from: '1942'
+  status: draft
+  note: Haifa to Acre (an extension of the Jezreel Valley line from Balad al-Sheikh, finished at the end of 1912 or in
+    1913; the Jezreel Valley railway article gives both), continued north along the coast in 1942 by the wartime
+    Haifa–Beirut–Tripoli line through Nahariya and the Ras an-Naqura tunnels (Rosh HaNikra grottoes), so the whole line
+    as drawn dates from 1942. The Palmach destroyed the railway bridge at Rosh HaNikra in late February 1948, cutting the
+    line at the border (Rosh HaNikra grottoes); in 1948 Israel's trains ran north from Haifa to Kiryat Motzkin and later
+    Nahariya (Palestine Railways).
+  to_verify:
+  - The map's 1946 sheets show the line north of Acre; the Haifa–Acre alignment is the one the sheet shows, not checked
+    against the 1913 branch's own plans.
+  via:
+  - {name: Hayfa East railway station, lon: 35.00472, lat: 32.81194, url: 'https://en.wikipedia.org/wiki/Haifa_East_railway_station'}
+  - {name: "'Akka railway station", lon: 35.08282, lat: 32.92815, url: 'https://en.wikipedia.org/wiki/Acre_railway_station'}
+  - {name: Nahariya railway station, lon: 35.09889, lat: 33.00528, url: 'https://en.wikipedia.org/wiki/Nahariya_railway_station'}
+  - {name: Rosh HaNikra grottoes, lon: 35.10477, lat: 33.09312, url: 'https://en.wikipedia.org/wiki/Rosh_HaNikra_grottoes'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Jezreel_Valley_railway
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Palestine_Railways
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Rosh_HaNikra_grottoes
+    checked: '2026-10-11'
+- id: jezreel_valley_railway
+  name: Jezreel Valley railway (Hayfa to Samakh and al-Hamma)
+  kind: rail
+  opened: 1905
+  from: '1905-10-15'
+  status: draft
+  trace: track
+  note: The narrow gauge branch of the Hejaz Railway, Haifa to Daraa (beyond the map), inaugurated on 15 October 1905.
+    Its bridge between Samakh and al-Hamma was blown up in the Night of the Bridges (June 1946), cutting it off from
+    the rest of the Hejaz line; a bridge near Geva was blown on 2 March 1948 and the Jordan bridge at Gesher on 14 May
+    1948 (Jezreel Valley railway). Israel Railways repaired Haifa–Afula; that service ended in 1949, with occasional use
+    until September 1951 (Jezreel Valley railway). The track stays drawn, as it still lay on the ground.
+  via:
+  - {name: Hayfa East railway station, lon: 35.00472, lat: 32.81194, url: 'https://en.wikipedia.org/wiki/Haifa_East_railway_station'}
+  - {name: Kfar Yehoshua, lon: 35.15389, lat: 32.68361, url: 'https://en.wikipedia.org/wiki/Kfar_Yehoshua'}
+  - {name: al-'Afula, lon: 35.28806, lat: 32.60639, url: 'https://en.wikipedia.org/wiki/Afula'}
+  - {name: Baysan former railway station, lon: 35.4936, lat: 32.5128, url: 'https://www.wikidata.org/wiki/Q15281118'}
+  - {name: Samakh railway station, lon: 35.587, lat: 32.7032, url: 'https://www.wikidata.org/wiki/Q7046720'}
+  - {name: Al-Hamma station, lon: 35.66648, lat: 32.68675, url: 'https://www.wikidata.org/wiki/Q18192250'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Jezreel_Valley_railway
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Palestine_Railways
+    checked: '2026-10-11'
+# --- Main roads (red on the 1946 map) -------------------------------------------------------------------------------
+- id: jaffa_jerusalem_road
+  name: Yafa–al-Quds road (by al-Latrun and Bab al-Wad)
+  kind: road
+  from: '1946'
+  status: draft
+  note: The road the convoys of the 1947-48 siege of Jerusalem drove; from Bab al-Wad it climbs past
+    Saris and al-Qastal. The Arab Legion held Latrun from 18 May 1948.
+  via:
+  - {name: Yafa, lon: 34.75306, lat: 32.05222, url: 'https://en.wikipedia.org/wiki/Jaffa'}
+  - {name: Yazur, lon: 34.80472, lat: 32.02611, url: 'https://en.wikipedia.org/wiki/Yazur'}
+  - {name: al-Ramla, lon: 34.8625, lat: 31.9275, url: 'https://en.wikipedia.org/wiki/Ramla'}
+  - {name: al-Latrun, lon: 34.98139, lat: 31.83194, url: 'https://en.wikipedia.org/wiki/Latrun'}
+  - {name: Bab al-Wad, lon: 35.03333, lat: 31.81667, url: 'https://en.wikipedia.org/wiki/Sha%27ar_HaGai'}
+  - {name: Al-Qastal, lon: 35.14417, lat: 31.79556, url: 'https://en.wikipedia.org/wiki/Al-Qastal,_Jerusalem'}
+  - {name: al-Quds, lon: 35.22556, lat: 31.77889, url: 'https://en.wikipedia.org/wiki/Jerusalem'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Burma_Road_(Israel)
+    checked: '2026-10-11'
+  - url: https://en.wikipedia.org/wiki/Battles_of_Latrun_(1948)
+    checked: '2026-10-11'
+- id: burma_road
+  name: Burma Road (1948)
+  kind: track
+  opened: 1948
+  from: '1948-06-14'
+  status: draft
+  note: The makeshift bypass of Latrun built in May-June 1948, from just east of Dayr Muhaysin by Bayt Jiz and Bayt
+    Susin, up to Bayt Mahsir and Saris, joining the old Jerusalem road. The first jeep attempt failed on the night of
+    30-31 May and a second got through the next night (31 May - 1 June); the steepest section opened to vehicles on 10
+    June and the road was completed on 14 June 1948 (Burma Road (Israel)), the date the map shows it from.
+  to_verify:
+  - Built after the 1946 map, so the trace follows the tracks the map shows between the places the source names; the
+    1948 line differs where the builders cut new road (the steep ascent above Bayt Susin).
+  via:
+  - {name: Dayr Muhaysin, lon: 34.93444, lat: 31.82833, url: 'https://en.wikipedia.org/wiki/Dayr_Muhaysin'}
+  - {name: Bayt Jiz, lon: 34.95417, lat: 31.81278, url: 'https://en.wikipedia.org/wiki/Bayt_Jiz'}
+  - {name: Bayt Susin, lon: 34.98361, lat: 31.80611, url: 'https://en.wikipedia.org/wiki/Bayt_Susin'}
+  - {name: Bayt Mahsir, lon: 35.03472, lat: 31.79444, url: 'https://en.wikipedia.org/wiki/Bayt_Mahsir'}
+  - {name: Saris, lon: 35.07389, lat: 31.79806, url: 'https://en.wikipedia.org/wiki/Saris,_Jerusalem'}
+  sources:
+  - url: https://en.wikipedia.org/wiki/Burma_Road_(Israel)
+    checked: '2026-10-11'
+- id: tel_aviv_haifa_road
+  name: Tel Aviv–Hayfa road (by Ra'anana and al-Khudayra)
+  kind: road
+  opened: 1937
+  from: '1937'
+  status: draft
+  note: The inland coastal-plain road the 1946 map shows from Tel Aviv by Ra'anana, Kefar Yona and Hadera, then along
+    the foot of Mount Carmel by Fureidis and Atlit to Haifa.
+  to_verify:
+  - The opening year 1937 is the Hadera–Haifa section's (OpenHistoricalMap way dates); the southern section may be
+    older.
+  via:
+  - {name: Tel Aviv, lon: 34.78, lat: 32.08, url: 'https://en.wikipedia.org/wiki/Tel_Aviv'}
+  - {name: Ra'anana, lon: 34.86667, lat: 32.18333, url: 'https://en.wikipedia.org/wiki/Ra%27anana'}
+  - {name: Kfar Yona, lon: 34.93576, lat: 32.3171, url: 'https://en.wikipedia.org/wiki/Kfar_Yona'}
+  - {name: al-Khudayra, lon: 34.91667, lat: 32.45, url: 'https://en.wikipedia.org/wiki/Hadera'}
+  - {name: Pardes Hanna-Karkur, lon: 34.9675, lat: 32.47111, url: 'https://en.wikipedia.org/wiki/Pardes_Hanna-Karkur'}
+  - {name: Fureidis, lon: 34.95056, lat: 32.59667, url: 'https://en.wikipedia.org/wiki/Fureidis'}
+  - {name: Atlit railway station, lon: 34.9402, lat: 32.69275, url: 'https://en.wikipedia.org/wiki/Atlit_railway_station'}
+  - {name: Hayfa, lon: 34.99917, lat: 32.81917, url: 'https://en.wikipedia.org/wiki/Haifa'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+  - url: https://www.openhistoricalmap.org/way/201475508
+    checked: '2026-10-11'
+- id: coastal_road_south
+  name: Coastal road south (Yafa to Ghazza and Rafah)
+  kind: road
+  from: '1946'
+  status: draft
+  note: The main road south from Jaffa by Yibna, Isdud and Majdal to Gaza, Khan Yunis and Rafah.
+  via:
+  - {name: Yafa, lon: 34.75306, lat: 32.05222, url: 'https://en.wikipedia.org/wiki/Jaffa'}
+  - {name: Holon, lon: 34.76667, lat: 32.01667, url: 'https://en.wikipedia.org/wiki/Holon'}
+  - {name: Yibna, lon: 34.74639, lat: 31.86611, url: 'https://en.wikipedia.org/wiki/Yibna'}
+  - {name: Isdud, lon: 34.66167, lat: 31.75361, url: 'https://en.wikipedia.org/wiki/Isdud'}
+  - {name: 'al-Majdal (the Ashkelon article''s point)', lon: 34.56667, lat: 31.66667, url: 'https://en.wikipedia.org/wiki/Ashkelon'}
+  - {name: Ghazza, lon: 34.45972, lat: 31.5075, url: 'https://en.wikipedia.org/wiki/Gaza_City'}
+  - {name: Khan Yunis, lon: 34.30306, lat: 31.34444, url: 'https://en.wikipedia.org/wiki/Khan_Yunis'}
+  - {name: Rafah, lon: 34.25861, lat: 31.2725, url: 'https://en.wikipedia.org/wiki/Rafah'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+- id: haifa_acre_naqura_road
+  name: Hayfa–'Akka–Ras an-Naqura road
+  kind: road
+  opened: 1933
+  from: '1933'
+  status: draft
+  note: The coast road north from Haifa by Acre and Nahariya to the Lebanese border at Ras an-Naqura.
+  via:
+  - {name: Hayfa, lon: 34.99917, lat: 32.81917, url: 'https://en.wikipedia.org/wiki/Haifa'}
+  - {name: "'Akka", lon: 35.08167, lat: 32.92778, url: 'https://en.wikipedia.org/wiki/Acre,_Israel'}
+  - {name: Nahariya, lon: 35.09889, lat: 33.00583, url: 'https://en.wikipedia.org/wiki/Nahariya'}
+  - {name: Rosh HaNikra grottoes, lon: 35.10477, lat: 33.09312, url: 'https://en.wikipedia.org/wiki/Rosh_HaNikra_grottoes'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+  - url: https://www.openhistoricalmap.org/way/201490910
+    checked: '2026-10-11'
+- id: jerusalem_hebron_beersheba_road
+  name: al-Quds–al-Khalil–Bir al-Sab' road
+  kind: road
+  from: '1946'
+  status: draft
+  note: South from Jerusalem by Bethlehem and Hebron, then down to Beersheba by ad-Dhahiriya.
+  via:
+  - {name: al-Quds, lon: 35.22556, lat: 31.77889, url: 'https://en.wikipedia.org/wiki/Jerusalem'}
+  - {name: Bayt Lahm, lon: 35.20639, lat: 31.70444, url: 'https://en.wikipedia.org/wiki/Bethlehem'}
+  - {name: al-Khalil, lon: 35.09694, lat: 31.52861, url: 'https://en.wikipedia.org/wiki/Hebron'}
+  - {name: Ad-Dhahiriya, lon: 34.97222, lat: 31.40778, url: 'https://en.wikipedia.org/wiki/Ad-Dhahiriya'}
+  - {name: "Bir al-Sab'", lon: 34.7867, lat: 31.2522, url: 'https://en.wikipedia.org/wiki/Beersheba'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+  - url: https://www.openhistoricalmap.org/way/202064412
+    checked: '2026-10-11'
+- id: jerusalem_nablus_nazareth_road
+  name: al-Quds–Nablus–Jenin–al-Nasira road
+  kind: road
+  from: '1946'
+  status: draft
+  note: The hill-country road north from Jerusalem by al-Bireh (Ramallah), Sinjil and Huwara to Nablus, then by Deir
+    Sharaf and Jaba' to Jenin, across the Jezreel
+    Valley at Afula to Nazareth.
+  via:
+  - {name: al-Quds, lon: 35.22556, lat: 31.77889, url: 'https://en.wikipedia.org/wiki/Jerusalem'}
+  - {name: Al-Bireh, lon: 35.215, lat: 31.90528, url: 'https://en.wikipedia.org/wiki/Al-Bireh'}
+  - {name: Sinjil, lon: 35.26417, lat: 32.03306, url: 'https://en.wikipedia.org/wiki/Sinjil'}
+  - {name: Huwara, lon: 35.25667, lat: 32.1525, url: 'https://en.wikipedia.org/wiki/Huwara'}
+  - {name: Nablus, lon: 35.26083, lat: 32.22111, url: 'https://en.wikipedia.org/wiki/Nablus'}
+  - {name: Deir Sharaf, lon: 35.18806, lat: 32.25417, url: 'https://en.wikipedia.org/wiki/Deir_Sharaf'}
+  - {name: Jaba', lon: 35.22222, lat: 32.32389, url: 'https://en.wikipedia.org/wiki/Jaba%27,_Jenin'}
+  - {name: Jenin, lon: 35.3, lat: 32.46111, url: 'https://en.wikipedia.org/wiki/Jenin'}
+  - {name: al-'Afula, lon: 35.28806, lat: 32.60639, url: 'https://en.wikipedia.org/wiki/Afula'}
+  - {name: al-Nasira, lon: 35.30333, lat: 32.70194, url: 'https://en.wikipedia.org/wiki/Nazareth'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+- id: tel_aviv_tulkarm_nablus_road
+  name: Tel Aviv–Mulabbis–Tulkarm–Nablus road
+  kind: road
+  from: '1946'
+  status: draft
+  note: East from Tel Aviv by Petah Tikva and Ras al-Ein, north by Qalqilya to Tulkarm, then up into the hills by
+    Anabta and Deir Sharaf to Nablus.
+  via:
+  - {name: Tel Aviv, lon: 34.78, lat: 32.08, url: 'https://en.wikipedia.org/wiki/Tel_Aviv'}
+  - {name: Mulabbis, lon: 34.88639, lat: 32.08889, url: 'https://en.wikipedia.org/wiki/Petah_Tikva'}
+  - {name: Rosh HaAyin (Ras al-Ein), lon: 34.95667, lat: 32.09556, url: 'https://en.wikipedia.org/wiki/Rosh_HaAyin'}
+  - {name: Qalqilya, lon: 34.96861, lat: 32.19028, url: 'https://en.wikipedia.org/wiki/Qalqilya'}
+  - {name: Tulkarm, lon: 35.02667, lat: 32.3125, url: 'https://en.wikipedia.org/wiki/Tulkarm'}
+  - {name: Anabta, lon: 35.11694, lat: 32.30722, url: 'https://en.wikipedia.org/wiki/Anabta'}
+  - {name: Deir Sharaf, lon: 35.18806, lat: 32.25417, url: 'https://en.wikipedia.org/wiki/Deir_Sharaf'}
+  - {name: Nablus, lon: 35.26083, lat: 32.22111, url: 'https://en.wikipedia.org/wiki/Nablus'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+- id: haifa_nazareth_tiberias_road
+  name: Hayfa–al-Nasira–Tabariyya road
+  kind: road
+  from: '1946'
+  status: draft
+  note: South-east from Haifa through the Jezreel Valley by Nahalal to Nazareth, then by Kafr Kanna down to Tiberias.
+  via:
+  - {name: Hayfa, lon: 34.99917, lat: 32.81917, url: 'https://en.wikipedia.org/wiki/Haifa'}
+  - {name: Nahalal, lon: 35.19667, lat: 32.69, url: 'https://en.wikipedia.org/wiki/Nahalal'}
+  - {name: al-Nasira, lon: 35.30333, lat: 32.70194, url: 'https://en.wikipedia.org/wiki/Nazareth'}
+  - {name: Kafr Kanna, lon: 35.35, lat: 32.75, url: 'https://en.wikipedia.org/wiki/Kafr_Kanna'}
+  - {name: Tabariyya, lon: 35.53333, lat: 32.79444, url: 'https://en.wikipedia.org/wiki/Tiberias'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+- id: jerusalem_jericho_road
+  name: al-Quds–Ariha road
+  kind: road
+  from: '1946'
+  status: draft
+  note: East from Jerusalem by al-Eizariya (Bethany) down to Jericho.
+  via:
+  - {name: al-Quds, lon: 35.22556, lat: 31.77889, url: 'https://en.wikipedia.org/wiki/Jerusalem'}
+  - {name: Al-Eizariya (Bethany), lon: 35.26444, lat: 31.77, url: 'https://en.wikipedia.org/wiki/Bethany'}
+  - {name: Ariha, lon: 35.46, lat: 31.85611, url: 'https://en.wikipedia.org/wiki/Jericho'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+- id: tiberias_metula_road
+  name: Tabariyya–Rosh Pinna–Metula road
+  kind: road
+  from: '1946'
+  status: draft
+  note: North from Tiberias along the Sea of Galilee to Rosh Pinna, then up the Hula Valley to Metula.
+  via:
+  - {name: Tabariyya, lon: 35.53333, lat: 32.79444, url: 'https://en.wikipedia.org/wiki/Tiberias'}
+  - {name: Rosh Pinna, lon: 35.54222, lat: 32.97, url: 'https://en.wikipedia.org/wiki/Rosh_Pinna'}
+  - {name: Metula, lon: 35.57444, lat: 33.27889, url: 'https://en.wikipedia.org/wiki/Metula'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+- id: gaza_beersheba_road
+  name: Ghazza–Bir al-Sab' road
+  kind: road
+  from: '1946'
+  status: draft
+  note: South-east from Gaza across the northern Negev to Beersheba.
+  via:
+  - {name: Ghazza, lon: 34.45972, lat: 31.5075, url: 'https://en.wikipedia.org/wiki/Gaza_City'}
+  - {name: "Bir al-Sab'", lon: 34.7867, lat: 31.2522, url: 'https://en.wikipedia.org/wiki/Beersheba'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+  - url: https://www.openhistoricalmap.org/way/202059844
+    checked: '2026-10-11'
+- id: beersheba_auja_road
+  name: Bir al-Sab'–'Auja al-Hafir road
+  kind: road
+  from: '1946'
+  status: draft
+  note: South-west from Beersheba across the Negev to Auja al-Hafir (Nitzana) on the Egyptian border.
+  via:
+  - {name: "Bir al-Sab'", lon: 34.7867, lat: 31.2522, url: 'https://en.wikipedia.org/wiki/Beersheba'}
+  - {name: Auja al-Hafir, lon: 34.43694, lat: 30.87417, url: 'https://en.wikipedia.org/wiki/Auja_al-Hafir'}
+  sources:
+  - url: https://palopenmaps.org/en/maps?basemap=pal250k1946
+    checked: '2026-10-11'
+  - url: https://www.openhistoricalmap.org/way/202064413
+    checked: '2026-10-11'

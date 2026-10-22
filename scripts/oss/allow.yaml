@@ -1,0 +1,6 @@
+# Reviewed exceptions to scripts/oss/check_repo.py. Each row: the check it silences, a glob (fnmatch: '*' also
+# matches '/'), and the reason. A row that silences nothing is reported as stale-allow.
+allow:
+  - check: home-paths
+    glob: "unity/Assets/Tests/*"
+    reason: "Fake home paths in the boot-failure path-redaction tests (GameSceneTests, SaveUiTests); fixtures by design"

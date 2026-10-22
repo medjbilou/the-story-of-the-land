@@ -1,0 +1,67 @@
+The Story of the Land (حكاية الأرض), by Mohamed Jbilou
+A free history game told from the Palestinian perspective.
+
+Licences and third-party notices, path by path: THIRD-PARTY-NOTICES.md. Code is MIT (LICENSE). Game content
+(content/) is CC BY-SA 4.0. Docs, art and UI assets are CC BY 4.0. AI-only images are CC0 / no rights claimed. Files
+derived from Unity's templates are under the Unity Companion License. The in-game credits text is docs/credits.md.
+
+This file carries the attribution texts that the data sources and fonts below require.
+
+This product includes the following third-party material. Per-file records: ASSETS.yaml.
+
+The 1948 Collection: 3D models by Tal Heuberger, CC0 1.0.
+
+Terrain (Copernicus DEM licence, modified data):
+produced using Copernicus WorldDEM-30 (c) DLR e.V. 2010-2014 and (c) Airbus Defence and Space GmbH 2014-2018
+provided under COPERNICUS by the European Union and ESA; all rights reserved
+
+Precipitation: CHELSA V2.1 bio12 (1981-2010), CC0 1.0. Karger, D.N., Conrad, O., Böhner, J., Kawohl, T., Kreft, H.,
+Soria-Auza, R.W., Zimmermann, N.E., Linder, H.P. & Kessler, M. (2021) Climatologies at high resolution for the earth's
+land surface areas. EnviDat. https://doi.org/10.16904/envidat.228.v2.1 ; Karger et al. (2017) Scientific Data 4, 170122.
+
+Rain-gauge data: Israel Meteorological Service, meteorological data archive, data.gov.il dataset 481
+(https://data.gov.il/dataset/481), licence "Other (Open)" as stated on the dataset.
+
+Wikipedia (CC BY-SA 4.0): many facts in content/ cite English and Hebrew Wikipedia articles, and the 1948 settlement
+coordinates come from the Wikipedia API; each entry lists its source URLs.
+
+Sub-district boundaries (content/map/subdistricts_1948.geojson): digitised from the Survey of Palestine map
+"Administrative Divisions" (1946, overprinted May 1947) and the Administrative Divisions (Amendment) Proclamation, 1947
+(Palestine Gazette No. 1552), Government of Palestine works (public domain in Israel and the UK; facts only are used: decision D-B in
+docs/oss/DECISIONS.md; see the file's licence note); scans from
+the National Library of Israel via Wikimedia Commons. Hebrew and Arabic names from Wikipedia (CC BY-SA 4.0).
+
+Railways and roads of 1948 (content/map/route*_1948.yaml): traced on the Survey of Palestine 1:250,000 map of 1946
+(public domain in Israel and the UK; facts only are used, as for decision D-B in docs/oss/DECISIONS.md), using the scans
+and georeferencing published by Palestine Open Maps (https://palopenmaps.org).
+
+1949 armistice lines (content/map/armistice_lines_1949.geojson): digitised from the General Armistice Agreements of
+1949 and their annexed maps (United Nations Treaty Series vol. 42; UN documents S/1264/Corr.1, S/1296, S/1302/Rev.1,
+S/1353/Rev.1, and S/1471 with its signed 1950 map; UN documents are not copyrighted, ST/AI/189/Add.9/Rev.2), from the
+UN Official Document System, UNISPAL and the UN Treaty Collection; the Egypt line uses the Survey of Palestine
+1:100,000 sheet "Gaza" (Government of Palestine, decision D-B; National Library of Israel scan via Wikimedia Commons)
+and the Lebanon line the sub-district data's Mandate frontier; the Jordan map is drawn on the Survey of Palestine
+1:250,000 (1946, decision D-B) and S/1471's on Survey of Palestine 1:20,000 sheets reprinted by the Survey of Israel
+(only the agreements' line positions are taken); town coordinates for georeferencing from Wikidata (CC0)
+and Wikipedia. Decision D-A.
+
+
+Fonts: EB Garamond, SIL Open Font License 1.1 (unity/Assets/UI/Fonts/OFL.txt). Noto Naskh Arabic, Copyright 2022 The
+Noto Project Authors (https://github.com/notofonts/arabic), SIL Open Font License 1.1
+(unity/Assets/UI/Fonts/NotoNaskhArabic/OFL.txt). Amiri, Copyright 2010-2022 The Amiri Project Authors
+(https://github.com/aliftype/amiri), SIL Open Font License 1.1 (unity/Assets/UI/Fonts/Amiri/OFL.txt).
+
+Builds also contain YamlDotNet, Copyright (c) Antoine Aubry and contributors, MIT (LICENSES/YamlDotNet-MIT.txt), and
+the Unity runtime, used under the Unity Terms of Service. The Unity runtime includes the ICU data file that
+UI Toolkit's advanced text generator uses for right-to-left text (Arabic): Copyright (c) 2016 and later Unicode, Inc.
+and others, Unicode License v3 (https://www.unicode.org/license.txt).
+
+Narration (The Story of the Land): synthetic voices, made offline with Habibi-TTS (Apache-2.0) and Chatterbox
+Multilingual by Resemble AI (MIT), using the models' stock voices. No real person's voice is cloned. The models are
+not shipped; only the audio files they produce are.
+
+Data and sources of The Story of the Land's own content: TechForPalestine datasets (The Unlicense, public domain);
+archivegenocide.com (visual testimony; its figures are used as captions only); UN OCHA and OHCHR; the Institute for
+Palestine Studies (palestine-studies.org); Adalah; the El-Daheeh episode "Palestine .. a Tale of Land"
+(«فلسطين .. حكاية الأرض»), https://www.youtube.com/watch?v=f0oy-NicIgE. Each fact carries its own source in content/.
+

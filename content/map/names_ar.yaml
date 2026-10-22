@@ -1,0 +1,2869 @@
+# Arabic names for every named place the map draws (audits/map_names_ar.md): the source of truth for each name's sources,
+# review flag and note. No loader reads this file, so it is outside the content hash and no save or golden depends on it.
+#
+# Since F5 step 6 each name is also inline, as `name_ar:` on its own row (and `today_name_ar:` on a locality row), where
+# the loaders read it: settlements_1948.yaml (SettlementPlacer), locations_1948.yaml, localities_1948.yaml (Localities.cs,
+# and its runtime TSV through tools/localities_bake.py).
+# An empty name has no inline key. tools/tests/test_names_ar.py keeps the inline names equal to the rows here; change a
+# name here and in its file together. The loaders also accept name_ar_sources, name_ar_review and name_ar_note inline.
+#
+# One list per content file (path under content/), one row per id there, in that file's order:
+#   name                the row's English name, copied for review (the file's own row is the truth).
+#   name_ar             the Arabic name the Arabic UI shows; '' where no source was found (never guessed).
+#   name_ar_review      agent-checked: an AI agent checked the name against its sources and no person has read it yet
+#                       (CONTENT_POLICY section 2, rule 6); a native speaker reviews it and removes the flag.
+#   name_ar_sources     {url, checked}: pages read on that day (Arabic Wikipedia read through its API, Wikidata items
+#                       through wbgetentities). A name's source does not check the row's facts.
+#   name_ar_note        why the name is what it is: an Arab place name used for a colony, the Arab place a colony was
+#                       built on or beside, or why the name is empty.
+#   name_sources        {url, checked}: the Palestinian source of a renamed English name, or tip_sources the source of a
+#                       row's tooltip (tip, tip_ar) where the name stays (2026-10-20, audits/place_names_palestinian.md).
+#   today_name_ar(_sources)  localities only: the Arabic form of today.name (the label's tooltip).
+# Rules (the brief, 2026-10-19): Palestinian Arab places keep their historical Arabic name; a Jewish colony takes the
+# Arab place name where it was founded on that place and the place was no longer a separate locality in May 1948 (ملبس,
+# عيون قارة, زمارين), else the Arabic transliteration, with the Arab place noted; kibbutzim read «كيبوتس ...», moshavim
+# «موشاف ...». No diacritics, no direction marks, no Hebrew.
+status: draft
+map/settlements_1948.yaml:
+- id: jerusalem
+  name: 'al-Quds'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/GeoPoints/Jerusalem_528/index.html', checked: '2026-10-20'}
+  name_ar: القدس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/القدس', checked: '2026-10-19'}
+- id: tel_aviv
+  name: 'Tel Aviv'
+  name_ar: تل أبيب
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/تل_أبيب', checked: '2026-10-19'}
+- id: jaffa
+  name: 'Yafa'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Jaffa/Jaffa/index.html', checked: '2026-10-20'}
+  name_ar: يافا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يافا', checked: '2026-10-19'}
+- id: haifa
+  name: 'Hayfa'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Haifa/Haifa/index.html', checked: '2026-10-20'}
+  name_ar: حيفا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حيفا', checked: '2026-10-19'}
+- id: acre
+  name: '''Akka'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Acre/Acre/index.html', checked: '2026-10-20'}
+  name_ar: عكا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عكا', checked: '2026-10-19'}
+- id: tiberias
+  name: 'Tabariyya'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Tiberias/Tiberias/index.html', checked: '2026-10-20'}
+  name_ar: طبريا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طبرية', checked: '2026-10-19'}
+  name_ar_note: 'The article opens "طبريا أو طبرية"; طبريا matches the sub-district name already in subdistricts_1948.geojson (قضاء طبريا).'
+- id: safed
+  name: 'Safad'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Safad/Safad/index.html', checked: '2026-10-20'}
+  name_ar: صفد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صفد', checked: '2026-10-19'}
+- id: nazareth
+  name: 'al-Nasira'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Nazareth/Nazareth/index.html', checked: '2026-10-20'}
+  name_ar: الناصرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الناصرة', checked: '2026-10-19'}
+- id: lod
+  name: 'al-Lydd'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/al-Ramla/al-Lydd/index.html', checked: '2026-10-20'}
+  name_ar: اللد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/اللد', checked: '2026-10-19'}
+- id: ramla
+  name: 'al-Ramla'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/al-Ramla/al-Ramla/index.html', checked: '2026-10-20'}
+  name_ar: الرملة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الرملة', checked: '2026-10-19'}
+- id: gaza
+  name: 'Ghazza'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/GeoPoints/Gaza_526/index.html', checked: '2026-10-20'}
+  name_ar: غزة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/غزة', checked: '2026-10-19'}
+- id: beersheba
+  name: 'Bir al-Sab'''
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Beersheba/Beersheba/index.html', checked: '2026-10-20'}
+  name_ar: بئر السبع
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بئر_السبع', checked: '2026-10-19'}
+- id: petah_tikva
+  name: 'Mulabbis'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Jerusalem/Bayt-Mahsir/Story18438.html', checked: '2026-10-20'}
+  - {url: 'https://www.palestineremembered.com/Jaffa/Fajja/index.html', checked: '2026-10-20'}
+  name_ar: ملبس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بتاح_تكفا', checked: '2026-10-19'}
+  name_ar_note: 'Arab place name: the colony was founded in 1878 on the lands of the Arab village of Mulabbis (ملبس), whose people dispersed after the sale; the article opens "بتاح تكفا أو قرية ملبس". Transliteration: بتاح تكفا.'
+- id: rishon_lezion
+  name: '''Uyun Qara'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Jerusalem/Bayt-Mahsir/Story18438.html', checked: '2026-10-20'}
+  name_ar: عيون قارة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ريشون_لتسيون', checked: '2026-10-19'}
+  name_ar_note: 'Arab place name: the colony was founded in 1882 on the lands of the Arab village of Uyun Qara (عيون قارة), per the article. Transliteration: ريشون لتسيون.'
+- id: zikhron_yaakov
+  name: 'Zammarin'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Jerusalem/Bayt-Mahsir/Story18438.html', checked: '2026-10-20'}
+  name_ar: زمارين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/زخرون_يعكوف', checked: '2026-10-19'}
+  name_ar_note: 'Arab place name: the colony was founded in 1882 on 6,000 dunams of the Arab village of Zammarin (زمارين), per the article. Transliteration: زخرون يعكوف.'
+- id: rosh_pinna
+  name: 'Rosh Pinna'
+  tip_sources:
+  - {url: 'https://www.palestineremembered.com/Safad/al-Ja''una/index.html', checked: '2026-10-20'}
+  - {url: 'https://www.palquest.org/en/place/17025/al-jauna', checked: '2026-10-20'}
+  name_ar: روش بينا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/روش_بينا', checked: '2026-10-19'}
+  name_ar_note: 'Built on part of the lands of al-Ja''una (الجاعونة), per the article. Al-Ja''una was still a separate Arab village in May 1948 (localities_1948.yaml al_jauna), so the colony keeps its transliteration.'
+- id: rehovot
+  name: 'Rehovot'
+  tip_sources:
+  - {url: 'https://www.palestine-studies.org/en/node/42138', checked: '2026-10-20'}
+  - {url: 'https://www.palquest.org/en/place/17186/zarnuqa', checked: '2026-10-20'}
+  name_ar: رحوفوت
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رحوفوت', checked: '2026-10-19'}
+  name_ar_note: 'Founded on the lands of Khirbat Duran (خربة دوران), per the article; no source opened gives دوران as the colony''s Arabic name, so the transliteration is kept.'
+- id: hadera
+  name: 'al-Khudayra'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Jerusalem/Bayt-Mahsir/Story18438.html', checked: '2026-10-20'}
+  name_ar: الخضيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخضيرة_(حيفا)', checked: '2026-10-19'}
+- id: netanya
+  name: 'Netanya'
+  tip_sources:
+  - {url: 'https://www.palestineremembered.com/Tulkarm/Umm-Khalid/index.html', checked: '2026-10-20'}
+  - {url: 'https://www.palquest.org/en/place/17168/umm-khalid', checked: '2026-10-20'}
+  name_ar: نتانيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نتانيا', checked: '2026-10-19'}
+  name_ar_note: 'Built on the lands of the Arab village of Umm Khalid (أم خالد), per the article.'
+- id: degania_alef
+  name: 'Degania Alef'
+  tip_sources:
+  - {url: 'https://www.palestineremembered.com/Tiberias/Samakh/index.html', checked: '2026-10-20'}
+  - {url: 'https://www.palquest.org/en/place/17136/samakh', checked: '2026-10-20'}
+  name_ar: كيبوتس دغانيا ألف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دغانيا_ألف', checked: '2026-10-19'}
+- id: ein_harod
+  name: 'Ein Harod'
+  tip_sources:
+  - {url: 'https://www.palquest.org/en/place/17122/qumya', checked: '2026-10-20'}
+  name_ar: كيبوتس عين حارود
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قومية_(بيسان)', checked: '2026-10-19'}
+  name_ar_note: 'No Arabic article on the kibbutz; the Qumya article names it ("مستوطنة عين حارود", 1921) and says it was built on Qumya''s lands.'
+- id: nahalal
+  name: 'Nahalal'
+  name_ar: موشاف نهلال
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نهلال', checked: '2026-10-19'}
+- id: hanita
+  name: 'Hanita'
+  tip_sources:
+  - {url: 'https://www.palestineremembered.com/Acre/al-Bassa/index.html', checked: '2026-10-20'}
+  name_ar: كيبوتس حانيتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/1938_في_فلسطين_الانتدابية', checked: '2026-10-19'}
+  name_ar_note: 'No Arabic article on the kibbutz; the 1938 chronology writes "تأسيس كيبوتس حانيتا".'
+- id: revivim
+  name: 'Revivim'
+  name_ar: كيبوتس رفيفيم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رفيفيم', checked: '2026-10-19'}
+- id: yad_mordechai
+  name: 'Yad Mordechai'
+  tip_sources:
+  - {url: 'https://www.palestineremembered.com/Gaza/Dayr-Sunayd/index.html', checked: '2026-10-20'}
+  - {url: 'https://www.palquest.org/en/place/16981/dayr-sunayd', checked: '2026-10-20'}
+  name_ar: كيبوتس ياد مردخاي
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ياد_مردخاي', checked: '2026-10-19'}
+map/locations_1948.yaml:
+- id: negba
+  name: 'Negba'
+  name_ar: كيبوتس نغبا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الحرب_العربية_الإسرائيلية_1948', checked: '2026-10-19'}
+  name_ar_note: 'No Arabic article on the kibbutz; the 1948 war article writes "نغبا".'
+- id: hulda
+  name: 'Hulda'
+  name_ar: كيبوتس هولدا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هولدا_(كيبوتس)', checked: '2026-10-19'}
+- id: nir_am
+  name: 'Nir Am'
+  name_ar: كيبوتس نير عام
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نير_عام', checked: '2026-10-19'}
+- id: latrun_fort
+  name: 'al-Latrun police fort'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/al-Ramla/al-Latrun/index.html', checked: '2026-10-20'}
+  name_ar: مركز شرطة اللطرون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/اللطرون', checked: '2026-10-19'}
+- id: iraq_suwaydan_fort
+  name: '''Iraq Suwaydan police fort'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Gaza/Iraq-Suwaydan/index.html', checked: '2026-10-20'}
+  name_ar: قلعة شرطة عراق سويدان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يتسحاق_سده', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/عراق_سويدان', checked: '2026-10-19'}
+  name_ar_note: 'The phrase is from a photo caption in the Yitzhak Sadeh article ("قلعة الشرطة في عراق سويدان").'
+- id: shaar_hagai
+  name: 'Bab al-Wad'
+  name_sources:
+  - {url: 'https://www.palestine-studies.org/en/node/78085', checked: '2026-10-20'}
+  name_ar: باب الواد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/باب_الواد_(فلسطين)', checked: '2026-10-19'}
+- id: ad_halom_bridge
+  name: 'Jisr Isdud'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Gaza/Isdud/Story26511.html', checked: '2026-10-20'}
+  name_ar: جسر إسدود
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جسر_إسدود', checked: '2026-10-19'}
+- id: shaar_haaliyah
+  name: 'Sha''ar HaAliyah'
+  name_ar: ''
+  name_ar_note: 'No Arabic source found for the Sha''ar HaAliyah camp (arwiki searched for شاعر هعلياه, شعار هعلياه, شاعر هعالياه; Wikidata Q10395086 has no Arabic label).'
+- id: jerusalem
+  name: 'West al-Quds'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/GeoPoints/Jerusalem_528/index.html', checked: '2026-10-20'}
+  name_ar: القدس الغربية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/القدس_الغربية', checked: '2026-10-19'}
+- id: east_jerusalem_old_city
+  name: 'East al-Quds / Old City'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/GeoPoints/Jerusalem_528/index.html', checked: '2026-10-20'}
+  name_ar: القدس الشرقية / البلدة القديمة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/القدس_الشرقية', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/البلدة_القديمة_(القدس)', checked: '2026-10-19'}
+map/localities_1948.yaml:
+- id: hebron
+  name: 'al-Khalil'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/GeoPoints/Hebron_534/index.html', checked: '2026-10-20'}
+  name_ar: الخليل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخليل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168225', checked: '2026-10-19'}
+  today_name_ar: الخليل
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخليل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168225', checked: '2026-10-19'}
+- id: nablus
+  name: 'Nablus'
+  name_ar: نابلس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نابلس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q214178', checked: '2026-10-19'}
+  today_name_ar: نابلس
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نابلس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q214178', checked: '2026-10-19'}
+- id: khan_yunis
+  name: 'Khan Yunis'
+  name_ar: خان يونس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/خان_يونس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q309348', checked: '2026-10-19'}
+  today_name_ar: خان يونس
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/خان_يونس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q309348', checked: '2026-10-19'}
+- id: ramat_gan
+  name: 'Ramat Gan'
+  name_ar: رمات غان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رمات_غان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q192807', checked: '2026-10-19'}
+  today_name_ar: رمات غان
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رمات_غان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q192807', checked: '2026-10-19'}
+- id: al_majdal
+  name: 'al-Majdal'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Gaza/al-Majdal-Asqalan/index.html', checked: '2026-10-20'}
+  name_ar: المجدل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عسقلان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q60956', checked: '2026-10-19'}
+  name_ar_note: 'The Wikidata item is today''s city (Arabic label عسقلان); the article opens "المجدل - عسقلان". The 1948 town is المجدل, never أشكلون.'
+  today_name_ar: عسقلان
+  today_name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q60956', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/عسقلان', checked: '2026-10-19'}
+- id: dura_hebron
+  name: 'Dura'
+  name_ar: دورا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دورا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2435966', checked: '2026-10-19'}
+  today_name_ar: دورا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دورا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2435966', checked: '2026-10-19'}
+- id: bethlehem
+  name: 'Bayt Lahm'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/GeoPoints/Bethlehem_536/index.html', checked: '2026-10-20'}
+  name_ar: بيت لحم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_لحم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5776', checked: '2026-10-19'}
+  today_name_ar: بيت لحم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_لحم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5776', checked: '2026-10-19'}
+- id: tulkarm
+  name: 'Tulkarm'
+  name_ar: طولكرم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طولكرم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q985531', checked: '2026-10-19'}
+  today_name_ar: طولكرم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طولكرم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q985531', checked: '2026-10-19'}
+- id: salama_jaffa
+  name: 'Salama'
+  name_ar: سلمة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلمة_(يافا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7403531', checked: '2026-10-19'}
+- id: qalqilya
+  name: 'Qalqilya'
+  name_ar: قلقيلية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قلقيلية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q623159', checked: '2026-10-19'}
+  today_name_ar: قلقيلية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قلقيلية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q623159', checked: '2026-10-19'}
+- id: al_abbasiyya
+  name: '''Abbasiyya'
+  name_ar: العباسية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/العباسية_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2905774', checked: '2026-10-19'}
+- id: givatayim
+  name: 'Givatayim'
+  name_ar: جفعاتايم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جفعاتايم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152413', checked: '2026-10-19'}
+  today_name_ar: جفعاتايم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جفعاتايم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152413', checked: '2026-10-19'}
+- id: bnei_brak
+  name: 'Bnei Brak'
+  name_ar: بني براك
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بني_براك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152467', checked: '2026-10-19'}
+  today_name_ar: بني براك
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بني_براك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152467', checked: '2026-10-19'}
+- id: tubas
+  name: 'Tubas'
+  name_ar: طوباس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طوباس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q275919', checked: '2026-10-19'}
+  today_name_ar: طوباس
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طوباس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q275919', checked: '2026-10-19'}
+- id: umm_al_fahm
+  name: 'Umm el Fahm'
+  name_ar: أم الفحم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أم_الفحم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168245', checked: '2026-10-19'}
+  today_name_ar: أم الفحم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أم_الفحم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168245', checked: '2026-10-19'}
+- id: yibna
+  name: 'Yibna'
+  name_ar: يبنا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يبنا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4120556', checked: '2026-10-19'}
+- id: pardes_hanna_karkur
+  name: 'Pardes Hanna'
+  name_ar: برديس حنا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برديس_حنا-كركور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2475182', checked: '2026-10-19'}
+  name_ar_note: 'The 1948 name; the article is on the merged council برديس حنا-كركور.'
+  today_name_ar: برديس حنا-كركور
+  today_name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q2475182', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/برديس_حنا-كركور', checked: '2026-10-19'}
+- id: al_tira_haifa
+  name: 'Tira'
+  name_ar: الطيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيرة_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4118776', checked: '2026-10-19'}
+- id: yatta
+  name: 'Yatta'
+  name_ar: يطا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يطا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2282208', checked: '2026-10-19'}
+  today_name_ar: يطا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يطا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2282208', checked: '2026-10-19'}
+- id: beit_shean
+  name: 'Baysan'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Baysan/Baysan/index.html', checked: '2026-10-20'}
+  name_ar: بيسان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيسان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152368', checked: '2026-10-19'}
+  today_name_ar: بيسان
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيسان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152368', checked: '2026-10-19'}
+- id: ramallah
+  name: 'Ramallah'
+  name_ar: رام الله
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رام_الله', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q158119', checked: '2026-10-19'}
+  today_name_ar: رام الله
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رام_الله', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q158119', checked: '2026-10-19'}
+- id: hamama
+  name: 'Hamama'
+  name_ar: حمامة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حمامة_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5644017', checked: '2026-10-19'}
+- id: isdud
+  name: 'Isdud'
+  name_ar: إسدود
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إسدود', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7183947', checked: '2026-10-19'}
+- id: al_faluja
+  name: 'Faluja'
+  name_ar: الفالوجة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الفالوجة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2777849', checked: '2026-10-19'}
+- id: herzliya
+  name: 'Herzliya'
+  name_ar: هرتسليا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هرتسليا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152491', checked: '2026-10-19'}
+  today_name_ar: هرتسليا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هرتسليا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152491', checked: '2026-10-19'}
+- id: sepphoris
+  name: 'Saffuriya'
+  name_ar: صفورية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صفورية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1132798', checked: '2026-10-19'}
+- id: kfar_saba
+  name: 'Kfar Saba'
+  name_ar: كفار سابا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفار_سابا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152436', checked: '2026-10-19'}
+  name_ar_note: 'Not the Arab village of Kafr Saba (كفر سابا), its own row on this map (kfar_saba_2).'
+  today_name_ar: كفار سابا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفار_سابا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152436', checked: '2026-10-19'}
+- id: taibe_2
+  name: 'Taiyiba'
+  name_ar: الطيبة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيبة_(المثلث)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1022481', checked: '2026-10-19'}
+  today_name_ar: الطيبة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيبة_(المثلث)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1022481', checked: '2026-10-19'}
+- id: balad_al_sheikh
+  name: 'Balad esh Sheikh'
+  name_ar: بلد الشيخ
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بلد_الشيخ', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2776471', checked: '2026-10-19'}
+- id: yazur
+  name: 'Yazur'
+  name_ar: يازور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يازور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q8050647', checked: '2026-10-19'}
+- id: jenin
+  name: 'Jenin'
+  name_ar: جنين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جنين_(مدينة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q374748', checked: '2026-10-19'}
+  today_name_ar: جنين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جنين_(مدينة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q374748', checked: '2026-10-19'}
+- id: bayt_dajan_jaffa
+  name: 'Beit Dajan'
+  name_ar: بيت دجن
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_دجن_(يافا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2905719', checked: '2026-10-19'}
+- id: tarshiha
+  name: 'Tarshiha'
+  name_ar: ترشيحا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ترشيحا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q134496896', checked: '2026-10-19'}
+- id: silwan
+  name: 'Silwan'
+  name_ar: سلوان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلوان_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2448062', checked: '2026-10-19'}
+  today_name_ar: سلوان
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلوان_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2448062', checked: '2026-10-19'}
+- id: arraba_2
+  name: 'Arraba'
+  name_ar: عرابة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عرابة_(جنين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2463999', checked: '2026-10-19'}
+  today_name_ar: عرابة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عرابة_(جنين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2463999', checked: '2026-10-19'}
+- id: al_dahiriya
+  name: 'Dhahiriya'
+  name_ar: الظاهرية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الظاهرية_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q600680', checked: '2026-10-19'}
+  today_name_ar: الظاهرية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الظاهرية_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q600680', checked: '2026-10-19'}
+- id: ajjur
+  name: 'Ajjur'
+  name_ar: عجور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عجور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4540421', checked: '2026-10-19'}
+- id: al_dawayima
+  name: 'Dawayima'
+  name_ar: الدوايمة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الدوايمة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2917375', checked: '2026-10-19'}
+- id: beit_yala
+  name: 'Beit Jala'
+  name_ar: بيت جالا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_جالا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q803984', checked: '2026-10-19'}
+  today_name_ar: بيت جالا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_جالا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q803984', checked: '2026-10-19'}
+- id: qabatiya
+  name: 'Qabatiya'
+  name_ar: قباطية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قباطية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1899332', checked: '2026-10-19'}
+  today_name_ar: قباطية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قباطية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1899332', checked: '2026-10-19'}
+- id: shefa_amr
+  name: 'Shafa ''Amr'
+  name_ar: شفا عمرو
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/شفا_عمرو', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q990657', checked: '2026-10-19'}
+  today_name_ar: شفا عمرو
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/شفا_عمرو', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q990657', checked: '2026-10-19'}
+- id: jabalia
+  name: 'Jabaliya'
+  name_ar: جباليا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جباليا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1015472', checked: '2026-10-19'}
+  today_name_ar: جباليا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جباليا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1015472', checked: '2026-10-19'}
+- id: yabad
+  name: 'Ya''bad'
+  name_ar: يعبد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يعبد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1828708', checked: '2026-10-19'}
+  today_name_ar: يعبد
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يعبد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1828708', checked: '2026-10-19'}
+- id: samakh
+  name: 'Samakh'
+  name_ar: سمخ
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سمخ', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2908710', checked: '2026-10-19'}
+- id: halhul
+  name: 'Halhul'
+  name_ar: حلحول
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حلحول', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2574933', checked: '2026-10-19'}
+  today_name_ar: حلحول
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حلحول', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2574933', checked: '2026-10-19'}
+- id: raanana
+  name: 'Ra''anana'
+  name_ar: رعنانا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رعنانا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q309164', checked: '2026-10-19'}
+  today_name_ar: رعنانا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رعنانا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q309164', checked: '2026-10-19'}
+- id: holon
+  name: 'Holon'
+  name_ar: حولون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حولون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q192213', checked: '2026-10-19'}
+  today_name_ar: حولون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حولون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q192213', checked: '2026-10-19'}
+- id: bani_suheila
+  name: 'Bani Suheila'
+  name_ar: بني سهيلا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بني_سهيلا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1983186', checked: '2026-10-19'}
+  today_name_ar: بني سهيلا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بني_سهيلا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1983186', checked: '2026-10-19'}
+- id: ein_karem
+  name: 'Ein Karim'
+  name_ar: عين كارم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عين_كارم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1022487', checked: '2026-10-19'}
+- id: tira
+  name: 'Tira'
+  name_ar: الطيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q167594', checked: '2026-10-19'}
+  today_name_ar: الطيرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q167594', checked: '2026-10-19'}
+- id: anabta
+  name: 'Anabta'
+  name_ar: عنبتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عنبتا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2701952', checked: '2026-10-19'}
+  today_name_ar: عنبتا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عنبتا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2701952', checked: '2026-10-19'}
+- id: al_safiriyya
+  name: 'Safiriya'
+  name_ar: السافرية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السافرية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703157', checked: '2026-10-19'}
+- id: kafr_ana
+  name: 'Kafr ''Ana'
+  name_ar: كفرعانة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_عانة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2905286', checked: '2026-10-19'}
+- id: jericho
+  name: 'Ariha'
+  name_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أريحا', checked: '2026-10-20'}
+  name_ar: أريحا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أريحا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5687', checked: '2026-10-19'}
+  today_name_ar: أريحا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أريحا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5687', checked: '2026-10-19'}
+- id: ijzim
+  name: 'Ijzim'
+  name_ar: إجزم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إجزم_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918334', checked: '2026-10-19'}
+- id: al_bassa
+  name: 'Bassa'
+  name_ar: البصة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/البصة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915875', checked: '2026-10-19'}
+- id: al_bireh
+  name: 'Bira'
+  name_ar: البيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/البيرة_(رام_الله)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q311326', checked: '2026-10-19'}
+  today_name_ar: البيرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/البيرة_(رام_الله)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q311326', checked: '2026-10-19'}
+- id: deir_al_ghusun
+  name: 'Deir el Ghusun'
+  name_ar: دير الغصون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_الغصون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q627230', checked: '2026-10-19'}
+  today_name_ar: دير الغصون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_الغصون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q627230', checked: '2026-10-19'}
+- id: silat_adh_dhahr
+  name: 'Silat edh Dhahr'
+  name_ar: سيلة الظهر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سيلة_الظهر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898957', checked: '2026-10-19'}
+  today_name_ar: سيلة الظهر
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سيلة_الظهر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898957', checked: '2026-10-19'}
+- id: nesher
+  name: 'Nesher'
+  name_ar: نيشر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نيشر_(مدينة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q135432', checked: '2026-10-19'}
+  today_name_ar: نيشر
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نيشر_(مدينة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q135432', checked: '2026-10-19'}
+- id: at_tur
+  name: 'Tur'
+  name_ar: الطور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطور_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2916177', checked: '2026-10-19'}
+  today_name_ar: الطور
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطور_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2916177', checked: '2026-10-19'}
+- id: beit_sahour
+  name: 'Beit Sahur'
+  name_ar: بيت ساحور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_ساحور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q803990', checked: '2026-10-19'}
+  today_name_ar: بيت ساحور
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_ساحور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q803990', checked: '2026-10-19'}
+- id: bayt_daras
+  name: 'Beit Daras'
+  name_ar: بيت دراس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_دراس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2919976', checked: '2026-10-19'}
+- id: burayr
+  name: 'Bureir'
+  name_ar: برير
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4998139', checked: '2026-10-19'}
+- id: sair
+  name: 'Si''ir'
+  name_ar: سعير
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سعير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7395443', checked: '2026-10-19'}
+  today_name_ar: سعير
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سعير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7395443', checked: '2026-10-19'}
+- id: attil
+  name: 'Attil'
+  name_ar: عتيل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عتيل_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q246431', checked: '2026-10-19'}
+  today_name_ar: عتيل
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عتيل_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q246431', checked: '2026-10-19'}
+- id: sakhnin
+  name: 'Sakhnin'
+  name_ar: سخنين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سخنين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168330', checked: '2026-10-19'}
+  today_name_ar: سخنين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سخنين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168330', checked: '2026-10-19'}
+- id: burqa_nablus
+  name: 'Buraq'
+  name_ar: برقة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برقة_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5000295', checked: '2026-10-19'}
+  today_name_ar: برقة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برقة_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5000295', checked: '2026-10-19'}
+- id: deir_al_balah
+  name: 'Deir el Balah'
+  name_ar: دير البلح
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_البلح', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q557383', checked: '2026-10-19'}
+  today_name_ar: دير البلح
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_البلح', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q557383', checked: '2026-10-19'}
+- id: lifta
+  name: 'Lifta'
+  name_ar: لفتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/لفتا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2599091', checked: '2026-10-19'}
+- id: al_masmiyya_al_kabira
+  name: 'Masmiya el Kabira'
+  name_ar: المسمية الكبيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المسمية_الكبيرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2912367', checked: '2026-10-19'}
+- id: al_yamun
+  name: 'Yamun'
+  name_ar: اليامون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/اليامون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703350', checked: '2026-10-19'}
+  today_name_ar: اليامون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/اليامون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703350', checked: '2026-10-19'}
+- id: as_samu
+  name: 'Samu'''
+  name_ar: السموع
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السموع', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1768653', checked: '2026-10-19'}
+  today_name_ar: السموع
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السموع', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1768653', checked: '2026-10-19'}
+- id: aqir
+  name: 'Aqir'
+  name_ar: عاقر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عاقر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4782546', checked: '2026-10-19'}
+- id: sur_bahir
+  name: 'Sur Bahir'
+  name_ar: صور باهر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صور_باهر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2916287', checked: '2026-10-19'}
+  today_name_ar: صور باهر
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صور_باهر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2916287', checked: '2026-10-19'}
+- id: bayt_jibrin
+  name: 'Beit Jibrin'
+  name_ar: بيت جبرين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_جبرين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q556637', checked: '2026-10-19'}
+- id: al_jura
+  name: 'Jura'
+  name_ar: الجورة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الجورة_(عسقلان)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2380265', checked: '2026-10-19'}
+- id: barbara_gaza
+  name: 'Barbara'
+  name_ar: بربرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بربرة_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4858687', checked: '2026-10-19'}
+- id: bayt_mahsir
+  name: 'Beit Mahsir'
+  name_ar: بيت محسير
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_محسير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2899514', checked: '2026-10-19'}
+- id: zarnuqa
+  name: 'Zarnuqa'
+  name_ar: زرنوقة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/زرنوقة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q8066856', checked: '2026-10-19'}
+- id: shwiaka_tulkarm
+  name: 'Shuweika'
+  name_ar: شويكة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/شويكة_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12219298', checked: '2026-10-19'}
+  today_name_ar: شويكة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/شويكة_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12219298', checked: '2026-10-19'}
+- id: lubya
+  name: 'Lubiya'
+  name_ar: لوبيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/لوبيا_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2920974', checked: '2026-10-19'}
+- id: afula
+  name: 'al-''Afula'
+  name_sources:
+  - {url: 'https://www.palestineremembered.com/Jinin/Zir''in/Story27205.html', checked: '2026-10-20'}
+  name_ar: العفولة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/العفولة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152462', checked: '2026-10-19'}
+  today_name_ar: العفولة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/العفولة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152462', checked: '2026-10-19'}
+- id: bayt_nabala
+  name: 'Beit Nabala'
+  name_ar: بيت نبالا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_نبالا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4874905', checked: '2026-10-19'}
+- id: hiribya
+  name: 'Hirbiya'
+  name_ar: هربيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هربيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5769818', checked: '2026-10-19'}
+- id: arara
+  name: 'Ar''ara'
+  name_ar: عرعرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عرعرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915935', checked: '2026-10-19'}
+  today_name_ar: عرعرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عرعرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915935', checked: '2026-10-19'}
+- id: baqa_al_gharbiyye
+  name: 'Baqa el Gharbiya'
+  name_ar: باقة الغربية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/باقة_الغربية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2916599', checked: '2026-10-19'}
+  today_name_ar: باقة الغربية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/باقة_الغربية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2916599', checked: '2026-10-19'}
+- id: abasan_al_kabira
+  name: 'Abasan'
+  name_ar: عبسان الكبيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عبسان_الكبيرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q3303148', checked: '2026-10-19'}
+  today_name_ar: عبسان الكبيرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عبسان_الكبيرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q3303148', checked: '2026-10-19'}
+- id: bala
+  name: 'Bal''a'
+  name_ar: بلعا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بلعا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4849622', checked: '2026-10-19'}
+  today_name_ar: بلعا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بلعا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4849622', checked: '2026-10-19'}
+- id: iraq_al_manshiyya
+  name: '''Iraq el Manshiya'
+  name_ar: عراق المنشية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عراق_المنشية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2777842', checked: '2026-10-19'}
+- id: rafah
+  name: 'Rafah'
+  name_ar: رفح
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رفح_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q172343', checked: '2026-10-19'}
+  today_name_ar: رفح
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رفح_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q172343', checked: '2026-10-19'}
+- id: idna
+  name: 'Idna'
+  name_ar: إذنا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إذنا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2919205', checked: '2026-10-19'}
+  today_name_ar: إذنا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إذنا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2919205', checked: '2026-10-19'}
+- id: surif
+  name: 'Surif'
+  name_ar: صوريف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صوريف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898863', checked: '2026-10-19'}
+  today_name_ar: صوريف
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صوريف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898863', checked: '2026-10-19'}
+- id: ayn_ghazal
+  name: 'Ein Ghazal'
+  name_ar: عين غزال
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عين_غزال_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918965', checked: '2026-10-19'}
+- id: bani_naim
+  name: 'Bani Na''im'
+  name_ar: بني نعيم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بني_نعيم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918596', checked: '2026-10-19'}
+  today_name_ar: بني نعيم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بني_نعيم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918596', checked: '2026-10-19'}
+- id: bayt_nattif
+  name: 'Beit Nattif'
+  name_ar: بيت نتيف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_نتيف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2902477', checked: '2026-10-19'}
+- id: kafr_rai
+  name: 'Kafr Ra''i'
+  name_ar: كفر راعي
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_راعي', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898490', checked: '2026-10-19'}
+  today_name_ar: كفر راعي
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_راعي', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898490', checked: '2026-10-19'}
+- id: maghar
+  name: 'Maghar'
+  name_ar: المغار
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المغار', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q930847', checked: '2026-10-19'}
+  today_name_ar: المغار
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المغار', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q930847', checked: '2026-10-19'}
+- id: dayr_aban
+  name: 'Deiraban'
+  name_ar: دير آبان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_آبان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896327', checked: '2026-10-19'}
+- id: jaba_2
+  name: 'Jaba'''
+  name_ar: جبع
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جبع_(جنين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2267472', checked: '2026-10-19'}
+  today_name_ar: جبع
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جبع_(جنين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2267472', checked: '2026-10-19'}
+- id: deir_dibwan
+  name: 'Deir Dibwan'
+  name_ar: دير دبوان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_دبوان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12212354', checked: '2026-10-19'}
+  today_name_ar: دير دبوان
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_دبوان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12212354', checked: '2026-10-19'}
+- id: tammun
+  name: 'Tammun'
+  name_ar: طمون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طمون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q275722', checked: '2026-10-19'}
+  today_name_ar: طمون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طمون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q275722', checked: '2026-10-19'}
+- id: aqraba
+  name: 'Aqraba'
+  name_ar: عقربا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عقربا_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918318', checked: '2026-10-19'}
+  today_name_ar: عقربا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عقربا_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918318', checked: '2026-10-19'}
+- id: asira_ash_shamaliya
+  name: 'Asira esh Shamaliya'
+  name_ar: عصيرة الشمالية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عصيرة_الشمالية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4807028', checked: '2026-10-19'}
+  today_name_ar: عصيرة الشمالية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عصيرة_الشمالية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4807028', checked: '2026-10-19'}
+- id: daliyat_al_karmel
+  name: 'Dalyat el Karmil'
+  name_ar: دالية الكرمل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دالية_الكرمل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2667061', checked: '2026-10-19'}
+  today_name_ar: دالية الكرمل
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دالية_الكرمل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2667061', checked: '2026-10-19'}
+- id: naana
+  name: 'Na''ana'
+  name_ar: النعاني
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/النعاني', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703007', checked: '2026-10-19'}
+- id: bat_yam
+  name: 'Bat Yam'
+  name_ar: بات يام
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بات_يام', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q208725', checked: '2026-10-19'}
+  today_name_ar: بات يام
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بات_يام', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q208725', checked: '2026-10-19'}
+- id: al_qubab
+  name: 'Qubab'
+  name_ar: القباب
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/القباب_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703094', checked: '2026-10-19'}
+- id: qaqun
+  name: 'Qaqun'
+  name_ar: قاقون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قاقون_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2919625', checked: '2026-10-19'}
+- id: sarafand_al_amar
+  name: 'Sarafand el ''Amar'
+  name_ar: صرفند العمار
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صرفند_العمار', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7421982', checked: '2026-10-19'}
+- id: abu_dis
+  name: 'Abu Dis'
+  name_ar: أبو ديس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أبو_ديس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q246590', checked: '2026-10-19'}
+  today_name_ar: أبو ديس
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أبو_ديس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q246590', checked: '2026-10-19'}
+- id: malha
+  name: 'Malha'
+  name_ar: المالحة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المالحة_(القدس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915596', checked: '2026-10-19'}
+- id: al_shaykh_muwannis
+  name: 'Sheikh Muwannis'
+  name_ar: الشيخ مونس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الشيخ_مونس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q291432', checked: '2026-10-19'}
+- id: kafr_kanna
+  name: 'Kafr Kanna'
+  name_ar: كفر كنا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_كنا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2633158', checked: '2026-10-19'}
+  today_name_ar: كفر كنا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_كنا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2633158', checked: '2026-10-19'}
+- id: az_zeeb
+  name: 'Zib'
+  name_ar: الزيب
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q4831969', checked: '2026-10-19'}
+- id: silwad
+  name: 'Silwad'
+  name_ar: سلواد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلواد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q684632', checked: '2026-10-19'}
+  today_name_ar: سلواد
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلواد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q684632', checked: '2026-10-19'}
+- id: abu_kishk
+  name: 'Abu Kishk'
+  name_ar: أبو كشك
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أبو_كشك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4670255', checked: '2026-10-19'}
+- id: al_mujaydil
+  name: 'Mujeidil'
+  name_ar: المجيدل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المجيدل_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2892602', checked: '2026-10-19'}
+- id: silat_al_harithiya
+  name: 'Silat el Harithiya'
+  name_ar: السيلة الحارثية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السيلة_الحارثية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898808', checked: '2026-10-19'}
+  today_name_ar: السيلة الحارثية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السيلة_الحارثية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898808', checked: '2026-10-19'}
+- id: al_khalisa
+  name: 'Khalisa'
+  name_ar: الخالصة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخالصة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702703', checked: '2026-10-19'}
+- id: salfit
+  name: 'Salfit'
+  name_ar: سلفيت
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلفيت', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1972013', checked: '2026-10-19'}
+  today_name_ar: سلفيت
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سلفيت', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1972013', checked: '2026-10-19'}
+- id: talluza
+  name: 'Talluza'
+  name_ar: طلوزة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طلوزة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6811409', checked: '2026-10-19'}
+  today_name_ar: طلوزة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طلوزة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6811409', checked: '2026-10-19'}
+- id: tamra
+  name: 'Tamra'
+  name_ar: طمرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طمرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168176', checked: '2026-10-19'}
+  today_name_ar: طمرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طمرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168176', checked: '2026-10-19'}
+- id: arraba
+  name: 'Arraba'
+  name_ar: عرابة البطوف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عرابة_(البطوف)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2568887', checked: '2026-10-19'}
+  name_ar_note: 'Kept with البطوف, as the prototype has it: two places are called Arraba on this map (arraba_2 is عرابة, Jenin). The article: "وتعرف أيضا بعرابة البطوف".'
+  today_name_ar: عرابة البطوف
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عرابة_(البطوف)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2568887', checked: '2026-10-19'}
+- id: isfiya
+  name: 'Isfiya'
+  name_ar: عسفيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عسفيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2890836', checked: '2026-10-19'}
+  today_name_ar: عسفيا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عسفيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2890836', checked: '2026-10-19'}
+- id: zeita_tulkarm
+  name: 'Zeita'
+  name_ar: زيتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/زيتا_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q8068604', checked: '2026-10-19'}
+  today_name_ar: زيتا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/زيتا_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q8068604', checked: '2026-10-19'}
+- id: ness_ziona
+  name: 'Ness Ziona'
+  name_ar: نيس زيونا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نيس_زيونا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168162', checked: '2026-10-19'}
+  today_name_ar: نيس زيونا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نيس_زيونا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168162', checked: '2026-10-19'}
+- id: dayr_tarif
+  name: 'Deir Tarif'
+  name_ar: دير طريف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_طريف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5243302', checked: '2026-10-19'}
+- id: al_maghar
+  name: 'Mughar'
+  name_ar: المغار
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المغار_(الرملة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702763', checked: '2026-10-19'}
+- id: shaab
+  name: 'Sha''b'
+  name_ar: شعب
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/شعب_(الجليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2655669', checked: '2026-10-19'}
+  today_name_ar: شعب
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/شعب_(الجليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2655669', checked: '2026-10-19'}
+- id: beit_hanoun
+  name: 'Beit Hanun'
+  name_ar: بيت حانون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_حانون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q74176', checked: '2026-10-19'}
+  today_name_ar: بيت حانون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_حانون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q74176', checked: '2026-10-19'}
+- id: al_qubayba_ramla
+  name: 'Qubeiba'
+  name_ar: القبيبة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/القبيبة_(الرملة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703091', checked: '2026-10-19'}
+- id: kfar_ganim
+  name: 'Kfar Ganim'
+  name_ar: ''
+  name_ar_note: 'No Arabic source found (arwiki searched for كفار غنيم, كفار غانيم, كفار جانيم; Wikidata Q7033804 has no Arabic label).'
+  today_name_ar: ملبس
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بتاح_تكفا', checked: '2026-10-19'}
+- id: beit_lahia
+  name: 'Beit Lahiya'
+  name_ar: بيت لاهيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_لاهيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q803986', checked: '2026-10-19'}
+  today_name_ar: بيت لاهيا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_لاهيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q803986', checked: '2026-10-19'}
+- id: sabbarin
+  name: 'Sabbirin'
+  name_ar: صبارين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صبارين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7395979', checked: '2026-10-19'}
+- id: kiryat_ata
+  name: 'Kfar Ata'
+  name_ar: كفرعطا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كريات_آتا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152602', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/كفريتا', checked: '2026-10-19'}
+  name_ar_note: 'The 1948 Jewish locality Kfar Ata (later Kiryat Ata, كريات آتا). The Kufritta article: Kiryat Ata "تشويه ومحو للاسم العربي كفريتا أو كفرعطا". The Arab village Kufritta is not a separate row on this map.'
+  today_name_ar: كريات آتا
+  today_name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q152602', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/كريات_آتا', checked: '2026-10-19'}
+- id: rameh
+  name: 'Rama'
+  name_ar: الرامة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الرامة_(عكا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915661', checked: '2026-10-19'}
+- id: beit_ummar
+  name: 'Beit ''Ummar'
+  name_ar: بيت أمر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_أمر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2893117', checked: '2026-10-19'}
+  today_name_ar: بيت أمر
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_أمر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2893117', checked: '2026-10-19'}
+- id: ibillin
+  name: 'I''billin'
+  name_ar: إعبلين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إعبلين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915647', checked: '2026-10-19'}
+  today_name_ar: إعبلين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إعبلين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915647', checked: '2026-10-19'}
+- id: al_walaja
+  name: 'Walaja'
+  name_ar: الولجة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الولجة_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2293751', checked: '2026-10-19'}
+- id: bashshit
+  name: 'Bashshit'
+  name_ar: بشيت
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بشيت', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4866903', checked: '2026-10-19'}
+- id: hunin
+  name: 'Hunin'
+  name_ar: هونين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هونين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12406488', checked: '2026-10-19'}
+- id: wadi_hunayn
+  name: 'Wadi Hunein'
+  name_ar: وادي حنين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/وادي_حنين_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7959226', checked: '2026-10-19'}
+- id: beit_hanina
+  name: 'Beit Hanina'
+  name_ar: بيت حنينا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_حنينا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2919614', checked: '2026-10-19'}
+  today_name_ar: بيت حنينا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_حنينا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2919614', checked: '2026-10-19'}
+- id: kafr_zibad
+  name: 'Kafr Zibad'
+  name_ar: كفر زيباد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_زيباد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6346223', checked: '2026-10-19'}
+  today_name_ar: كفر زيباد
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_زيباد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6346223', checked: '2026-10-19'}
+- id: beita
+  name: 'Beita'
+  name_ar: بيتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيتا_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q275915', checked: '2026-10-19'}
+  today_name_ar: بيتا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيتا_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q275915', checked: '2026-10-19'}
+- id: fajja
+  name: 'Fajja'
+  name_ar: فجة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/فجة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5431395', checked: '2026-10-19'}
+- id: qaffin
+  name: 'Qaffin'
+  name_ar: قفين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قفين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2892780', checked: '2026-10-19'}
+  today_name_ar: قفين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قفين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2892780', checked: '2026-10-19'}
+- id: birzeit
+  name: 'Bir Zeit'
+  name_ar: بيرزيت
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيرزيت', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q212381', checked: '2026-10-19'}
+  today_name_ar: بيرزيت
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيرزيت', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q212381', checked: '2026-10-19'}
+- id: tarqumiyah
+  name: 'Tarqumiya'
+  name_ar: ترقوميا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ترقوميا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1998630', checked: '2026-10-19'}
+  today_name_ar: ترقوميا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ترقوميا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1998630', checked: '2026-10-19'}
+- id: burqin
+  name: 'Birqin'
+  name_ar: برقين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برقين_(جنين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q286871', checked: '2026-10-19'}
+  today_name_ar: برقين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برقين_(جنين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q286871', checked: '2026-10-19'}
+- id: qalansawe
+  name: 'Qalansuwa'
+  name_ar: قلنسوة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قلنسوة_(مدينة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168152', checked: '2026-10-19'}
+  today_name_ar: قلنسوة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قلنسوة_(مدينة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q168152', checked: '2026-10-19'}
+- id: al_kabri
+  name: 'Kabri'
+  name_ar: الكابري
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الكابري_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702652', checked: '2026-10-19'}
+- id: al_salihiyya
+  name: 'Salihiya'
+  name_ar: الصالحية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الصالحية_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703174', checked: '2026-10-19'}
+- id: beit_jann
+  name: 'Beit Jann'
+  name_ar: بيت جن
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_جن', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q814900', checked: '2026-10-19'}
+  today_name_ar: بيت جن
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_جن', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q814900', checked: '2026-10-19'}
+- id: binyamina
+  name: 'Binyamina'
+  name_ar: بنيامينا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q863886', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/بنيامينا-جفعت_عدا', checked: '2026-10-19'}
+- id: majdal_yaba
+  name: 'Majdal Yaba'
+  name_ar: مجدل يابا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/مجدل_يابا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q15243925', checked: '2026-10-19'}
+- id: jimzu
+  name: 'Jimzu'
+  name_ar: جمزو
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جمزو', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2907137', checked: '2026-10-19'}
+- id: kafr_qara
+  name: 'Kafr Qari'''
+  name_ar: كفر قرع
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_قرع', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1721086', checked: '2026-10-19'}
+  today_name_ar: كفر قرع
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_قرع', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1721086', checked: '2026-10-19'}
+- id: yarka
+  name: 'Yirka'
+  name_ar: يركا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يركا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2640151', checked: '2026-10-19'}
+  today_name_ar: يركا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يركا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2640151', checked: '2026-10-19'}
+- id: beitunia
+  name: 'Beituniya'
+  name_ar: بيتونيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيتونيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q528941', checked: '2026-10-19'}
+  today_name_ar: بيتونيا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيتونيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q528941', checked: '2026-10-19'}
+- id: tantura
+  name: 'Tantura'
+  name_ar: الطنطورة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطنطورة_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2100836', checked: '2026-10-19'}
+- id: beit_fajjar
+  name: 'Beit Fajjar'
+  name_ar: بيت فجار
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_فجار', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881435', checked: '2026-10-19'}
+  today_name_ar: بيت فجار
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_فجار', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881435', checked: '2026-10-19'}
+- id: ramatayim
+  name: 'Ramatayim'
+  name_ar: رامتايم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q7024558', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/روث_كرك', checked: '2026-10-19'}
+  name_ar_note: 'Only source found: the Ruth Kark article ("...والقدس ورامتايم").'
+  today_name_ar: هود هشارون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هود_هشارون', checked: '2026-10-19'}
+- id: awarta
+  name: 'Awarta'
+  name_ar: عورتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عورتا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2905293', checked: '2026-10-19'}
+  today_name_ar: عورتا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عورتا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2905293', checked: '2026-10-19'}
+- id: umm_az_zinat
+  name: 'Umm ez Zinat'
+  name_ar: أم الزينات
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/أم_الزينات_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2255513', checked: '2026-10-19'}
+- id: al_birwa
+  name: 'Birwa'
+  name_ar: البروة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/البروة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2914542', checked: '2026-10-19'}
+- id: kafr_qasim
+  name: 'Kafr Qasim'
+  name_ar: كفر قاسم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_قاسم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152659', checked: '2026-10-19'}
+  today_name_ar: كفر قاسم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_قاسم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q152659', checked: '2026-10-19'}
+- id: ilar
+  name: 'Ilar'
+  name_ar: علار
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/علار_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5998781', checked: '2026-10-19'}
+  today_name_ar: علار
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/علار_(طولكرم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5998781', checked: '2026-10-19'}
+- id: imwas
+  name: 'Imwas'
+  name_ar: عمواس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عمواس_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q11711969', checked: '2026-10-19'}
+- id: nahariya
+  name: 'Nahariya'
+  name_ar: نهاريا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نهاريا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q167749', checked: '2026-10-19'}
+  today_name_ar: نهاريا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نهاريا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q167749', checked: '2026-10-19'}
+- id: al_khayriyya
+  name: 'Kheiriya'
+  name_ar: الخيرية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخيرية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702707', checked: '2026-10-19'}
+- id: innaba
+  name: 'Inaba'
+  name_ar: عنابة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عنابة_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q11712617', checked: '2026-10-19'}
+- id: nabi_rubin
+  name: 'Nabi Rubin'
+  name_ar: النبي روبين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/النبي_روبين_(الرملة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2911822', checked: '2026-10-19'}
+- id: nilin
+  name: 'Ni''lin'
+  name_ar: نعلين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نعلين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918718', checked: '2026-10-19'}
+  today_name_ar: نعلين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نعلين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918718', checked: '2026-10-19'}
+- id: zirin
+  name: 'Zir''in'
+  name_ar: زرعين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/زرعين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2899965', checked: '2026-10-19'}
+- id: beit_iksa
+  name: 'Beit Iksa'
+  name_ar: بيت إكسا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_إكسا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881448', checked: '2026-10-19'}
+  today_name_ar: بيت إكسا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_إكسا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881448', checked: '2026-10-19'}
+- id: beit_safafa
+  name: 'Beit Safafa'
+  name_ar: بيت صفافا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_صفافا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q814904', checked: '2026-10-19'}
+  today_name_ar: بيت صفافا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_صفافا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q814904', checked: '2026-10-19'}
+- id: al_mazraa_ash_sharqiya
+  name: 'Mazra''a esh Sharqiya'
+  name_ar: المزرعة الشرقية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المزرعة_الشرقية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702883', checked: '2026-10-19'}
+  today_name_ar: المزرعة الشرقية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المزرعة_الشرقية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702883', checked: '2026-10-19'}
+- id: kafr_yasif
+  name: 'Kafr Yasif'
+  name_ar: كفرياسيف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_ياسيف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2632879', checked: '2026-10-19'}
+  today_name_ar: كفرياسيف
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_ياسيف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2632879', checked: '2026-10-19'}
+- id: majd_al_krum
+  name: 'Majd el Kurum'
+  name_ar: مجد الكروم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/مجد_الكروم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2777868', checked: '2026-10-19'}
+  today_name_ar: مجد الكروم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/مجد_الكروم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2777868', checked: '2026-10-19'}
+- id: karatiyya
+  name: 'Karatiya'
+  name_ar: كرتيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كرتيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q11735547', checked: '2026-10-19'}
+- id: biddya
+  name: 'Bidya'
+  name_ar: بديا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بديا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2533232', checked: '2026-10-19'}
+  today_name_ar: بديا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بديا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2533232', checked: '2026-10-19'}
+- id: meithalun
+  name: 'Meithalun'
+  name_ar: ميثلون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ميثلون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898712', checked: '2026-10-19'}
+  today_name_ar: ميثلون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ميثلون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898712', checked: '2026-10-19'}
+- id: simsim_gaza
+  name: 'Sumsum'
+  name_ar: سمسم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سمسم_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7521263', checked: '2026-10-19'}
+- id: turan
+  name: 'Tur''an'
+  name_ar: طرعان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طرعان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915766', checked: '2026-10-19'}
+  today_name_ar: طرعان
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/طرعان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915766', checked: '2026-10-19'}
+- id: nazla
+  name: 'Nazla'
+  name_ar: النزلة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/النزلة_(جباليا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6983510', checked: '2026-10-19'}
+  today_name_ar: النزلة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/النزلة_(جباليا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6983510', checked: '2026-10-19'}
+- id: taybeh_ramallah
+  name: 'Taiyiba'
+  name_ar: الطيبة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيبة_(رام_الله)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q931667', checked: '2026-10-19'}
+  today_name_ar: الطيبة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيبة_(رام_الله)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q931667', checked: '2026-10-19'}
+- id: wadi_al_hawarith
+  name: 'Wadi el Hawarith'
+  name_ar: وادي الحوارث
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/وادي_الحوارث', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q13358574', checked: '2026-10-19'}
+- id: nahef
+  name: 'Nahf'
+  name_ar: نحف
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نحف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2390257', checked: '2026-10-19'}
+  today_name_ar: نحف
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نحف', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2390257', checked: '2026-10-19'}
+- id: sinjil
+  name: 'Sinjil'
+  name_ar: سنجل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سنجل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2909143', checked: '2026-10-19'}
+  today_name_ar: سنجل
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سنجل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2909143', checked: '2026-10-19'}
+- id: al_damun
+  name: 'Damin'
+  name_ar: الدامون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الدامون_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1186264', checked: '2026-10-19'}
+- id: beit_ula
+  name: 'Beit Aula'
+  name_ar: بيت أولا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_أولا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881463', checked: '2026-10-19'}
+  today_name_ar: بيت أولا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_أولا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881463', checked: '2026-10-19'}
+- id: niilya
+  name: 'Ni''ilya'
+  name_ar: نعليا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/نعليا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q13230591', checked: '2026-10-19'}
+- id: qabalan
+  name: 'Qabalan'
+  name_ar: قبلان
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قبلان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7265686', checked: '2026-10-19'}
+  today_name_ar: قبلان
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قبلان', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7265686', checked: '2026-10-19'}
+- id: huwara
+  name: 'Huwwara'
+  name_ar: حوارة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حوارة_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898928', checked: '2026-10-19'}
+  today_name_ar: حوارة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حوارة_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2898928', checked: '2026-10-19'}
+- id: al_tira
+  name: 'Tira'
+  name_ar: الطيرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الطيرة_(الرملة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703299', checked: '2026-10-19'}
+- id: daburiyya
+  name: 'Daburiyya'
+  name_ar: دبورية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دبورية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915531', checked: '2026-10-19'}
+  today_name_ar: دبورية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دبورية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915531', checked: '2026-10-19'}
+- id: kafr_thulth
+  name: 'Kafr Thulth'
+  name_ar: كفر ثلث
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_ثلث', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2903619', checked: '2026-10-19'}
+  today_name_ar: كفر ثلث
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_ثلث', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2903619', checked: '2026-10-19'}
+- id: reineh
+  name: 'Reina'
+  name_ar: الرينة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الرينة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2655682', checked: '2026-10-19'}
+  today_name_ar: الرينة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الرينة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2655682', checked: '2026-10-19'}
+- id: tell_es_safi
+  name: 'Tell es Safi'
+  name_ar: تل الصافي
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/تل_الصافي', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2402271', checked: '2026-10-19'}
+- id: rantis
+  name: 'Rantis'
+  name_ar: رنتيس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رنتيس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7293548', checked: '2026-10-19'}
+  today_name_ar: رنتيس
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/رنتيس', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7293548', checked: '2026-10-19'}
+- id: kfar_saba_2
+  name: 'Kafr Saba'
+  name_ar: كفر سابا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_سابا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6346204', checked: '2026-10-19'}
+  today_name_ar: كفر سابا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_سابا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6346204', checked: '2026-10-19'}
+- id: kafr_manda
+  name: 'Kafr Manda'
+  name_ar: كفر مندا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_مندا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915534', checked: '2026-10-19'}
+  today_name_ar: كفر مندا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_مندا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915534', checked: '2026-10-19'}
+- id: magdiel
+  name: 'Magdiel'
+  name_ar: مجدئيل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q2910711', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/بيار_عدس', checked: '2026-10-19'}
+  name_ar_note: 'Only source found: the Biyar Adas article ("مستعمرة مجدئيل الصهيونية").'
+  today_name_ar: هود هشارون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/هود_هشارون', checked: '2026-10-19'}
+- id: al_sindiyana
+  name: 'Sindiyana'
+  name_ar: السنديانة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السنديانة_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703260', checked: '2026-10-19'}
+- id: dayr_al_qassi
+  name: 'Deir el Qasi'
+  name_ar: دير القاسي
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_القاسي', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5243305', checked: '2026-10-19'}
+- id: qibya
+  name: 'Qibya'
+  name_ar: قبيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قبيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q599333', checked: '2026-10-19'}
+  today_name_ar: قبيا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قبيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q599333', checked: '2026-10-19'}
+- id: al_naima
+  name: 'Na''ima'
+  name_ar: الناعمة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الناعمة_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703008', checked: '2026-10-19'}
+- id: amka
+  name: 'Amqa'
+  name_ar: عمقا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عمقا_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2914984', checked: '2026-10-19'}
+- id: ash_shuyukh
+  name: 'Shuyukh'
+  name_ar: الشيوخ
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الشيوخ_(الخليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4804345', checked: '2026-10-19'}
+  today_name_ar: الشيوخ
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الشيوخ_(الخليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4804345', checked: '2026-10-19'}
+- id: bayt_nuba
+  name: 'Beit Nuba'
+  name_ar: بيت نوبا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_نوبا_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4874907', checked: '2026-10-19'}
+- id: beit_furik
+  name: 'Beit Furik'
+  name_ar: بيت فوريك
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_فوريك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q246369', checked: '2026-10-19'}
+  today_name_ar: بيت فوريك
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_فوريك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q246369', checked: '2026-10-19'}
+- id: ghuwayr_abu_shusha
+  name: 'Ghuweir Abu Shusha'
+  name_ar: غوير أبو شوشة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/غوير_أبو_شوشة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5557756', checked: '2026-10-19'}
+- id: jammain
+  name: 'Jamma''in'
+  name_ar: جماعين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جماعين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896581', checked: '2026-10-19'}
+  today_name_ar: جماعين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جماعين', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896581', checked: '2026-10-19'}
+- id: kafr_qaddum
+  name: 'Kafr Qaddum'
+  name_ar: كفر قدوم
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_قدوم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896936', checked: '2026-10-19'}
+  today_name_ar: كفر قدوم
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_قدوم', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896936', checked: '2026-10-19'}
+- id: al_jiyya
+  name: 'Jiya'
+  name_ar: الجية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الجية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702641', checked: '2026-10-19'}
+- id: yagur
+  name: 'Yagur'
+  name_ar: كيبوتس ياغور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ياغور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q586687', checked: '2026-10-19'}
+  name_ar_note: 'Built on the lands of the Arab village of Yajur (الياجور), per the article.'
+  today_name_ar: كيبوتس ياغور
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ياغور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q586687', checked: '2026-10-19'}
+- id: yalo
+  name: 'Yalu'
+  name_ar: يالو
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يالو_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q11716708', checked: '2026-10-19'}
+- id: qatra
+  name: 'Qatra'
+  name_ar: قطرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قطرة_(قضاء_الرملة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7267178', checked: '2026-10-19'}
+- id: al_mansi
+  name: 'Mansi'
+  name_ar: المنسي
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المنسي_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2368058', checked: '2026-10-19'}
+- id: burin
+  name: 'Burin'
+  name_ar: بورين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بورين_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896916', checked: '2026-10-19'}
+  today_name_ar: بورين
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بورين_(نابلس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2896916', checked: '2026-10-19'}
+- id: azzoun
+  name: 'Azzun'
+  name_ar: عزون
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عزون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918963', checked: '2026-10-19'}
+  today_name_ar: عزون
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عزون', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918963', checked: '2026-10-19'}
+- id: deir_istiya
+  name: 'Deir Istiya'
+  name_ar: دير استيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_استيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5252508', checked: '2026-10-19'}
+  today_name_ar: دير استيا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_استيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5252508', checked: '2026-10-19'}
+- id: hittin
+  name: 'Hittin'
+  name_ar: حطين
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/حطين_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1246960', checked: '2026-10-19'}
+- id: az_zakariyya
+  name: 'Zakariya'
+  name_ar: زكريا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/زكريا_(الخليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4831967', checked: '2026-10-19'}
+- id: jusayr
+  name: 'Juseir'
+  name_ar: جسير
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جسير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q11695929', checked: '2026-10-19'}
+- id: al_muzayria
+  name: 'Muzeiri''a'
+  name_ar: المزيرعة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المزيرعة_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4119830', checked: '2026-10-19'}
+- id: al_jauna
+  name: 'Ja''una'
+  name_ar: الجاعونة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الجاعونة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702571', checked: '2026-10-19'}
+- id: qatanna
+  name: 'Qatanna'
+  name_ar: قطنة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قطنة_(القدس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7267085', checked: '2026-10-19'}
+  today_name_ar: قطنة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قطنة_(القدس)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7267085', checked: '2026-10-19'}
+- id: jaba
+  name: 'Jaba'''
+  name_ar: جبع
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جبع_(حيفا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4118648', checked: '2026-10-19'}
+- id: al_khader
+  name: 'Khadr'
+  name_ar: الخضر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخضر_(بيت_لحم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1996562', checked: '2026-10-19'}
+  today_name_ar: الخضر
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الخضر_(بيت_لحم)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1996562', checked: '2026-10-19'}
+- id: sasa
+  name: 'Sa''sa'''
+  name_ar: سعسع
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سعسع_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12468030', checked: '2026-10-19'}
+- id: suhmata
+  name: 'Suhmata'
+  name_ar: سحماتا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سحماتا_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2777621', checked: '2026-10-19'}
+- id: caesarea
+  name: 'Qisariya'
+  name_ar: قيسارية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قيسارية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1615560', checked: '2026-10-19'}
+  today_name_ar: قيسارية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قيسارية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1615560', checked: '2026-10-19'}
+- id: jatt
+  name: 'Jatt'
+  name_ar: جت
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جت_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2911762', checked: '2026-10-19'}
+  today_name_ar: جت
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جت_(قرية)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2911762', checked: '2026-10-19'}
+- id: qusra
+  name: 'Qusra'
+  name_ar: قصرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قصرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q3928087', checked: '2026-10-19'}
+  today_name_ar: قصرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قصرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q3928087', checked: '2026-10-19'}
+- id: iksal
+  name: 'Iksal'
+  name_ar: إكسال
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إكسال', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915526', checked: '2026-10-19'}
+  today_name_ar: إكسال
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/إكسال', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915526', checked: '2026-10-19'}
+- id: deir_al_asad
+  name: 'Deir el Asad'
+  name_ar: دير الأسد
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_الأسد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q612599', checked: '2026-10-19'}
+  today_name_ar: دير الأسد
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_الأسد', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q612599', checked: '2026-10-19'}
+- id: kafr_malik
+  name: 'Kafr Malik'
+  name_ar: كفر مالك
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_مالك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6346188', checked: '2026-10-19'}
+  today_name_ar: كفر مالك
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كفر_مالك', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q6346188', checked: '2026-10-19'}
+- id: saqiya
+  name: 'Saqiya'
+  name_ar: ساقية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ساقية_(يافا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7421230', checked: '2026-10-19'}
+- id: jish
+  name: 'Jish'
+  name_ar: الجش
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الجش_(الجليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1527236', checked: '2026-10-19'}
+  today_name_ar: الجش
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الجش_(الجليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1527236', checked: '2026-10-19'}
+- id: aboud
+  name: 'Abud'
+  name_ar: عابود
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عابود', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2821768', checked: '2026-10-19'}
+  today_name_ar: عابود
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عابود', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2821768', checked: '2026-10-19'}
+- id: al_jammasin_al_gharbi
+  name: 'Jammasin el Gharbi'
+  name_ar: الجماسين الغربي
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الجماسين_الغربي', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702609', checked: '2026-10-19'}
+- id: al_manshiyya_acre
+  name: 'Manshiya'
+  name_ar: المنشية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/المنشية_(عكا)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4702804', checked: '2026-10-19'}
+- id: deir_jarir
+  name: 'Deir Jarir'
+  name_ar: دير جرير
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_جرير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5252515', checked: '2026-10-19'}
+  today_name_ar: دير جرير
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/دير_جرير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q5252515', checked: '2026-10-19'}
+- id: saliha
+  name: 'Saliha'
+  name_ar: صلحا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صلحا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7404513', checked: '2026-10-19'}
+- id: yafa_an_naseriyye
+  name: 'Yafat al-Nasira'
+  name_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يافة_الناصرة', checked: '2026-10-20'}
+  name_ar: يافة الناصرة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يافة_الناصرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2468131', checked: '2026-10-19'}
+  today_name_ar: يافة الناصرة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/يافة_الناصرة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2468131', checked: '2026-10-19'}
+- id: yasur
+  name: 'Yasur'
+  name_ar: ياصور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ياصور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4166540', checked: '2026-10-19'}
+- id: al_eizariya
+  name: 'Eizariya'
+  name_ar: العيزرية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/العيزرية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2181579', checked: '2026-10-19'}
+  today_name_ar: العيزرية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/العيزرية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2181579', checked: '2026-10-19'}
+- id: al_qubayba_hebron
+  name: 'Qubeiba'
+  name_ar: القبيبة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/القبيبة_(الخليل)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703092', checked: '2026-10-19'}
+- id: bayt_tima
+  name: 'Beit Tima'
+  name_ar: بيت طيما
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_طيما', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4874922', checked: '2026-10-19'}
+- id: irtah
+  name: 'Irtah'
+  name_ar: ارتاح
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ارتاح', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12182129', checked: '2026-10-19'}
+  today_name_ar: ارتاح
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/ارتاح', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q12182129', checked: '2026-10-19'}
+- id: tell_nablus
+  name: 'Tell'
+  name_ar: تل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/تل_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7697359', checked: '2026-10-19'}
+  today_name_ar: تل
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/تل_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7697359', checked: '2026-10-19'}
+- id: al_zuq_al_tahtani
+  name: 'Zuq et Tahtani'
+  name_ar: الزوق التحتاني
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الزوق_التحتاني', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703391', checked: '2026-10-19'}
+- id: battir
+  name: 'Battir'
+  name_ar: بتير
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بتير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915285', checked: '2026-10-19'}
+  today_name_ar: بتير
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بتير', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2915285', checked: '2026-10-19'}
+- id: fassuta
+  name: 'Fassuta'
+  name_ar: فسوطة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/فسوطة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2917294', checked: '2026-10-19'}
+  today_name_ar: فسوطة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/فسوطة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2917294', checked: '2026-10-19'}
+- id: kuwaykat
+  name: 'Kuweikat'
+  name_ar: كويكات
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/كويكات', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q3545099', checked: '2026-10-19'}
+- id: beit_liqya
+  name: 'Beit Liqya'
+  name_ar: بيت لقيا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_لقيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881453', checked: '2026-10-19'}
+  today_name_ar: بيت لقيا
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/بيت_لقيا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4881453', checked: '2026-10-19'}
+- id: ein_mahil
+  name: 'Ein Mahil'
+  name_ar: عين ماهل
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عين_ماهل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q730195', checked: '2026-10-19'}
+  today_name_ar: عين ماهل
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/عين_ماهل', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q730195', checked: '2026-10-19'}
+- id: sarafand_al_kharab
+  name: 'Sarafand el Kharab'
+  name_ar: صرفند الخراب
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صرفند_الخراب', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q7421983', checked: '2026-10-19'}
+- id: al_sawafir_al_gharbiyya
+  name: 'Sawafir el Gharbiya'
+  name_ar: السوافير الغربية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/السوافير_الغربية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q4703196', checked: '2026-10-19'}
+- id: julis_2
+  name: 'Julis'
+  name_ar: جولس
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/جولس_(غزة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918322', checked: '2026-10-19'}
+- id: al_ghazzawiyya
+  name: 'Ghazawiya'
+  name_ar: الغزاوية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/الغزاوية_(فلسطين)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q860809', checked: '2026-10-19'}
+- id: ashdot_yaakov
+  name: 'Ashdot Ya''akov'
+  name_ar: كيبوتس أشدود يعقوب
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q2891543', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/إدنا_سولودار', checked: '2026-10-19'}
+  today_name_ar: كيبوتس أشدود يعقوب
+  today_name_ar_sources:
+  - {url: 'https://www.wikidata.org/wiki/Q2891543', checked: '2026-10-19'}
+  - {url: 'https://ar.wikipedia.org/wiki/إدنا_سولودار', checked: '2026-10-19'}
+- id: sanur_jenin
+  name: 'Sanur'
+  name_ar: صانور
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صانور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2384654', checked: '2026-10-19'}
+  today_name_ar: صانور
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/صانور', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2384654', checked: '2026-10-19'}
+- id: sebastia
+  name: 'Sabastiya'
+  name_ar: سبسطية
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سبسطية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918480', checked: '2026-10-19'}
+  today_name_ar: سبسطية
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/سبسطية', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2918480', checked: '2026-10-19'}
+- id: givat_brenner
+  name: 'Givat Brenner'
+  name_ar: كيبوتس غفعات برينر
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/غفعات_برينر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q476835', checked: '2026-10-19'}
+  today_name_ar: كيبوتس غفعات برينر
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/غفعات_برينر', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q476835', checked: '2026-10-19'}
+- id: qula
+  name: 'Qula'
+  name_ar: قولة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/قولة_(الرملة)', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q1107567', checked: '2026-10-19'}
+- id: bartaa
+  name: 'Barta''a'
+  name_ar: برطعة
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برطعة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2885908', checked: '2026-10-19'}
+  today_name_ar: برطعة
+  today_name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/برطعة', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2885908', checked: '2026-10-19'}
+- id: tarbikha
+  name: 'Tarbiha'
+  name_ar: تربيخا
+  name_ar_review: agent-checked
+  name_ar_sources:
+  - {url: 'https://ar.wikipedia.org/wiki/تربيخا', checked: '2026-10-19'}
+  - {url: 'https://www.wikidata.org/wiki/Q2777821', checked: '2026-10-19'}

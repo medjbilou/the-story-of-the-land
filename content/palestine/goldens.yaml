@@ -1,0 +1,6 @@
+# The family goldens (docs/determinism.md): each player runs them with -golden (desktop) or ?golden (WebGL) and prints
+# "GOLDEN OK <name> <hash>" (unity/Assets/Scripts/Boot/GoldenCheck.cs). A name is family-<chapter>-<village>: that chapter
+# for a family of that village, with the golden seed (GoldenRun.Seed, 1948), every card answered with its first choice,
+# to the chapter's end. A change to the family loop or to a chapter's content moves the hash: run the game's EditMode
+# GoldenCheckTests, check the change is intended, and update the hash here.
+family-1947_1949-tantura: 159d72dad8dcf3ef990a6cf68c6ef28f869c0ed655bc9e5ee37cc06462bee325

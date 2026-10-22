@@ -1,0 +1,28 @@
+# One entry of content/palestine/events/<chapter>.yaml, as tools/tsv_to_events.py writes it. Write it as a TSV row
+# (../content/events_<chapter>.tsv and choices_<chapter>.tsv), never in the YAML. See docs/WRITING_EVENTS.md.
+id: event_id
+# Explain why this date is the relevant window.
+from: 1948-06-01
+# Optional end date if this event is time-boxed.
+# to: 1948-06-15
+
+title: The event title
+title_ar: ""
+text: 'What happened, to whom and where, as the sources say.'
+text_ar: ""
+scope: national   # or region:<place id>, or fate:depopulated|destroyed|built_over
+options:
+  - id: option_a
+    text: The family's first choice
+    effects:
+      - { target: community, delta: 0.02 }
+  - id: option_b
+    text: The family's second choice
+    effects:
+      - { target: documents, delta: 0.03 }
+
+sources:
+  # Replace with the real page you opened, and the day you opened it.
+  - { url: "https://example.org/source", checked: 2026-10-11 }
+# Leave as draft. A person sets fact-checked after checking every claim against its source.
+status: draft

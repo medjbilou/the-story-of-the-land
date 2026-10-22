@@ -1,0 +1,4 @@
+EB Garamond (static TTFs), SIL Open Font License 1.1 (OFL.txt in this folder).
+Source: https://github.com/octaviopardo/EBGaramond12 at commit 106a4a6d377987459ae5e68673a4570f13b957fb, fonts/ttf/
+sha256 2028dc06d3c130b4761693481436a32a8e35ed500bf58c25c53de004106125b8  EBGaramond-Regular.ttf
+sha256 ebf827a102983972abb2a1a3964afd5a7b79ca04f2ddd9e53917ce623cefdf2c  EBGaramond-SemiBold.ttf

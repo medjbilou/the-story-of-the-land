@@ -1,0 +1,873 @@
+/* StoryOfTheLand UI language, restyled to the promo's interface (promo/final/03-gameplay-1936.png, 05, 08): translucent navy
+   panels with a thin gold border, an inset gold rule, corner brackets and a soft shadow (UiFrame), round gold-rimmed icon
+   buttons (UiIcon), an icon per indicator in the top bar, and EB Garamond throughout. */
+:root {
+    --navy: rgba(13, 21, 37, 0.97);   /* blended in linear space: 0.97 still lets the map's light through faintly */
+    --navy-deep: rgb(9, 14, 26);
+    --navy-solid: rgb(14, 22, 38);   /* --navy without its transparency */
+    --navy-raised: rgb(20, 31, 52);  /* the date badge and a hovered button */
+    --gold: rgb(196, 160, 92);
+    --gold-light: rgb(232, 204, 142);
+    --gold-dim: rgba(196, 160, 92, 0.45);
+    --ink: rgb(236, 228, 210);
+    --ink-dim: rgb(170, 164, 150);
+    --up: rgb(126, 196, 120);
+    --down: rgb(222, 120, 104);
+    --focus: rgb(120, 98, 58);       /* keyboard focus fill: >= 3:1 against --navy-deep (WCAG 2.4.13) */
+    --focus-ink: rgb(255, 252, 244); /* text on the focus fill: 5.7:1 on it (ink is 4.6, gold-light 3.7; #41 M3) */
+}
+
+.root {
+    flex-grow: 1;
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-Regular.ttf");
+    color: var(--ink);
+    font-size: 20px;
+}
+
+.panel {
+    background-color: var(--navy);
+    border-color: var(--gold-dim);
+    border-width: 1px;
+    border-radius: 3px;
+    padding: 12px;
+}
+
+/* UiFrame: the trim overlay (drawn in code) fills its panel and is never laid out with the content. */
+.ui-frame { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+
+.title {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    font-size: 30px;
+    color: var(--ink);
+}
+
+.muted { color: var(--ink-dim); }
+.delta-up { color: var(--up); }
+.delta-down { color: var(--down); }
+/* A thin gold rule under a heading (the promo's divider). */
+.gold-rule { height: 1px; flex-shrink: 0; background-color: var(--gold-dim); margin: 4px 0 6px 0; }
+
+.button, Button {
+    background-color: var(--navy-deep);
+    border-color: var(--gold-dim);
+    border-width: 1px;
+    border-radius: 4px;
+    color: var(--ink);
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-Regular.ttf");
+    font-size: 19px;
+    padding: 6px 12px;
+    margin: 3px 0;
+    -unity-text-align: middle-left;
+}
+Button:hover { border-color: var(--gold); background-color: var(--navy-raised); }
+/* Keyboard focus shows as a bright gold edge (navigation with Tab and the arrow keys). */
+Button:focus { border-color: var(--gold-light); background-color: var(--focus); color: var(--focus-ink); }
+Button:disabled { color: var(--ink-dim); border-color: rgba(120, 120, 120, 0.4); background-color: var(--navy-deep); }
+/* A screen button stays transparent around its disc in every state. */
+.nav-button:disabled, .nav-button:focus { background-color: rgba(0, 0, 0, 0); border-width: 0; }
+
+/* Top bar: the date badge, the family's resources (icon, name, value and change), New Game and End Turn. */
+.top-bar {
+    position: absolute; left: 0; right: 0; top: 0; height: 70px;
+    flex-direction: row; align-items: center;
+    border-width: 0 0 1px 0; border-radius: 0; padding: 0 14px 0 8px;
+    border-color: rgba(196, 160, 92, 0.75);
+    background-color: var(--navy-solid);   /* opaque: map labels must not show through it (Task 24 review M7) */
+}
+/* HUD round 2, part 3 (#398): the one-row bar is 70 px, 6.5% of a 16:9 frame, as promo 03's and T29's (T54: it was 96,
+   8.8%). Everything in it fits two lines (EB Garamond lines are about 1.55 x the font size): labels lose their default
+   vertical padding and margin; the date plate hangs below the bar, as promo 03's "1936 / Turn 1 / January 1936" does. */
+.top-bar Label { padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; }
+/* The date badge: a raised, trimmed box at the left, as the promo's "1936 / Turn 1 / January 1936" plate. */
+.date-box {
+    /* A fixed width, wide enough for the widest line ("Turn 120  30 September 1956"), so the meters never shift when the
+       month changes; at least 98 px tall, so it hangs 28 px below the 70 px bar as promo 03's plate does, and grows if the
+       date wraps to a third line. */
+    flex-shrink: 0; width: 230px; min-height: 98px; align-self: flex-start; justify-content: center;
+    padding: 2px 10px 2px 12px; margin-right: 10px;
+    background-color: var(--navy-raised); border-width: 1px; border-color: var(--gold-dim); border-radius: 2px;
+}
+/* Turn and date share a line; if they do not fit, the date wraps to a line of its own inside the plate, which grows. */
+.date-row { flex-direction: row; flex-wrap: wrap; }
+.year-row { flex-direction: row; justify-content: space-between; align-items: center; }
+.date-row Label { font-size: 15px; margin-right: 8px; }
+.year { -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf"); font-size: 27px; color: var(--ink); }
+.meters { flex-direction: row; flex-grow: 1; align-items: center; }
+/* The owner chose "tighten and re-tier" (#380, 16 October 2026): each meter's sides are 4 and 3 px, here, on the
+   stacked bar and in Arabic. */
+.meter {
+    flex-direction: row; align-items: center; min-width: 130px; flex-shrink: 1; padding: 0 4px 0 3px;
+    border-right-width: 1px; border-color: rgba(196, 160, 92, 0.25);
+}
+/* The icon gives way first in a narrow window (down to 26px), so the caption keeps its line. */
+.meter-icon { width: 30px; height: 30px; flex-shrink: 1; min-width: 24px; margin-right: 5px; }
+/* With room to spare (HudPresenter sets top-bar--roomy on the one-row bar), the promo's sizes. */
+.top-bar--roomy .meter-icon { width: 38px; height: 38px; margin-right: 7px; }
+.top-bar--roomy .meter-value { font-size: 24px; }
+.meter-body { flex-shrink: 1; flex-grow: 1; min-width: 0; }
+.meter-name { font-size: 15px; color: var(--ink); white-space: normal; }
+/* In the bar a long caption wraps rather than widen its meter; on the roomy bar it keeps one line, as in the promo (B8). */
+.meter .meter-name { max-width: 120px; }
+.top-bar--roomy .meter .meter-name { max-width: none; white-space: nowrap; }
+.meter-row { flex-direction: row; align-items: flex-end; }
+.meter-value { font-size: 21px; color: var(--ink); }
+.meter-delta { font-size: 16px; margin-left: 7px; }
+/* The screen buttons: a round, gold-rimmed icon with its name under it (the name keeps them legible without tooltips). */
+.nav { flex-direction: row; flex-shrink: 0; align-items: center; }
+.nav-button {
+    width: 60px; height: 86px; margin: 0 1px; padding: 56px 0 0 0;
+    background-color: rgba(0, 0, 0, 0); border-width: 0;
+    font-size: 14px; color: var(--ink-dim); -unity-text-align: upper-center; white-space: nowrap;
+}
+.nav-disc {
+    position: absolute; top: 2px; left: 5px; width: 50px; height: 50px; padding: 11px;
+    border-radius: 25px; border-width: 1.5px; border-color: var(--gold-dim); background-color: var(--navy-deep);
+}
+/* New Game in the bar, as promo 03's round bar buttons (HUD round 2, part 3): icon-only; its name is its text, drawn clear
+   (the event log reads it), and its tooltip, which HoverTip shows beside it on hover and on focus. */
+#new-game.bar-button { width: 52px; height: 52px; margin: 0 10px; padding: 0; font-size: 1px; color: rgba(0, 0, 0, 0); }
+#new-game.bar-button:hover, #new-game.bar-button:focus, #new-game.bar-button.nav-open { color: rgba(0, 0, 0, 0); }
+#new-game.bar-button .nav-disc { top: 0; left: 0; width: 52px; height: 52px; padding: 13px; border-radius: 26px; }
+.nav-button:hover { background-color: rgba(0, 0, 0, 0); color: var(--ink); }
+.nav-button:hover .nav-disc { border-color: var(--gold); background-color: var(--navy-raised); }
+/* Two separate signals: "open" (ScreenNav's nav-open) is a gold-light rim on a raised disc with a gold caption; keyboard
+   focus is an ink rim on the warm focus fill, which a pointer click clears (ScreenNav blurs the button). */
+.nav-open { color: var(--gold-light); }
+.nav-open .nav-disc { border-color: var(--gold-light); background-color: var(--navy-raised); }
+.nav-button:focus { color: var(--ink); }
+.nav-button:focus .nav-disc { border-color: var(--ink); background-color: var(--focus); }
+/* A window too narrow for the icons (HudPresenter sets top-bar--compact below HudPresenter.CompactBelowPx): the meters
+   drop their icons and tighten, as the bar was before the icons. */
+.top-bar--compact .meter-icon { display: none; }
+.top-bar--compact .date-box { width: 226px; margin-right: 6px; }
+.top-bar--compact .date-row Label { font-size: 15px; margin-right: 6px; }
+.top-bar--compact .meter { padding: 0 8px; }
+/* The narrow HUD (HudPresenter sets hud-narrow on the root, with the compact bar): a taller bar whose meters put the
+   change under the value, so no change runs into its neighbour; the panels below the bar move down with it. */
+.hud-narrow .top-bar { height: 124px; }
+.hud-narrow .right-column, .hud-narrow .left-column, .hud-narrow .event-gutter, .hud-narrow .event-layer, .hud-narrow .screen, .hud-narrow .toast { top: 140px; }
+.hud-narrow .meter { min-width: 96px; padding: 0 3px; }
+.hud-narrow .meter-row { flex-direction: column; align-items: flex-start; }
+.hud-narrow .meter-value { font-size: 22px; }
+.hud-narrow .meter-delta { margin-left: 0; font-size: 15px; }
+/* Playtest 3: a short window (HudPresenter.FlatBelowPx: 16:9 at 115% text and up) keeps the change beside the value, so the
+   stacked bar is a line shorter (HudPresenter.FlatBarPx) and the panels under it move up to match. */
+.hud-flat .top-bar { height: 88px; }
+.hud-flat .right-column, .hud-flat .left-column, .hud-flat .event-gutter, .hud-flat .event-layer, .hud-flat .screen, .hud-flat .toast { top: 104px; }
+.hud-flat .meter-row { flex-direction: row; align-items: flex-end; }
+/* The value and its change side by side without the default theme's label side margins (about 10 px a meter): the ten
+   meters keep 5% spare at 130% text (1477 px; PromoHudTests), with the 5 px gap between them. */
+.hud-flat .meter-value { margin-left: 0; margin-right: 0; }
+.hud-flat .meter-delta { margin-left: 5px; margin-right: 0; }
+/* Narrower than about square (HudPresenter adds hud-two-row): the bar wraps into two rows, the date badge and the meters
+   (78% of the bar, so they always take the first row) above, the screen buttons and End Turn below; the panels move down. */
+.hud-two-row .top-bar { height: 216px; padding-top: 6px; padding-bottom: 4px; flex-wrap: wrap; justify-content: space-between; align-content: space-around; }
+.hud-two-row .meters { width: 78%; flex-grow: 1; }
+.hud-two-row .right-column, .hud-two-row .left-column, .hud-two-row .event-gutter, .hud-two-row .event-layer, .hud-two-row .screen, .hud-two-row .toast { top: 232px; }
+/* #380's re-tier gives a square window (1024x1024) the two-row bar: the event layer keeps the 92 px the bar grew by free at its
+   bottom (padding: the backdrop still reaches the window's bottom), so the centred card stays where the stacked bar left it,
+   clear of the map's border label (review B1 of #831; ArmisticeTests). */
+.hud-two-row .event-layer { padding-bottom: 92px; }
+/* Narrower still (a phone upright; HudPresenter adds hud-three-row with hud-two-row): the badge, the meters and the
+   screen buttons with End Turn take a row each, and the panels move down under the taller bar (#210). The eleven meters
+   wrap to three lines. The owner's text floor (#642) raises the small text on a phone (25 px at 390x844, 26 at 360x800, 30
+   at 375x667; the floor holds "down to 375x667"): the bar takes its rows' height when that is more than 440 px, and the
+   panels under it move down by what it grew (HudPresenter.PlaceUnderBar). */
+.hud-three-row .top-bar { height: 440px; }
+.hud-three-row .meters { width: 100%; flex-wrap: wrap; }
+/* The family's eleven meters take three lines and fill the rows: the plate keeps 12 px clear above them. */
+.hud-three-row .date-box { margin-bottom: 12px; }
+/* Each meter a quarter of the row, so the seven always take two lines (four, then three) and the bar's second line is
+   never an empty band (a phone's turn-1 values would otherwise fit one line). A quarter (~190 px) is wider than the widest
+   meter there (~154 px). */
+.hud-three-row .meter { flex-basis: 25%; flex-grow: 0; flex-shrink: 0; }
+/* At the floor's 25 px (#642) a caption may take most of its quarter, not the 120 px that would break a long word inside the
+   word (170 px: a phone's quarter, about 193 px, keeps 5% free, PromoHudTests), and a caption and its level, too wide for a
+   quarter side by side, wrap the level under the caption. */
+.hud-three-row .meter .meter-name { max-width: 170px; }
+/* In Arabic each caption, and a wrapped caption row, ends at the text column's right edge (review of #859: the
+   wrapped row had moved to the column's left). */
+.lang-ar.hud-three-row .meter-body { align-items: flex-end; }
+/* An Arabic caption breaks only at a space, never inside a word, so the 170 px cap above is not needed:
+   each caption, and its level, may take its whole column. The longest Arabic forms (#26, #27) are about 175 px at the 30 px floor of a 375x667 phone. A caption takes the column's width,
+   right-aligned, so a two-word caption wraps at its space with room to spare, not in a box cut to its longer word. */
+.lang-ar.hud-three-row .meter .meter-name { max-width: none; }
+.lang-ar.hud-three-row .meter-body > .meter-name { align-self: stretch; -unity-text-align: upper-right; }
+.hud-three-row .right-column, .hud-three-row .left-column, .hud-three-row .event-gutter, .hud-three-row .event-layer, .hud-three-row .screen, .hud-three-row .toast { top: 456px; }
+/* The owner's ruling on #859 (17 October 2026): on a phone no rail button sits under the decision card, Why? and Settings
+   included. The card starts right of the column (the layer's left padding, from its 16 px: the column's 60 px and a 12 px gap; padding, so
+   the backdrop still reaches the column, LeftColumnTests.OnAPhoneThePhotoCardLeavesTheRailClear) and hangs from the layer's
+   top, under the bar, rather than sitting in the middle: centred, the card at 375x667 reached the map's border label above
+   the minimap (since #915 that label is hidden while the card is open, so no test pins this any more). The 88 px at the bottom keep the tallest card off
+   the window's foot (padding, so its backdrop still reaches it, DecisionCardTests.TheBackdropReachesTheWindowsEdgesAtEveryTier). */
+.hud-three-row .event-layer { justify-content: flex-start; padding-left: 72px; padding-bottom: 88px; }
+.turn-box { width: 150px; flex-shrink: 1; min-width: 150px; align-items: flex-end; }
+.end-turn {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf"); font-size: 20px;
+    border-color: var(--gold); border-width: 1.5px; color: var(--gold-light); padding: 2px 12px 2px 38px;
+}
+.end-turn:hover { border-color: var(--gold-light); }
+.end-turn.end-turn-waiting { opacity: 0.55; }
+
+/* The decision card in the middle (decision cards, 2026-10-13), the info panel at the bottom-left, the minimap at the
+   bottom-right. The right-hand column keeps its 480 px width, so the screens and the border layer's caption stay where
+   they were; it now holds only the minimap. */
+.right-column { position: absolute; right: 16px; top: 112px; bottom: 16px; width: 480px; }
+/* HUD round 2, part 2 (#398): promo 03's left icon column, the screens' round buttons under the bar at the left edge
+   (promo 03: discs about 5.3% of the frame's height, 6.3% apart). Icon-only: the caption is the button's text (the event
+   log and the strings read it) but drawn clear; HoverTip shows it beside the disc on hover and on focus. The decision
+   card's backdrop, the screens and the toast start right of it (68 px: its 56 px and a 12 px gap), so nothing covers it
+   and it stays usable under the decision card, as the top bar does; the card itself stays centred in the window. */
+.left-column { position: absolute; left: 16px; top: 112px; width: 56px; align-items: center; }
+/* The backdrop's strip under the column (review of #602): from the window's left edge to where the backdrop starts (72 px),
+   full height (the bar draws over its top), shown and taking the pointer only while the decision card is open. */
+.event-gutter { display: none; position: absolute; left: 0; top: 112px; bottom: 0; width: 72px; background-color: rgba(5, 9, 18, 0.55); }
+.event-modal .event-gutter { display: flex; }
+.left-column .rail-button { width: 50px; height: 50px; margin: 0 0 6px 0; padding: 0; font-size: 1px; color: rgba(0, 0, 0, 0); }
+.left-column .rail-button:hover, .left-column .rail-button:focus, .left-column .nav-open { color: rgba(0, 0, 0, 0); }
+/* Six discs since How to play (#1041): 50 px, 6 px apart, so the column ends at 112 + 336 px (the five 56 px discs: 340),
+   above the info panel's top (456 px) in a short, wide window (InfoPanelLayoutTests); the column keeps its 56 px width,
+   so the backdrop, the screens and the toast keep their places. */
+.left-column .rail-button .nav-disc { top: 0; left: 0; width: 50px; height: 50px; padding: 11px; border-radius: 25px; }
+/* On a phone held upright the panel's scale falls to about 0.41 (375x667), where a 56 px disc is 22.8 px on screen: the
+   column's discs are 60 px there, at least 24 on screen (LeftColumnTests), and the backdrop's strip and the backdrop
+   follow the wider column. */
+.hud-three-row .left-column { width: 60px; }
+.hud-three-row .left-column > .rail-button { width: 60px; height: 60px; margin: 0 0 12px 0; }
+.hud-three-row .left-column > .rail-button .nav-disc { width: 60px; height: 60px; padding: 14px; border-radius: 30px; }
+.hud-three-row .event-gutter { width: 76px; }
+.hud-three-row .event-scrim { left: 61px; }   /* 1 px clear of the column's edge (60 px), which the gutter still covers */
+.right-gap { flex-grow: 1; flex-shrink: 0; min-height: 16px; }
+/* The decision layer: the room under the bar, top per HUD tier as the column's. While an event is open (event-open on the
+   root) the map is blocked: the backdrop dims it and takes the pointer, so map clicks and drags stop at it, and
+   ScreenNav.DisableCovered takes the panels under it out of Tab's reach; the top bar stays usable. The card sits in the
+   middle. Hide collapses the card to the "Decision
+   waiting" button at the layer's top right (EventCardPresenter), which takes no more room than itself. */
+.event-layer { position: absolute; left: 16px; right: 16px; top: 112px; bottom: 16px; justify-content: center; align-items: center; }
+.event-scrim { display: none; position: absolute; left: 56px; right: -16px; top: 0; bottom: -16px; background-color: rgba(5, 9, 18, 0.55); }
+.event-open .event-scrim { display: flex; }
+/* The backdrop reaches up to the bar's bottom at every tier: a full-width band from the bar to the layer's top (42 px under the
+   70 px one-row bar, where the date plate hangs; 16 px under the taller tiers' bars), then the layer's own part right of
+   the left column, and the column's strip (event-gutter) beside and below its discs. No strip of map stays live under a
+   card, and the hanging plate is dimmed evenly (review of #624). */
+.event-scrim-top { display: none; position: absolute; left: -16px; right: -16px; top: -42px; height: 42px; background-color: rgba(5, 9, 18, 0.55); }
+.event-open .event-scrim-top { display: flex; }
+.hud-narrow .event-scrim-top, .hud-two-row .event-scrim-top, .hud-three-row .event-scrim-top { top: -16px; height: 16px; }
+.event-reopen {
+    display: none; position: absolute; right: 0; top: 0; margin: 0; padding: 6px 18px; font-size: 20px; -unity-text-align: middle-center;
+    background-color: var(--navy-solid); border-color: var(--gold); border-width: 1.5px; color: var(--gold-light);
+}
+.event-reopen:hover { border-color: var(--gold-light); }
+/* Up to 1040 px wide, its 960 px content holding the 16:9 media header at 960x540 (the photographs' and the clips' size);
+   the layer bounds its height. When the window is short the media header gives way first, then the text (it scrolls),
+   never the option buttons. */
+.event-card { width: 1040px; max-width: 100%; max-height: 100%; flex-shrink: 1; min-height: 0; overflow: hidden; padding: 16px 40px 10px 40px; }
+.hud-two-row .event-card { padding-left: 16px; padding-right: 16px; }
+/* The card takes the keyboard focus when an event opens (EventCardPresenter.FocusCard): a lighter gold edge says so. */
+.event-card:focus { border-color: var(--gold-light); }
+.event-card > * { flex-shrink: 0; }
+.event-card > .event-scroll { flex-shrink: 1; min-height: 48px; }
+#event-options { flex-shrink: 0; }
+.event-foot { flex-direction: row; align-items: center; justify-content: space-between; }
+.event-count { flex-shrink: 1; white-space: normal; }
+.event-hide { font-size: 17px; margin: 2px 0 0 12px; padding: 3px 16px; -unity-text-align: middle-center; }
+/* Hidden until EventCardPresenter shows an event (never visible while loading). */
+.event-card { display: none; }
+/* The card's head is its picture band: a dark plate beside the title. */
+.event-head {
+    flex-direction: row; align-items: center; margin-bottom: 2px; padding: 4px;
+    background-color: rgba(5, 9, 18, 0.65); border-width: 1px; border-color: var(--gold-dim); border-radius: 2px;
+}
+.event-heading { flex-grow: 1; flex-shrink: 1; }
+/* Options wrap inside the card (playtest 2, P2-2); each has a round gold-rimmed sign at its left, as the promo's choices. */
+#event-options Button { white-space: normal; -unity-text-align: middle-left; }
+.event-option { min-height: 42px; padding: 5px 12px 5px 46px; margin: 3px 0; border-color: rgba(196, 160, 92, 0.6); }
+.event-title { -unity-text-align: middle-center; margin-bottom: 4px; white-space: normal; font-size: 28px; }   /* centred, as before, in the card */
+.event-text { white-space: normal; margin-bottom: 8px; }
+/* The border layer's label, beside the minimap's lower left: what the outlines are (MapRegions.Label). Out of the column's
+   flex flow (absolute), so it takes no height from the event card at any HUD tier (armistice review I-4). */
+.map-layer { display: none; position: absolute; right: 230px; bottom: 0; margin-left: 0; margin-right: 0; max-width: 250px; padding: 5px 8px; font-size: 15px; white-space: normal; -unity-text-align: middle-center; color: var(--ink); background-color: rgba(9, 14, 26, 0.9); border-radius: 3px; }
+/* A phone upright (three-row bar): the info panel spans the bottom left, beside the minimap, but the column is tall, so the
+   label goes back above the minimap, in the column's flow. */
+.hud-three-row .map-layer { position: relative; right: auto; bottom: auto; align-self: flex-end; max-width: 480px; margin-bottom: 6px; }
+/* While the modal decision card is open (event-modal, ScreenNav.DisableCovered) the legend is hidden: no card, the
+   photograph's included, covers it, and the card keeps its full size (owner, 17 October 2026, "Hide legend under card", on
+   desktop and phone alike; #849). Visibility, not display: GameRoot sets the label's display inline (borders shown or not),
+   and it comes back as it was when the card is hidden or answered. Only the label: the minimap and the map stay. */
+.event-modal .map-layer { visibility: hidden; }
+/* HUD round 2 (#398): promo 03's minimap, the painted relief picture with three round buttons beside it, in one frame. The
+   picture's box is as wide as the tall picture needs at this height (MinimapPresenter fits the picture to it). */
+.minimap { align-self: flex-end; flex-shrink: 0; flex-direction: row; width: 222px; height: 380px; padding: 12px; background-color: rgba(9, 14, 26, 0.97); }
+.minimap-map { width: 134px; flex-shrink: 0; justify-content: center; }
+.minimap-image { align-self: center; -unity-background-scale-mode: stretch-to-fill; }   /* sized to the picture's aspect by MinimapPresenter */
+.minimap-view { position: absolute; border-color: var(--ink); border-width: 1.5px; }
+.minimap-buttons { flex-grow: 1; margin-left: 10px; justify-content: space-around; align-items: center; }
+.minimap-button { width: 50px; height: 50px; margin: 0; padding: 0; border-width: 0; border-radius: 25px; background-color: rgba(0, 0, 0, 0); }
+.minimap-disc {
+    position: absolute; left: 0; top: 0; width: 50px; height: 50px; padding: 11px;
+    border-radius: 25px; border-width: 1.5px; border-color: var(--gold-dim); background-color: var(--navy-deep);
+}
+.minimap-button:hover { background-color: rgba(0, 0, 0, 0); }
+.minimap-button:hover .minimap-disc { border-color: var(--gold); background-color: var(--navy-raised); }
+.minimap-button:focus { background-color: rgba(0, 0, 0, 0); border-width: 0; }
+.minimap-button:focus .minimap-disc { border-color: var(--ink); background-color: var(--focus); }
+/* A layer switched off (the names or the borders): the disc goes dim, as a lamp turned off. */
+.minimap-off .minimap-disc { opacity: 0.6; }   /* the glyph keeps about 4:1 on its disc (MinimapReliefTests) */
+/* An icon-only button's name, beside it while hovered or focused (HoverTip): one line, centred on the button's middle. */
+.hud-tip {
+    display: none; position: absolute; translate: 0 -50%; padding: 4px 10px; font-size: 16px; white-space: nowrap;
+    color: var(--ink); background-color: var(--navy-solid); border-color: var(--gold); border-width: 1px; border-radius: 3px;
+}
+
+/* Full screens (People, Why, How to play, Settings, Credits) open in the centre, one at a time. */
+/* Hidden until ScreenNav opens one (never visible while loading; playtest 2, P2-1). Right edge clear of the 480px column. */
+.screen { display: none; position: absolute; left: 552px; right: 512px; top: 112px; bottom: 16px; padding: 18px; background-color: rgb(11, 18, 32); }   /* opaque: a reading screen, and the map labels must not show through */
+.screen-header { flex-direction: column; align-items: stretch; border-bottom-width: 1px; border-color: var(--gold-dim); margin-bottom: 10px; padding-bottom: 4px; }   /* the X's side padding is set inline by ScreenNav.FitCloseButtons (it grows with the X) */
+/* Screen titles and section names in gold, letter-spaced, as the promo's screen titles. */
+.screen-header > .title { color: var(--gold-light); letter-spacing: 1px; }
+/* The subtitle sits under the title, the screen's full width, and wraps in a narrow window (#211). A column, not a
+   wrapping row: a shrinking, wrapping label in a row re-measured itself every frame (PromoScreensTests idle test). */
+.screen-header > .muted { white-space: normal; }
+
+/* An X on an open screen (ScreenNav adds one to every screen-header): a phone has no Escape (playtest v0.1.1). */
+.screen-close {
+    position: absolute; top: 6px; right: 8px;
+    width: 44px; height: 44px; margin: 0; padding: 0;
+    background-color: rgba(0, 0, 0, 0); border-width: 1px; border-color: var(--gold-dim); border-radius: 22px;
+    color: var(--gold-light); font-size: 30px; -unity-font-style: bold; -unity-text-align: middle-center;   /* the × sign is small for its size */
+}
+.screen-close:hover, .screen-close:focus { border-color: var(--gold-light); }
+/* Arabic mirrors: the X sits on the left, and the header's free side moves with it (#1035). */
+.lang-ar .screen-close { right: auto; left: 8px; }
+.screen .meter-name { color: var(--gold); letter-spacing: 2px; font-size: 16px; margin-top: 8px; }
+.row { flex-direction: row; align-items: center; }
+.grow { flex-grow: 1; }
+/* A growing row inside a screen takes the height that is left and stretches its
+   lists to it, so a long list scrolls instead of growing out of the screen. */
+.screen .row.grow { align-items: stretch; flex-basis: 0; flex-shrink: 1; min-height: 0; }
+.screen .row.grow > .grow { min-height: 0; flex-shrink: 1; }
+/* Settings (#40): an option's name takes the row's width and wraps; its button keeps room for "On" / "Off". */
+.settings-row { margin-top: 8px; }
+.how-to-play-body { min-height: 0; }
+.how-to-play-line { white-space: normal; margin-bottom: 12px; font-size: 18px; }
+.settings-name { flex-grow: 1; flex-shrink: 1; min-width: 140px; white-space: normal; }   /* never one letter a line (audit M2) */
+.settings-switch { flex-shrink: 0; min-width: 96px; -unity-text-align: middle-center; }
+/* The quality choice's buttons sit side by side; the one that is set is marked by a gold fill and dark text, not only a
+   border colour, and keeps it while hovered or focused (Button:hover and :focus would otherwise win). */
+.settings-choices { flex-shrink: 1; min-width: 0; flex-wrap: wrap; justify-content: flex-end; }   /* the buttons wrap, not clip (audit M2) */
+.settings-choice-selected, .settings-choice-selected:hover, .settings-choice-selected:focus { background-color: var(--gold); color: var(--navy-solid); }
+/* The regular cut's thin strokes fade on the gold. Only as specific as ".lang-ar Button", which comes later and keeps
+   the Arabic face in Arabic. */
+Button.settings-choice-selected { -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf"); }
+Button.settings-tab-selected { -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf"); }
+/* The language choice (#1036): "العربية" is in the Arabic face in the English UI too (EB Garamond has no Arabic), by id so
+   that it beats the selected button's face above. The note under the row wraps. */
+#settings-language-ar {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/NotoNaskhArabic/NotoNaskhArabic.ttf");
+    -unity-text-generator: advanced;
+}
+
+/* F6: Settings' tabs (the open one gold, as a set choice), each tab's page of rows under them, and the credits row at the
+   foot of every tab. */
+.settings-tabs { flex-wrap: wrap; flex-shrink: 0; padding-bottom: 6px; margin-bottom: 4px; border-bottom-width: 1px; border-color: var(--gold-dim); }
+.settings-tab { margin: 2px 6px 2px 0; padding: 4px 14px; font-size: 18px; -unity-text-align: middle-center; }
+.lang-ar .settings-tab { margin: 2px 0 2px 6px; -unity-text-align: middle-center; }
+.settings-tab-selected, .settings-tab-selected:hover, .settings-tab-selected:focus { background-color: var(--gold); color: var(--navy-solid); border-color: var(--gold-light); }
+.settings-body { min-height: 0; }
+.lang-ar .settings-switch { -unity-text-align: middle-center; }
+/* A stepper: a chevron each side of the value (a resolution, a volume). */
+.settings-step { width: 40px; height: 34px; padding: 0; justify-content: center; align-items: center; }
+.settings-step-icon { width: 22px; height: 22px; }
+.settings-value { min-width: 150px; margin: 0 6px; font-size: 19px; -unity-text-align: middle-center; }
+/* The Controls tab: an action's words, then its keys. */
+.settings-keys { flex-shrink: 1; min-width: 0; white-space: normal; margin-left: 12px; font-size: 18px; color: var(--gold-light); -unity-text-align: middle-right; }
+.lang-ar .settings-keys { margin-left: 0; margin-right: 12px; -unity-text-align: middle-left; }
+.settings-note { white-space: normal; color: var(--ink-dim); margin: 6px 0 4px 0; }
+.settings-credits-row { flex-shrink: 0; }
+/* Accessibility (Settings): the meters in high contrast, white values and captions and brighter changes. */
+.high-contrast .meter-value, .high-contrast .currency-value, .high-contrast .meter-name { color: rgb(255, 255, 255); }
+.high-contrast .delta-up { color: rgb(150, 240, 140); }
+.high-contrast .delta-down { color: rgb(255, 165, 145); }
+.high-contrast .meter { border-color: rgba(232, 204, 142, 0.7); }
+/* Audit m12: the high-contrast bar is plainly different: a black bar with a light rule, bold white values and names. */
+.high-contrast .top-bar { background-color: rgb(0, 0, 0); border-color: var(--gold-light); }
+.high-contrast .meter-value { -unity-font-style: bold; }
+.high-contrast .meter-short, .high-contrast .date-row Label, .high-contrast .year { color: rgb(255, 255, 255); }
+
+/* F6: the pause menu (PausePresenter): a dim backdrop over the game, its panel in the middle, one page at a time (the
+   items, the save or load slots, a confirm). */
+.pause-menu { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; padding: 16px; background-color: rgba(5, 9, 18, 0.72); }
+.pause-open .pause-menu { display: flex; }
+.pause-panel { width: 540px; max-width: 100%; max-height: 100%; padding: 22px 32px 18px 32px; background-color: rgb(11, 18, 32); }
+.pause-title { font-size: 30px; color: var(--gold-light); letter-spacing: 2px; -unity-text-align: middle-center; }
+.lang-ar .pause-title { letter-spacing: 0; -unity-text-align: middle-center; }
+.pause-items, .pause-slots, .pause-confirm { display: none; flex-shrink: 1; min-height: 0; }
+.pause-item { margin: 4px 0; padding: 7px 16px; font-size: 21px; -unity-text-align: middle-center; }
+.lang-ar .pause-item { -unity-text-align: middle-center; }
+.pause-slot-list { flex-shrink: 1; min-height: 0; }
+.pause-slot { margin: 4px 0; padding: 7px 14px; align-items: stretch; }
+.pause-slot Label { margin: 0; padding: 0; white-space: normal; }
+.pause-slot-name { font-size: 20px; color: var(--gold-light); }
+.pause-slot-detail { font-size: 17px; }
+.pause-slot-time { font-size: 15px; color: var(--ink-dim); }
+.pause-slot:focus Label { color: var(--focus-ink); }
+.pause-slot:disabled Label { color: var(--ink-dim); }
+.pause-confirm-text { margin: 6px 0 12px 0; font-size: 20px; white-space: normal; -unity-text-align: middle-center; }
+.lang-ar .pause-confirm-text { -unity-text-align: middle-center; }
+.pause-confirm-actions { justify-content: center; }
+.pause-confirm-actions > Button { min-width: 160px; margin: 4px 6px; }
+
+/* The toast sits in the map's free top-left corner, above the info panel: opaque, and never over an open screen's title or
+   the minimap column (B7). No side margins (the default theme gives a label more on its right), so its place mirrors in
+   Arabic exactly, as the border caption's does (Playtest3Tests.TheArabicLayoutIsTheEnglishOneMirrored). */
+.toast {
+    display: none; position: absolute; left: 84px; width: 460px; top: 112px; margin-left: 0; margin-right: 0; -unity-text-align: middle-center; white-space: normal;
+    background-color: var(--navy-solid); border-color: var(--gold); border-width: 1.5px;
+}
+
+/* While the decision card is open (ScreenNav.DisableCovered sets event-modal: the card shows and no screen is open) the
+   toast's corner is under the card, so it moves to the middle, over the top of the media header, clear of the options. */
+.event-modal .toast { left: 25%; right: 25%; width: auto; }
+
+/* Scroll bars in the theme: a slim gold thumb on a faint track, no arrow buttons. */
+.unity-scroller--vertical { width: 10px; border-width: 0; background-color: rgba(0, 0, 0, 0); margin-left: 4px; }
+.unity-scroller--vertical > .unity-scroller__low-button, .unity-scroller--vertical > .unity-scroller__high-button { display: none; }
+.unity-scroller--vertical .unity-base-slider__tracker { background-color: rgba(196, 160, 92, 0.10); border-width: 0; border-radius: 5px; }
+.unity-scroller--vertical .unity-base-slider__dragger { background-color: rgba(196, 160, 92, 0.55); border-width: 0; border-radius: 5px; }
+.unity-scroller--vertical .unity-base-slider__dragger-border { display: none; }
+
+.why-group { -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf"); color: var(--gold); letter-spacing: 1px; margin-top: 10px; border-bottom-width: 1px; border-color: rgba(196, 160, 92, 0.25); }
+.why-line { white-space: normal; padding-left: 12px; }
+/* A top-bar number's explanation (MeterTip, #1037): under the bar, wrapped, kept inside the window by MeterTip. */
+.meter-tip {
+    display: none; position: absolute; max-width: 420px; padding: 6px 10px;
+    background-color: var(--navy-solid); border-color: var(--gold); border-width: 1px; border-radius: 3px;
+}
+.meter-tip-line { font-size: 16px; white-space: normal; color: var(--ink); margin: 0; padding: 0; }
+
+.section-title {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    color: var(--gold); letter-spacing: 3px; font-size: 17px; margin: 0 0 8px 2px; padding: 0;
+}
+.wrap { white-space: normal; }
+
+.candidate { flex-direction: column; align-items: stretch; margin-bottom: 4px; }
+.candidate > Button { white-space: normal; }
+.reason { color: var(--ink-dim); font-size: 16px; white-space: normal; flex-shrink: 1; }
+
+/* #210: in the two-row (narrow) HUD every screen takes the full width under the bar. While one is open the minimap column
+   and the info panel under it are hidden (no focus, no clicks), and the toast takes the strip below the screen. */
+.hud-two-row .screen { left: 84px; right: 16px; bottom: 100px; }
+.hud-two-row.screen-open .right-column { display: none; }
+/* Any open screen sits where the decision card does: the card waits, hidden and out of reach, until the screen closes. */
+.screen-open .event-layer { display: none; }
+.hud-two-row.screen-open .toast { top: auto; bottom: 16px; left: 16px; right: 16px; width: auto; padding: 6px 12px; }
+
+/* Loading (playtest 2, P2-1): until GameRoot is ready only this line shows; the bar's values, the info panel and the
+   right-hand column are kept out of sight (visibility, so the layout does not jump when they appear). A boot failure is
+   longer than the panel at phone width, so the line wraps with a side margin instead of overflowing both edges (#765). */
+.loading-line { display: none; position: absolute; left: 0; right: 0; top: 45%; -unity-text-align: middle-center; font-size: 28px; color: var(--ink); white-space: normal; padding-left: 24px; padding-right: 24px; }
+.loading .loading-line { display: flex; }
+.root.loading { background-color: var(--navy-solid); }   /* the template's navy, not the default sky (final review M1) */
+.loading .date-box, .loading .meters, .loading .nav, .loading .left-column, .loading .turn-box, .loading .right-column, .loading .event-layer { visibility: hidden; }
+
+/* Map labels (visual v1 Task 9; promo HUD pass: rounder, a firmer gold edge): the promo's dark pill with a thin gold edge, in EB Garamond SemiBold. Each pill sits in a
+   zero-size slot that MapLabelsPresenter moves with an inline translate; the anchor class says which corner of the pill sits
+   on the marker's top. Hidden while the game loads. */
+.map-labels { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.loading .map-labels { display: none; }
+.map-label-slot { position: absolute; left: 0; top: 0; width: 0; height: 0; overflow: visible; }
+.map-label {
+    position: absolute;
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    font-size: 18px;
+    color: rgb(243, 234, 216);
+    background-color: rgba(14, 22, 38, 0.82);
+    border-width: 1px;
+    border-color: var(--gold);
+    border-radius: 14px;
+    padding: 1px 12px 2px 12px;
+    margin: 0;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+}
+.map-label-city { font-size: 23px; color: rgb(250, 242, 224); }
+.map-label-town, .map-label-arab_town { font-size: 19px; }
+/* The population tier (#710): the city's static 1948 tier as a gold disc at the start of its name, over the pill's start
+   padding (left, or right in Arabic). The disc is the pill's sibling in its slot; MapLabelsPresenter sets its left and
+   top from the pill's size. */
+.map-label-with-tier { padding-left: 36px; }
+/* The Arabic UI mirrors it: the disc starts a Arabic name on the right (owner, on #897); 12px is .map-label's own padding. */
+.lang-ar .map-label-with-tier { padding-left: 12px; padding-right: 36px; }
+.map-label-tier {
+    position: absolute;
+    translate: 0 -50%;
+    width: 23px;
+    height: 23px;
+    margin: 0;
+    padding: 0;
+    border-radius: 12px;
+    background-color: var(--gold);
+    color: rgb(14, 22, 38);
+    font-size: 17px;
+    -unity-text-align: middle-center;
+}
+/* The 1948 localities (named only at close zoom): the same pill, smaller and quieter; today's name in a tooltip under it. */
+.map-label-locality { font-size: 15px; padding: 0 9px 1px 9px; color: rgb(232, 222, 200); background-color: rgba(14, 22, 38, 0.72); }
+.map-label-tooltip {
+    position: absolute;
+    translate: -50% 0;
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    font-size: 14px;
+    color: rgb(243, 234, 216);
+    background-color: rgba(14, 22, 38, 0.92);
+    border-width: 1px;
+    border-color: var(--gold);
+    border-radius: 6px;
+    padding: 1px 8px 2px 8px;
+    margin: 0;
+    white-space: nowrap;
+}
+.anchor-lower-centre { translate: -50% -100%; }
+.anchor-lower-left { translate: 0 -100%; }
+.anchor-lower-right { translate: -100% -100%; }
+
+/* The start screen (StartScreenPresenter): the map picture, paragraph 11 of UN resolution 194 (the official Arabic, the
+   English as adopted under it), Continue and New Game. Hidden until GameRoot shows it; while it shows (.start-open on the
+   root) the HUD under it is hidden, so it takes no focus and no clicks, and the picture is opaque over the map. The
+   picture fills the window (cover, anchored at the top centre, so a narrower window crops both sides alike) and the panel
+   sits at the foot; a tall window (.start-band) stacks the whole picture, as a full-width band, over the panel
+   (StartScreenPresenter.Fit). */
+.start-screen { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: var(--navy-deep); }
+.start-open .start-screen { display: flex; }
+.start-open .top-bar, .start-open .left-column, .start-open .right-column, .start-open .event-layer, .start-open .screen, .start-open .map-labels { display: none; }
+.start-art {
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    background-image: url("project://database/Assets/UI/StartScreen/start-map.png");
+    background-size: cover; background-position-x: center; background-position-y: top; background-repeat: no-repeat;
+}
+.start-band .start-art { bottom: auto; }
+.start-body { position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-direction: column; justify-content: flex-end; align-items: center; padding: 0 16px 28px 16px; }
+.start-band .start-body { padding-top: 16px; padding-bottom: 16px; }
+.start-panel {
+    width: 1240px; max-width: 100%; flex-shrink: 0; align-items: center; padding: 18px 40px 20px 40px;
+    background-color: rgba(9, 14, 26, 0.88);
+}
+.start-ar.start-title { font-size: 54px; color: var(--gold-light); -unity-text-align: middle-center; margin: 0; }
+.start-subtitle {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    font-size: 24px; color: var(--gold); letter-spacing: 3px; -unity-text-align: middle-center; margin: 0;
+}
+.start-rule { width: 60%; margin: 2px 0 10px 0; }
+/* Arabic in Noto Naskh Arabic (EB Garamond has no Arabic) through the advanced text generator, which shapes the letters
+   and orders right-to-left text and the numbers in it (StartScreenTests renders it and checks the order). */
+.start-ar {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/NotoNaskhArabic/NotoNaskhArabic.ttf");
+    -unity-text-generator: advanced;
+    font-size: 32px; color: var(--ink); -unity-text-align: middle-center; white-space: normal; margin: 4px 0 0 0;
+}
+.start-ar-date { font-size: 28px; margin-top: 12px; }
+.start-en { font-size: 18px; color: var(--ink-dim); letter-spacing: 1px; -unity-text-align: middle-center; white-space: normal; margin: 2px 0 0 0; }
+.start-source { font-size: 15px; color: var(--ink-dim); -unity-text-align: middle-center; white-space: normal; margin: 14px 0 0 0; }
+.start-actions { flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+.start-button {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/EBGaramond-SemiBold.ttf");
+    font-size: 24px; min-width: 220px; margin: 4px 10px; padding: 8px 24px; -unity-text-align: middle-center;
+}
+/* New Game's prompt (the toast) shows at the top of the start screen, clear of the panel. */
+.start-open .toast { top: 24px; left: 25%; right: 25%; width: auto; }
+/* Playtest 3: the language toggle, top right (top left in Arabic); the language in use has the selected fill. */
+.start-languages { position: absolute; top: 16px; right: 16px; flex-direction: row; }
+.lang-ar .start-languages { right: auto; left: 16px; }
+.start-language { font-size: 20px; min-width: 64px; margin: 0 0 0 6px; padding: 6px 14px; -unity-text-align: middle-center; }
+#start-language-ar { -unity-font-definition: url("project://database/Assets/UI/Fonts/NotoNaskhArabic/NotoNaskhArabic.ttf"); -unity-text-generator: advanced; }
+
+/* --- The Arabic UI (#193; UiLanguage, "?lang=ar") -------------------------------------------------------------------
+   GameRoot puts .lang-ar on the root. Every text is then set in Noto Naskh Arabic (EB Garamond has no Arabic; one weight,
+   so headings lose the semi-bold) through the advanced text generator, which orders right-to-left text and the numbers
+   in it. Each rule above that names EB Garamond is listed here; ArabicUiTests fails for one that is missed, including the
+   classes only presenters add (it gives a label each). */
+.lang-ar,
+.lang-ar .title,
+.lang-ar .button,
+.lang-ar Button,
+.lang-ar .year,
+.lang-ar .end-turn,
+.lang-ar .why-group,
+.lang-ar .section-title,
+.lang-ar .map-label,
+.lang-ar .map-label-tooltip,
+.lang-ar .start-title,
+.lang-ar .start-subtitle,
+.lang-ar .start-button {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/NotoNaskhArabic/NotoNaskhArabic.ttf");
+    -unity-text-generator: advanced;
+}
+/* Mirrored for a right-to-left reader: text is set from the right, every row runs right to left (so a caption's value,
+   a card's bars and a button's neighbours follow it on its left), and the side margins swap. What is placed by the map
+   stays where it is: the minimap column, the info panel, the toast and the screens' position. Each text's paragraph
+   direction is set in code from its own words (UiDirection), because dates, money and names are still English (#55). */
+.lang-ar { -unity-text-align: upper-right; }
+.lang-ar .button, .lang-ar Button, .lang-ar #event-options Button { -unity-text-align: middle-right; }
+/* The buttons and cards whose text is centred stay centred (the rule above is the more specific one). */
+.lang-ar .nav-button { -unity-text-align: upper-center; }
+.lang-ar .event-reopen, .lang-ar .event-hide, .lang-ar .start-button { -unity-text-align: middle-center; }
+.lang-ar .top-bar,
+.lang-ar .year-row,
+.lang-ar .date-row,
+.lang-ar .meters,
+.lang-ar .meter,
+.lang-ar .meter-row,
+.lang-ar .nav,
+.lang-ar .row,
+.lang-ar .event-foot,
+.lang-ar .event-head { flex-direction: row-reverse; }
+.lang-ar.hud-narrow .meter-row { flex-direction: column; align-items: flex-end; }
+.lang-ar.hud-flat .meter-row { flex-direction: row-reverse; align-items: flex-end; }
+.lang-ar .turn-box { align-items: flex-start; }
+.lang-ar .top-bar { padding: 0 8px 0 14px; }
+.lang-ar .date-box { margin-right: 0; margin-left: 10px; padding: 0 12px 0 10px; }
+.lang-ar .date-row Label { margin-right: 0; margin-left: 8px; }
+.lang-ar .meter { border-right-width: 0; border-left-width: 1px; padding: 0 3px 0 4px; }
+.lang-ar .meter-icon { margin-right: 0; margin-left: 5px; }
+.lang-ar .meter-delta { margin-left: 0; margin-right: 7px; }
+.lang-ar.hud-narrow .meter-delta { margin-right: 0; }
+.lang-ar.hud-flat .meter-delta { margin-left: 0; margin-right: 5px; }
+.lang-ar .event-hide { margin: 2px 12px 0 0; }
+.lang-ar .why-line { padding-left: 0; padding-right: 12px; }
+.lang-ar .section-title { margin: 0 2px 8px 0; }
+/* The option's round sign and End Turn's hourglass are painted on the right in Arabic (EventCardPresenter, HudPresenter). */
+.lang-ar .event-option { padding: 5px 46px 5px 12px; }
+.lang-ar .end-turn { padding: 4px 40px 4px 14px; }
+
+/* --- The family game (docs/f5-unity-integration.md) -------------------------------------------------------------------
+   HudPresenter puts .family on the root. The top bar shows the ten family resources and the money in use. */
+/* Ten resources and the money beside Livelihood share the bar: each meter as narrow as its words. */
+.family-meters .meter { min-width: 0; flex-shrink: 1; padding: 0 5px 0 3px; }
+.family-meters .meter-icon { width: 26px; height: 26px; min-width: 22px; margin-right: 4px; }
+.top-bar--roomy .family-meters .meter-icon { width: 30px; height: 30px; }
+.lang-ar .family-meters .meter { padding: 0 3px 0 5px; }
+/* On the two-row bar the eleven meters share one line with the date plate: 2 px a side keeps them 5% spare at 800x1000. */
+.hud-two-row .family-meters .meter { padding: 0 2px; }
+/* So on the flat bar (130% text: 1477 px at 16:9, which holds the ten meters' value and change side by side). */
+.hud-flat .family-meters .meter { padding: 0 2px; }
+.lang-ar .family-meters .meter-icon { margin-right: 0; margin-left: 4px; }
+/* The one-row bar below the captions' width (HudPresenter.IconRowClass, F6): each meter is its icon, then its value with
+   the change under it, as on the stacked bar; its name is in its tooltip and the tip under the bar (MeterTip). */
+.top-bar--icons .meter-name { display: none; }
+.top-bar--icons .meter-row { flex-direction: column; align-items: flex-start; }
+.top-bar--icons .meter-delta { margin-left: 0; font-size: 15px; }
+.lang-ar .top-bar--icons .meter-delta { margin-right: 0; }
+.top-bar--icons .family-meters .meter { padding: 0 4px 0 3px; }
+.top-bar--icons .family-meters .meter-icon { width: 30px; height: 30px; margin-right: 3px; }
+.lang-ar .top-bar--icons .family-meters .meter { padding: 0 3px 30px 4px; }   /* the bottom: room for the name under it */
+.lang-ar .top-bar--icons .family-meters .meter-icon { margin-right: 0; margin-left: 3px; }
+.top-bar--icons .currency-value { max-width: 160px; }
+/* Playtest 2: each meter's name, small, under its icon and value on the icon-first bar, which is 88 px for it (the panels
+   keep their place at 112, so the band of the card's backdrop under the bar is 24 px, not 42). */
+.meter-short { display: none; }
+.top-bar--icons { height: 88px; }
+.top-bar--icons .family-meters .meter { min-width: 96px; padding-bottom: 30px; justify-content: center; }
+.top-bar--icons .meter-short {
+    display: flex; position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 0;
+    font-size: 15px; color: var(--ink-dim); white-space: nowrap; -unity-text-align: upper-center;
+}
+.lang-ar .top-bar--icons .meter-short { -unity-text-align: upper-center; }
+.hud-icon-bar .event-scrim-top { top: -24px; height: 24px; }
+/* The money in use (PlayerText.Currency): its name and sign, on up to two lines, beside Livelihood. */
+.currency-value { font-size: 15px; color: var(--gold-light); white-space: normal; max-width: 190px; }
+
+/* The content note (docs/CONTENT_POLICY.md rule 9): before a sensitive card's text, and over a sensitive figure's bio. A
+   warm band with a rule at the reading side, so it reads as a note and not as the event. */
+.content-note {
+    white-space: normal; font-size: 18px; color: var(--ink); margin: 4px 0 6px 0; padding: 5px 10px;
+    background-color: rgba(222, 120, 104, 0.16); border-left-width: 3px; border-color: var(--down);
+}
+.lang-ar .content-note { border-left-width: 0; border-right-width: 3px; }
+.event-note { display: none; }
+/* A card's sources and its people: a caption, then small link buttons (the host's name; the address in the browser). */
+.source-row, .figure-row { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+.lang-ar .source-row, .lang-ar .figure-row { flex-direction: row-reverse; }
+.source-caption { font-size: 15px; color: var(--ink-dim); margin: 0 6px 0 0; padding: 0; }
+.lang-ar .source-caption { margin: 0 0 0 6px; }
+.source-link { font-size: 14px; padding: 1px 8px; margin: 2px 6px 2px 0; color: var(--gold-light); border-color: rgba(196, 160, 92, 0.35); -unity-text-align: middle-center; }
+.figure-link { font-size: 17px; padding: 2px 12px; margin: 2px 6px 2px 0; color: var(--gold-light); border-color: var(--gold); -unity-text-align: middle-center; }
+.lang-ar .source-link, .lang-ar .figure-link { margin: 2px 0 2px 6px; -unity-text-align: middle-center; }
+.figure-chip { flex-direction: row; align-items: center; margin: 2px 8px 2px 0; }
+.lang-ar .figure-chip { flex-direction: row-reverse; margin: 2px 0 2px 8px; }
+.figure-face { width: 56px; height: 56px; flex-shrink: 0; margin-right: 6px; border-width: 2px; border-color: var(--gold); border-radius: 28px; -unity-background-scale-mode: scale-and-crop; }
+.lang-ar .figure-face { margin-right: 0; margin-left: 6px; }
+/* After a choice the card says what followed (outcome / outcome_ar), under the choice made. */
+.event-chosen { display: none; white-space: normal; color: var(--gold-light); margin: 0 0 4px 0; }
+
+/* The People screen: each figure a framed card, the name where a portrait would be. */
+.person-figure {
+    padding: 14px 20px 12px 20px; margin: 8px 4px; flex-shrink: 0;
+    background-color: rgba(5, 9, 18, 0.55); border-width: 1px; border-color: var(--gold-dim); border-radius: 2px;
+}
+/* Playtest 3: the card a figure line opened the screen at. */
+.person-figure-shown { border-width: 2px; border-color: var(--gold-light); background-color: rgba(28, 38, 58, 0.75); }
+.figure-portrait { width: 152px; height: 152px; align-self: center; margin: 6px 0 2px 0; border-width: 2px; border-color: var(--gold); border-radius: 76px; -unity-background-scale-mode: scale-and-crop; }
+.figure-name { font-size: 26px; color: var(--gold-light); -unity-text-align: middle-center; white-space: normal; margin: 4px 0 0 0; }
+.figure-years { font-size: 17px; color: var(--gold); -unity-text-align: middle-center; margin: 0; }
+.figure-role { font-size: 17px; color: var(--ink-dim); -unity-text-align: middle-center; white-space: normal; margin: 0 0 2px 0; }
+.figure-bio { font-size: 18px; white-space: normal; margin-top: 2px; }
+
+/* Credits (Settings): docs/credits.md, its notices as written, left to right, in a quiet inset. */
+.credits-heading { margin-top: 12px; }
+.credits-text { font-size: 18px; white-space: normal; margin: 0 0 6px 0; }
+.credits-item { font-size: 18px; white-space: normal; margin: 0 0 4px 12px; }
+.lang-ar .credits-item { margin: 0 12px 4px 0; }
+/* The Arabic credits in Amiri, a classic Naskh in the Bulaq-press style (OFL; Fonts/Amiri/SOURCE.txt): Bold headings,
+   Regular text a size up, through the advanced text generator that shapes the Arabic. After the .lang-ar block, so it wins. */
+.lang-ar .credits-heading {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/Amiri/Amiri-Bold.ttf");
+    -unity-text-generator: advanced; font-size: 20px;
+}
+.lang-ar .credits-text, .lang-ar .credits-item {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/Amiri/Amiri-Regular.ttf");
+    -unity-text-generator: advanced; font-size: 21px;
+}
+.credits-quote {
+    font-size: 16px; white-space: normal; color: var(--ink-dim); -unity-text-align: upper-left; margin: 2px 0 8px 0; padding: 6px 10px;
+    background-color: rgba(5, 9, 18, 0.55); border-left-width: 2px; border-color: var(--gold-dim);
+}
+
+/* The chapter and village picker: over the start screen (and the game), a dim backdrop and a reading panel. */
+.family-picker { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; padding: 16px; background-color: rgba(5, 9, 18, 0.72); }
+.picker-open .family-picker { display: flex; }
+.picker-panel { width: 1120px; max-width: 100%; max-height: 100%; padding: 18px 28px 14px 28px; background-color: rgb(11, 18, 32); }
+.picker-header > .title { -unity-text-align: middle-center; }
+.picker-header > .muted { -unity-text-align: middle-center; }
+.picker-chapters { flex-direction: row; flex-wrap: wrap; justify-content: center; flex-shrink: 0; }
+.picker-chapter { width: 340px; min-height: 100px; margin: 6px; padding: 10px 14px; justify-content: center; }
+.picker-chapter-title { font-size: 22px; white-space: normal; -unity-text-align: middle-center; margin: 0; padding: 0; }
+.picker-chapter-years { font-size: 17px; color: var(--gold); -unity-text-align: middle-center; margin: 2px 0 0 0; padding: 0; }
+.picker-chapter:focus .picker-chapter-years { color: var(--focus-ink); }
+.picker-villages { display: none; flex-grow: 1; flex-shrink: 1; min-height: 0; }
+.picker-search-row { flex-shrink: 0; margin-bottom: 6px; }
+.picker-search { flex-grow: 1; margin: 0 10px; font-size: 19px; }
+.picker-search > .unity-text-field__input { background-color: var(--navy-deep); border-color: var(--gold-dim); color: var(--ink); padding: 4px 8px; }
+.picker-count { flex-shrink: 0; }
+.picker-list { flex-grow: 1; flex-shrink: 1; min-height: 120px; }
+.picker-grid { flex-direction: row; flex-wrap: wrap; }
+.lang-ar .picker-chapters, .lang-ar .picker-grid { flex-direction: row-reverse; }
+.picker-village { width: 200px; margin: 3px; padding: 5px 8px; font-size: 18px; white-space: normal; -unity-text-align: middle-center; }
+.lang-ar .picker-village, .lang-ar .picker-header > .title, .lang-ar .picker-header > .muted { -unity-text-align: middle-center; }
+.picker-actions { justify-content: flex-end; flex-shrink: 0; margin-top: 8px; }
+.picker-actions > Button { min-width: 120px; -unity-text-align: middle-center; }
+.lang-ar .picker-actions > Button { -unity-text-align: middle-center; }
+
+/* The family's village on the map: its pill always shows, in gold; a village whose dated fate has come shows it in a small
+   badge under its name (palestine/fates.yaml). */
+.map-label-home { background-color: var(--gold); color: var(--navy-deep); border-color: var(--gold-light); border-width: 2px; font-size: 21px; }
+.map-label-fate {
+    position: absolute; translate: -50% 2px; margin: 0; padding: 0 7px 1px 7px; font-size: 13px; white-space: nowrap;
+    color: rgb(240, 214, 204); background-color: rgba(70, 24, 20, 0.88); border-width: 1px; border-color: rgba(222, 120, 104, 0.7); border-radius: 6px;
+}
+/* Arabic letters join: letter-spacing would pull a word's letters apart, so the spaced headings set Arabic without it. */
+.lang-ar .section-title, .lang-ar .screen-header > .title, .lang-ar .why-group, .lang-ar .screen .meter-name { letter-spacing: 0; }
+
+/* Playtest (F6): a choice's effects as small chips under it, and under its outcome (EventCardPresenter.EffectRow). */
+.effect-row { flex-direction: row; flex-wrap: wrap; margin: 0 0 6px 46px; }
+.lang-ar .effect-row { flex-direction: row-reverse; margin: 0 46px 6px 0; }
+.effect-chip { flex-direction: row; align-items: center; margin: 2px 6px 2px 0; padding: 1px 8px 1px 4px; border-width: 1px; border-radius: 10px; border-color: rgba(196, 160, 92, 0.35); background-color: rgba(5, 9, 18, 0.55); }
+.lang-ar .effect-chip { flex-direction: row-reverse; margin: 2px 0 2px 6px; padding: 1px 4px 1px 8px; }
+.effect-icon { width: 18px; height: 18px; margin: 0 4px 0 0; }
+.lang-ar .effect-icon { margin: 0 0 0 4px; }
+.effect-name { font-size: 15px; margin: 0 4px 0 0; padding: 0; color: var(--ink); }
+.lang-ar .effect-name { margin: 0 0 0 4px; }
+.effect-delta { font-size: 15px; margin: 0; padding: 0; }
+/* The pause panel's extra pages: the first-turn hint and the chapter's end (PausePresenter). */
+.pause-text { display: none; flex-shrink: 1; min-height: 0; }
+.pause-line { white-space: normal; font-size: 19px; margin: 4px 0 8px 0; }
+.pause-summary { white-space: normal; font-size: 19px; margin: 4px 0 10px 0; -unity-text-align: middle-center; }
+.lang-ar .pause-summary { -unity-text-align: middle-center; }
+/* Playtest 2: the choice under the pointer or the keyboard focus, what it affects (no numbers), in the card's foot. */
+.event-hint { flex-grow: 1; flex-shrink: 1; margin: 2px 8px 0 8px; }
+.lang-ar .event-hint { margin: 2px 8px 0 8px; }
+.effect-dir { font-size: 16px; margin: 0; padding: 0; }
+/* Playtest 2: "Skip to the next event" after a quiet month, under the toast; Stop while it runs. */
+.skip-ahead { display: none; position: absolute; left: 84px; top: 164px; min-width: 240px; padding: 6px 18px; font-size: 18px; -unity-text-align: middle-center;
+    background-color: var(--navy-solid); border-color: var(--gold); border-width: 1.5px; color: var(--gold-light); }
+.lang-ar .skip-ahead { -unity-text-align: middle-center; }
+.hud-narrow .skip-ahead { top: 192px; }
+.hud-flat .skip-ahead { top: 156px; }
+.hud-two-row .skip-ahead { top: 284px; }
+.hud-three-row .skip-ahead { top: 508px; }
+.skip-ahead.skip-shown { display: flex; }
+.start-open .skip-ahead.skip-shown, .screen-open .skip-ahead.skip-shown, .pause-open .skip-ahead.skip-shown, .picker-open .skip-ahead.skip-shown { display: none; }
+
+/* Audit M2, m13: below the one-row bar (a smaller window, or a larger text size) a screen starts by the left column, not at
+   the 1920 layout's 552 px, so it keeps a reading width (130% text at 1280x720 left Settings and People about 400 px wide). */
+.hud-narrow .screen { left: 84px; }
+/* Audit M1: an English credits line quoting Arabic, in the Arabic face (it has Latin letters too). */
+.credits-mixed {
+    -unity-font-definition: url("project://database/Assets/UI/Fonts/NotoNaskhArabic/NotoNaskhArabic.ttf");
+    -unity-text-generator: advanced;
+}
+/* Audit m6: the close sign centred in its ring in Arabic too (".lang-ar Button" sets every button's text to the right). */
+.lang-ar .screen-close { -unity-text-align: middle-center; }
+/* Audit m3: a source link answers the pointer and the focus (its address shows in the tip beside it). */
+.source-link:hover, .source-link:focus { border-color: var(--gold-light); background-color: var(--navy-raised); color: var(--ink); }
+/* Audit m14: a minimap switch that is on carries the open ring, off its dimmed disc. */
+.minimap-button .minimap-disc { border-color: var(--gold-light); }
+.minimap-off .minimap-disc { border-color: var(--gold-dim); }
+
+/* --- F7 (the owner: "not freezed or static"): the UI moves, only while the root has .ui-motion (a player or Play mode with
+   reduce motion off, SettingsPresenter.MotionClass); without it every element is at its end state at once. ------------ */
+.ui-motion Button { transition-property: background-color, border-color, color, scale; transition-duration: 0.15s; transition-timing-function: ease-out; }
+.ui-motion Button:active { scale: 0.96 0.96; }
+.ui-motion .event-card { transition-property: opacity, translate; transition-duration: 0.25s; transition-timing-function: ease-out; }
+.ui-motion .event-card.card-from { opacity: 0; translate: 0 18px; }
+.ui-motion .effect-chip { transition-property: opacity, scale; transition-duration: 0.22s; transition-timing-function: ease-out-back; }
+.ui-motion .effect-chip.chip-from { opacity: 0; scale: 0.6 0.6; }
+.ui-motion .meter-value { transition-property: color; transition-duration: 0.4s; }
+.ui-motion .meter-value.meter-flash-up { color: var(--up); }
+.ui-motion .meter-value.meter-flash-down { color: var(--down); }
+.ui-motion .end-turn { transition-property: border-color, background-color, scale; transition-duration: 0.45s; transition-timing-function: ease-in-out; }
+.ui-motion .end-turn.end-turn-glow { border-color: var(--gold-light); background-color: rgba(196, 160, 92, 0.28); scale: 1.04 1.04; }
+/* The owner's choice (a): Livelihood carries the money's sign ("Livelihood · £P"), so its name under the icon is wider. */
+.top-bar--icons .family-meters .meter.money-meter { min-width: 136px; }
+.ui-motion .event-card.card-out { opacity: 0; translate: 0 12px; }
+/* Playtest 3: a toast that appears slides down into place (ToastPresenter, EventCardPresenter.Enter). */
+.ui-motion .toast { transition-property: opacity, translate; transition-duration: 0.25s; transition-timing-function: ease-out; }
+.ui-motion .toast.toast-from { opacity: 0; translate: 0 -12px; }
+/* Playtest 3: the Arabic UI mirrors the screen's corners too, not only its rows. The left column goes to the right edge,
+   under the date plate (which the mirrored bar puts on the right), with its strip and the backdrop's gap beside it; the
+   minimap's column goes to the left edge, the picture nearer the window's middle; the screens, the toast, Skip and the
+   collapsed card's button swap their sides. (Each tier's rule is mirrored with the root's tier class, so it outweighs the
+   tier's own.) */
+.lang-ar .left-column { left: auto; right: 16px; }
+.lang-ar .event-gutter { left: auto; right: 0; }
+.lang-ar .event-scrim { left: -16px; right: 56px; }
+.lang-ar.hud-three-row .event-scrim { left: -16px; right: 61px; }
+.lang-ar.hud-three-row .event-layer { padding-left: 0; padding-right: 72px; }
+.lang-ar .event-reopen { right: auto; left: 0; }
+.lang-ar .right-column { right: auto; left: 16px; }
+.lang-ar .minimap { align-self: flex-start; flex-direction: row-reverse; }
+.lang-ar .minimap-buttons { margin-left: 0; margin-right: 10px; }
+.lang-ar .map-layer { right: auto; left: 230px; }
+.lang-ar.hud-three-row .map-layer { left: auto; align-self: flex-start; }
+.lang-ar .screen { left: 512px; right: 552px; }
+.lang-ar.hud-narrow .screen { left: 512px; right: 84px; }
+.lang-ar.hud-two-row .screen { left: 16px; right: 84px; }
+.lang-ar .toast { left: auto; right: 84px; }
+.lang-ar.event-modal .toast { left: 25%; right: 25%; }
+.lang-ar.start-open .toast { left: 25%; right: 25%; }
+.lang-ar.hud-two-row.screen-open .toast { left: 16px; right: 16px; }
+.lang-ar .skip-ahead { left: auto; right: 84px; }
+
+/* The in-game footage viewer (FootageViewer): over the decision card, under the pause menu. The video's RenderTexture or
+   the photo is the screen's background, scaled to fit. */
+.footage-viewer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; padding: 16px; background-color: rgba(5, 9, 18, 0.86); }
+.footage-panel { width: 1000px; max-width: 100%; max-height: 100%; padding: 16px 24px 12px 24px; background-color: rgb(11, 18, 32); }
+.footage-title { font-size: 22px; color: var(--gold-light); white-space: normal; -unity-text-align: middle-center; margin-bottom: 8px; }
+.footage-screen { height: 520px; flex-shrink: 1; min-height: 120px; background-color: rgb(0, 0, 0); background-size: contain; justify-content: center; align-items: center; }
+.footage-status { font-size: 18px; color: var(--ink); white-space: normal; -unity-text-align: middle-center; }
+.footage-controls { flex-direction: row; align-items: center; margin-top: 8px; }
+.footage-progress { flex-grow: 1; margin: 0 10px; }
+.footage-caption { margin-top: 8px; font-size: 16px; color: var(--ink); white-space: normal; }
+.footage-credit { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.footage-close { align-self: center; margin-top: 8px; padding: 4px 24px; }
+.lang-ar .footage-controls, .lang-ar .footage-credit { flex-direction: row-reverse; }

@@ -1,0 +1,48 @@
+name: Bug report
+description: The game or a tool behaves differently from what it should
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Start a new game
+        2. Open the People screen
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console or log output
+      description: For the browser build, the lines from the developer console (GAME OK / TURN / errors).
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: Commit SHA
+      placeholder: git rev-parse --short HEAD
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Platform
+      placeholder: macOS 15, Chrome 140 (WebGL build) / Unity 6000.3.25f1
+    validations:
+      required: true
+  - type: checkboxes
+    id: nosecrets
+    attributes:
+      label: Before you submit
+      options:
+        - label: The text above contains no token, key or personal data.
+          required: true

@@ -1,0 +1,25 @@
+# Keeps the SHA-pinned actions in .github/workflows current (it bumps the SHA and the version comment together).
+version: 2
+# Every update waits 14 days after its release (cooldown), so no proposed pin is newer than two weeks.
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
+    commit-message:
+      prefix: "ci"
+  # Keeps the dev container features in .devcontainer/devcontainer.json current. The uv image is bumped by hand with
+  # CI's setup-uv version, so the two never differ.
+  - package-ecosystem: devcontainers
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
+    commit-message:
+      prefix: "repo"
+  # NuGet (sim/) is left out on purpose: YamlDotNet's version is also the YamlDotNet.dll copied into Unity by
+  # tools/build_sim_for_unity.py and the version named in LICENSES/YamlDotNet-MIT.txt, so it is bumped by hand.
+  # Python dependencies are pinned inline (uv run --with x==y, # /// script headers), which Dependabot does not read.

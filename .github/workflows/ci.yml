@@ -1,0 +1,112 @@
+name: CI
+
+# Nothing here uses a secret, calls a paid API, runs an AI agent or pushes anywhere. Pull requests from outside
+# contributors run untrusted code (MSBuild targets, pytest conftest files, uv inline scripts), so the token is read-only, checkouts keep
+# no credentials, and there is no secret to steal. A pull request can also edit this file and make its own checks green;
+# CODEOWNERS review of any .github/ diff is the guard (docs/UNTRUSTED_PR_REVIEW.md). There is no CLA or DCO check:
+# contributions come in under the repository licences (inbound = outbound, GitHub Terms of Service D.6; decision D2).
+# Unity edit-mode tests are not run here; CONTRIBUTING.md, "What CI runs", says why.
+# No `schedule:` and no `pull_request_target`, on purpose. Every action is pinned to a commit SHA
+# (scripts/oss/pin_actions.py). The job names are the required checks in scripts/oss/github/ruleset-main-review.json;
+# a test keeps the two identical.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+env:
+  UV_PYTHON: "3.12"
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  sim:
+    name: Sim (dotnet test)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: "10.0.401"
+      - name: Simulation and content tests
+        run: dotnet test sim/StoryOfTheLand.sln -c Release
+
+  tools:
+    name: Tools (pytest)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # No tools test needs dotnet (test_build_sim_for_unity.py mocks it), so this job installs none.
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.5"
+          # Dependencies are declared inline (uv run --with, # /// script), so there is no lock file to hash.
+          cache-dependency-glob: |
+            tools/**/*.py
+            scripts/oss/**/*.py
+      - name: Data tool tests
+        run: uv run --with pytest==9.1.1 --with rasterio==1.5.2 --with numpy==2.5.3 --with pyyaml==6.0.3 --with pillow==12.3.0 --with requests==2.32.5 --with pyproj==3.8.0 pytest tools/tests -q
+
+  policy:
+    name: Repo policy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.5"
+          # Dependencies are declared inline (uv run --with, # /// script), so there is no lock file to hash.
+          cache-dependency-glob: |
+            tools/**/*.py
+            scripts/oss/**/*.py
+      - name: Policy checker tests
+        run: uv run --with pytest==9.1.1 --with pyyaml==6.0.3 --with requests==2.32.5 pytest scripts/oss/tests -q
+      - name: Licences, provenance, secrets and required files at the tip
+        run: uv run scripts/oss/check_repo.py
+
+  changelog:
+    name: Changelog
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.5"
+          # Dependencies are declared inline (uv run --with, # /// script), so there is no lock file to hash.
+          cache-dependency-glob: |
+            tools/**/*.py
+            scripts/oss/**/*.py
+      - name: A user-visible change carries a CHANGELOG line or the no-changelog label
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          SKIP_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'no-changelog') }}
+        run: uv run scripts/oss/changelog_check.py --base "$BASE_SHA" --head "$HEAD_SHA" --skip-label "$SKIP_LABEL"
+      # Only a person signs a row off (#375): no commit with an AI co-author trailer may add, change or remove a reviewed_by
+      # or reviewed_on line in content/. It needs every commit of the PR (fetch-depth 0 above) and fails closed.
+      - name: Only a person signs a row off (reviewed_by and reviewed_on)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: uv run scripts/oss/reviewed_by_guard.py --base "$BASE_SHA" --head "$HEAD_SHA"

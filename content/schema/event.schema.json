@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "content/palestine/events/<chapter>.yaml, one entry of events:",
+  "description": "One event of a chapter (written by tools/tsv_to_events.py). Field names follow the GameEvent type in sim/StoryOfTheLand.Sim/Content.cs; a test keeps them equal. See docs/palestine-model.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "text",
+    "from",
+    "options",
+    "sources"
+  ],
+  "definitions": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "A day, YYYY-MM-DD."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Lowercase letters, digits and underscores, starting with a letter."
+    }
+  },
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id",
+      "description": "Unique across all events."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "May contain {village_en} or {village_ar} in a fate:* event (the family's village)."
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "May contain {village_en} or {village_ar} in a fate:* event. No invented quotes."
+    },
+    "title_ar": {
+      "type": "string",
+      "description": "F4 (docs/palestine-model.md): the Arabic title. Optional."
+    },
+    "text_ar": {
+      "type": "string",
+      "description": "F4: the Arabic text. Optional."
+    },
+    "scope": {
+      "type": "string",
+      "pattern": "^(national|region:[a-z0-9_]+|fate:(depopulated|destroyed|built_over))$",
+      "description": "F4: whose family the event reaches. national (every family), region:<place id> (a family whose village is near that place) or fate:<fate> (the family's own village, in the month of that sourced fate; may use {village_en} and {village_ar}). Absent: national."
+    },
+    "place": {
+      "$ref": "#/definitions/id",
+      "description": "F4: the place (palestine/places.yaml id) where the event happened. Optional."
+    },
+    "effects": {
+      "$ref": "#/properties/options/items/properties/effects",
+      "description": "F4: effects of the event itself, applied when it resolves, before the chosen option's."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "holocaust, terror, massacre, war-casualties, displacement and sensitive (F4: a massacre or killings, shown after a content note) are sensitive: a shareable build needs each such event sensitivity-reviewed (ReleaseGate)."
+    },
+    "from": {
+      "$ref": "#/definitions/date",
+      "description": "First day of the window."
+    },
+    "to": {
+      "$ref": "#/definitions/date",
+      "description": "End of the window (exclusive). Leave out for an open window."
+    },
+    "day": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 31,
+      "description": "The day of the From month the event happened, where its text dates it: a turn's cards come in date order (tools/tsv_to_events.py reads it from the text)."
+    },
+    "options": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/id"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text_ar": {
+            "type": "string",
+            "description": "F4: the Arabic option text."
+          },
+          "outcome": {
+            "type": "string",
+            "description": "F4: what happened to the family after this choice (no historical claim)."
+          },
+          "outcome_ar": {
+            "type": "string",
+            "description": "F4: the Arabic outcome."
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "target",
+                "delta"
+              ],
+              "properties": {
+                "target": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "A family resource id from palestine/model.yaml."
+                },
+                "delta": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "url",
+          "checked"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "pattern": "^https://",
+            "description": "An https:// address (RealContentTests checks this)."
+          },
+          "checked": {
+            "$ref": "#/definitions/date",
+            "description": "The day you opened the source."
+          }
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "fact-checked",
+        "historian-reviewed",
+        "sensitivity-reviewed"
+      ],
+      "description": "The review status. Default draft."
+    },
+    "reviewed_by": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$",
+      "description": "The GitHub handle of the person who signed this row off (#375): written only by that person, never by an AI agent (scripts/oss/reviewed_by_guard.py); never an email. Needs reviewed_on."
+    },
+    "reviewed_on": {
+      "$ref": "#/definitions/date",
+      "description": "The day of that sign-off. Needs reviewed_by."
+    }
+  }
+}

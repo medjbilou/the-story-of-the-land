@@ -1,0 +1,118 @@
+#nullable enable
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace StoryOfTheLand.Game.Map
+{
+    /// <summary>The tap rule, with no devices: a finger becomes a tap only when it lifts within
+    /// <see cref="SlopPixels"/> of where it landed and no second finger was down while it was held. A moved finger
+    /// drags the camera and two fingers pinch (CameraController), so neither may also select a hex.</summary>
+    public struct TapPress
+    {
+        /// <summary>How far the finger may wander, in screen pixels, before the press stops being a tap (about
+        /// Android's 8 dp touch slop at 3x).</summary>
+        public const float SlopPixels = 30f;
+
+        Vector2 start;
+        bool down, moved, pinched;
+
+        /// <summary>One frame of the watched finger: its pressed and released edges, where it is, and whether any
+        /// other finger is down. The tap's position on a release frame that still qualifies, otherwise null.</summary>
+        public Vector2? Step(bool pressed, bool released, Vector2 position, bool otherFingerDown)
+        {
+            if (pressed) { start = position; down = true; moved = false; pinched = false; }
+            if (!down) return null;
+            if (otherFingerDown) pinched = true;                       // a pinch is never a tap, even a still thumb
+            if ((position - start).sqrMagnitude > SlopPixels * SlopPixels) moved = true;   // latched: coming back helps not
+            if (!released) return null;
+            down = false;
+            return moved || pinched ? (Vector2?)null : start;
+        }
+    }
+
+    /// <summary>Left click on the map (not on the UI) selects the hex under the pointer: a ray from the camera hits the
+    /// terrain's collider, the hit becomes lon/lat (GeoFrame) and then a hex (HexPicker). On a touchscreen a tap (press and
+    /// release inside TapPress.SlopPixels, with no second finger down) does the same, so a one-finger drag pans and a pinch zooms without selecting.</summary>
+    public sealed class MapPointer : MonoBehaviour
+    {
+        public MapScene? Map;
+        public Func<Vector2, bool>? IsOverUi;
+        public event Action<int, int>? HexClicked;
+
+        // Every press, at the position of its own input event (InputConfig keeps a release from merging into the next move),
+        // queued and evaluated in order in Update: several presses in one slow frame are each checked where they happened,
+        // never all at the frame's last pointer position (playtest 2, P2-4).
+        readonly Queue<Vector2> presses = new Queue<Vector2>();
+        InputAction? press;
+
+        TapPress tap;
+
+        void OnEnable()
+        {
+            press = new InputAction("map-press", InputActionType.Button, "<Mouse>/leftButton");
+            press.performed += OnPressed;
+            press.Enable();
+        }
+
+        void OnDisable()
+        {
+            if (press != null) { press.performed -= OnPressed; press.Dispose(); press = null; }
+            presses.Clear();
+        }
+
+        void OnPressed(InputAction.CallbackContext ctx)
+        {
+            if (ctx.control.device is Pointer p) OnPress(p.position.ReadValue());   // read during the event: its own position
+        }
+
+        /// <summary>Queues a press at <paramref name="at"/> (screen pixels, y up).</summary>
+        internal void OnPress(Vector2 at) => presses.Enqueue(at);
+
+        /// <summary>Handles every queued press, in order, each at its own position.</summary>
+        internal void ProcessPresses()
+        {
+            while (presses.Count > 0) HandleClick(presses.Dequeue());
+        }
+
+        void Update()
+        {
+            ProcessPresses();
+            var ts = Touchscreen.current;
+            if (ts == null) return;
+            var t = ts.primaryTouch;
+            var pressed = 0;
+            foreach (var touch in ts.touches)
+                if (touch.press.isPressed) pressed++;
+            // any other finger down cancels the tap (TapPress): a releasing pinch's thumb is inside the slop, yet must not select
+            var tapAt = tap.Step(t.press.wasPressedThisFrame, t.press.wasReleasedThisFrame,
+                t.position.ReadValue(), pressed > (t.press.isPressed ? 1 : 0));
+            if (tapAt.HasValue) OnPress(tapAt.Value);   // a tap selects where the finger landed, like a click
+        }
+
+        /// <summary>A left click at <paramref name="pos"/> (screen pixels): ignored over the UI (the same IsOverUi the camera
+        /// uses), otherwise the hex under the pointer is raised as HexClicked. Returns whether a hex was picked.</summary>
+        public bool HandleClick(Vector2 pos)
+        {
+            var overUi = IsOverUi != null && IsOverUi(pos);
+            Boot.DiagLog.NavLine(FormattableString.Invariant($"map click at ({pos.x:0}, {pos.y:0}) overUi={overUi}"));
+            if (overUi) return false;                                    // the UI is asked first, whatever else is missing
+            if (Map == null || Map.Terrain == null) return false;
+            var cam = Camera.main;
+            var collider = Map.Terrain.GetComponent<TerrainCollider>();
+            // only the terrain's own collider: other colliders (markers, future props) never decide which hex is clicked
+            if (cam == null || collider == null || !collider.Raycast(cam.ScreenPointToRay(pos), out var hit, 1_000_000f)) return false;
+            var hex = Pick(Map, hit.point);
+            Map.Select(hex.q, hex.r);                                   // the map marks the hex the info panel describes
+            HexClicked?.Invoke(hex.q, hex.r);
+            return true;
+        }
+
+        public static (int q, int r) Pick(MapScene map, Vector3 world)
+        {
+            var (lon, lat) = map.Frame.ToLonLat(world);
+            return HexPicker.FromLonLat(lon, lat, map.Hexes.bounds, map.Hexes.hex_size_km);
+        }
+    }
+}

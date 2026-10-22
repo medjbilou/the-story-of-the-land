@@ -1,0 +1,248 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="StoryOfTheLand.uss" />
+    <!-- "loading" until GameRoot has started the game: only the loading line shows (playtest 2, P2-1). -->
+    <ui:VisualElement name="root" class="root loading" picking-mode="Ignore">
+        <ui:Label name="loading" text="Loading the map of 1948…" class="loading-line" picking-mode="Ignore" />
+        <!-- Settlement names, positioned by MapLabelsPresenter under every panel; clicks pass through to the map. -->
+        <ui:VisualElement name="map-labels" class="map-labels" picking-mode="Ignore" />
+        <!-- HUD round 2, part 2 (#398): promo 03's left icon column, the screens (ScreenNav), icon-only; each one's name
+             is its text (the event log records it), hidden, and its tooltip, shown beside it on hover and on focus
+             (HoverTip). Before the top bar in the tree, so Tab runs the side-menu screens, New Game, then End Turn. -->
+        <!-- The left column's strip of the decision card's backdrop (review of #602): dimmed and taking the pointer while the
+             card is open (event-modal), so the map is blocked between and below the discs as it is everywhere else; before
+             the column in the tree, so the column's buttons stay above it and usable. -->
+        <ui:VisualElement name="event-gutter" class="event-gutter" />
+        <ui:VisualElement name="left-column" class="left-column" picking-mode="Ignore">
+            <ui:Button name="nav-why" text="Why?" class="nav-button rail-button"><StoryOfTheLand.Game.UI.UiIcon glyph="history" class="nav-disc" /></ui:Button>
+            <ui:Button name="nav-how-to-play" text="How to play" class="nav-button rail-button"><StoryOfTheLand.Game.UI.UiIcon glyph="question" class="nav-disc" /></ui:Button>
+            <ui:Button name="nav-settings" text="Settings" class="nav-button rail-button"><StoryOfTheLand.Game.UI.UiIcon glyph="gear" class="nav-disc" /></ui:Button>
+        </ui:VisualElement>
+        <ui:VisualElement name="top-bar" class="panel top-bar">
+            <StoryOfTheLand.Game.UI.UiFrame corners="false" rule="false" />
+            <ui:VisualElement name="date-plate" class="date-box">
+                <ui:VisualElement class="year-row">
+                    <ui:Label name="year" class="year" />
+                </ui:VisualElement>
+                <ui:VisualElement class="date-row">
+                    <ui:Label name="turn" class="muted" />
+                    <ui:Label name="date" class="muted" />
+                </ui:VisualElement>
+                <StoryOfTheLand.Game.UI.UiFrame shadow="false" filigree="true" />
+            </ui:VisualElement>
+            <!-- The family game (HudPresenter): the ten family resources (content/palestine/model.yaml) and, beside
+                 Livelihood, the money in use (PlayerText.Currency), made in code from the chapter's content. -->
+            <ui:VisualElement name="family-meters" class="meters family-meters" />
+            <ui:VisualElement name="nav" class="nav">
+                <ui:Button name="new-game" text="New game" class="nav-button bar-button"><StoryOfTheLand.Game.UI.UiIcon glyph="restart" class="nav-disc" /></ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement class="turn-box">
+                <ui:Button name="end-turn" text="End turn" class="end-turn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <!-- The right-hand column: the minimap, with the border layer's caption beside it. -->
+        <ui:VisualElement name="right-column" class="right-column" picking-mode="Ignore">
+            <ui:VisualElement class="right-gap" picking-mode="Ignore" />
+            <!-- What the map's region borders show while they are drawn (owner ruling 2026-10-11: "Mandate sub-districts, 1947"). -->
+            <ui:Label name="map-layer" class="map-layer" picking-mode="Ignore" />
+            <!-- The painted relief picture (a bake: tools/minimap_bake.py) and, beside it, promo 03's three round buttons:
+                 the whole map, the settlement names, the region borders (MinimapPresenter). The picture takes no focus (the
+                 accessibility audit's B1d); the buttons do, after End Turn. -->
+            <ui:VisualElement name="minimap" class="panel minimap">
+                <ui:VisualElement name="minimap-map" class="minimap-map" picking-mode="Ignore">
+                    <ui:VisualElement name="minimap-image" class="minimap-image">
+                        <ui:VisualElement name="minimap-view" class="minimap-view" picking-mode="Ignore" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="minimap-buttons" class="minimap-buttons" picking-mode="Ignore">
+                    <ui:Button name="minimap-pan-left" class="minimap-button"><StoryOfTheLand.Game.UI.UiIcon glyph="chevron-back" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                    <ui:Button name="minimap-pan-right" class="minimap-button"><StoryOfTheLand.Game.UI.UiIcon glyph="chevron" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                    <ui:Button name="minimap-overview" class="minimap-button"><StoryOfTheLand.Game.UI.UiIcon glyph="peaks" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                    <ui:Button name="minimap-labels" class="minimap-button"><StoryOfTheLand.Game.UI.UiIcon glyph="skyline" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                    <ui:Button name="minimap-borders" class="minimap-button"><StoryOfTheLand.Game.UI.UiIcon glyph="region" class="minimap-disc" picking-mode="Ignore" /></ui:Button>
+                </ui:VisualElement>
+                <StoryOfTheLand.Game.UI.UiFrame filigree="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <!-- The decision layer under the top bar (decision cards, 2026-10-13): while an event is open a dim backdrop blocks the
+             map and the panels under it, and the card sits in the middle, up to 1040 px wide. Hidden under the start screen
+             and any open screen (ScreenNav.DisableCovered). -->
+        <ui:VisualElement name="event-layer" class="event-layer" picking-mode="Ignore">
+            <ui:VisualElement name="event-scrim" class="event-scrim" />
+            <!-- The backdrop's band from the bar's bottom to the column's top, the window's full width: it dims the hanging date
+                 plate evenly and leaves no live strip of map (review of #624). Above the left column's top, so it never
+                 covers a disc. -->
+            <ui:VisualElement name="event-scrim-top" class="event-scrim-top" />
+            <ui:VisualElement name="event-card" class="panel event-card">
+                <ui:VisualElement class="event-head">
+                    <ui:VisualElement class="event-heading">
+                        <ui:Label name="event-title" class="title event-title" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <!-- F5: a card tagged sensitive opens with the content note (docs/CONTENT_POLICY.md rule 9), before its text. -->
+                <ui:Label name="event-note" class="content-note event-note" />
+                <ui:VisualElement class="gold-rule" />
+                <!-- F5: after the text, the people the event names (a link each to the People screen) and its sources (a link
+                     each to the browser). -->
+                <ui:ScrollView name="event-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" class="event-scroll"><ui:Label name="event-chosen" class="event-chosen" /><ui:Label name="event-text" class="event-text" /><ui:VisualElement name="event-figures" class="figure-row" /><ui:VisualElement name="event-sources" /></ui:ScrollView>
+                <ui:VisualElement name="event-options" />
+                <!-- The count of other open decisions, and Hide: the card collapses to "Decision waiting" so the map can be
+                     inspected (EventCardPresenter.Collapse); focus order: the options, then Hide. -->
+                <ui:VisualElement name="event-foot" class="event-foot">
+                    <ui:Label name="event-count" class="muted event-count" />
+                    <!-- Playtest 2: what the choice under the pointer or the keyboard focus affects (EventCardPresenter). -->
+                    <ui:VisualElement name="event-hint" class="effect-row event-hint" picking-mode="Ignore" />
+                    <ui:Button name="event-hide" class="event-hide" />
+                </ui:VisualElement>
+                <StoryOfTheLand.Game.UI.UiFrame filigree="true" />
+            </ui:VisualElement>
+            <ui:Button name="event-reopen" class="event-reopen" />
+        </ui:VisualElement>
+        <ui:VisualElement name="screen-why" class="panel screen">
+            <ui:VisualElement class="screen-header"><ui:Label name="why-screen-title" text="Why did this happen?" class="title" /><ui:Label name="why-turn" class="muted" /></ui:VisualElement>
+            <ui:ScrollView name="why-rows" mode="Vertical" horizontal-scroller-visibility="Hidden" class="grow" />
+            <StoryOfTheLand.Game.UI.UiFrame />
+        </ui:VisualElement>
+        <!-- A short guide to the family game's loop (#1041). It is a normal side-menu screen, so ScreenNav owns opening and closing. -->
+        <ui:VisualElement name="screen-how-to-play" class="panel screen">
+            <ui:VisualElement class="screen-header"><ui:Label name="how-to-play-title" text="How to play" class="title" /></ui:VisualElement>
+            <ui:ScrollView name="how-to-play-body" mode="Vertical" horizontal-scroller-visibility="Hidden" class="grow how-to-play-body">
+                <ui:Label name="how-to-play-turn" class="how-to-play-line" />
+                <ui:Label name="how-to-play-cards" class="how-to-play-line" />
+                <ui:Label name="how-to-play-bar" class="how-to-play-line" />
+                <ui:Label name="how-to-play-end-turn" class="how-to-play-line" />
+                <ui:Label name="how-to-play-why" class="how-to-play-line" />
+                <ui:Label name="how-to-play-narration" class="how-to-play-line" />
+            </ui:ScrollView>
+            <StoryOfTheLand.Game.UI.UiFrame />
+        </ui:VisualElement>
+        <!-- Settings (#40; tabbed in F6, SettingsPresenter): the player's presentation options, kept per browser or machine
+             (SettingsStore), never in the sim or the save. The tabs and each tab's rows are made in code; the credits row
+             stays under every tab. -->
+        <ui:VisualElement name="screen-settings" class="panel screen">
+            <ui:VisualElement class="screen-header"><ui:Label name="settings-screen-title" text="Settings" class="title" /></ui:VisualElement>
+            <ui:VisualElement name="settings-tabs" class="row settings-tabs" />
+            <ui:ScrollView name="settings-body" mode="Vertical" horizontal-scroller-visibility="Hidden" class="grow settings-body" />
+            <!-- F5 step 9: the credits and licences (docs/credits.md), on a screen of their own (CreditsPresenter). -->
+            <ui:VisualElement class="row settings-row settings-credits-row">
+                <ui:Label name="settings-credits-label" class="settings-name" />
+                <ui:Button name="settings-credits" class="settings-switch" />
+            </ui:VisualElement>
+            <StoryOfTheLand.Game.UI.UiFrame />
+        </ui:VisualElement>
+        <!-- F5 step 7: the People screen (PeoplePresenter): the chapter's figures, each in the ornamented frame. -->
+        <ui:VisualElement name="screen-people" class="panel screen">
+            <ui:VisualElement class="screen-header"><ui:Label name="people-title" class="title" /><ui:Label name="people-intro" class="muted" /></ui:VisualElement>
+            <ui:ScrollView name="people-list" mode="Vertical" horizontal-scroller-visibility="Hidden" class="grow" />
+            <StoryOfTheLand.Game.UI.UiFrame />
+        </ui:VisualElement>
+        <!-- F5 step 9: Credits (CreditsPresenter), opened from Settings. -->
+        <ui:VisualElement name="screen-credits" class="panel screen">
+            <ui:VisualElement class="screen-header"><ui:Label name="credits-title" class="title" /></ui:VisualElement>
+            <ui:ScrollView name="credits-body" mode="Vertical" horizontal-scroller-visibility="Hidden" class="grow" />
+            <StoryOfTheLand.Game.UI.UiFrame />
+        </ui:VisualElement>
+        <!-- The start screen (StartScreenPresenter): shown over the started game before its first turn (never in automated
+             runs). The image is the game's own map (StartScreenPresenter.ArtAspect). The quotation is paragraph 11 of UN
+             General Assembly resolution 194 (III), 11 December 1948, the refugees' right of return, word for word: the
+             United Nations' official Arabic translation with the English as adopted under it; StartScreenTests checks them
+             against docs/sources/unga-194. The Arabic labels use the advanced text generator, which lays out right-to-left
+             text, with a right-to-left base direction (each line ends with an ellipsis or a full stop, which would otherwise
+             take the left-to-right default). Drawn above the HUD and below the toast, which carries New Game's prompt. -->
+        <ui:VisualElement name="start-screen" class="start-screen">
+            <ui:VisualElement name="start-art" class="start-art" picking-mode="Ignore" />
+            <ui:VisualElement name="start-body" class="start-body" picking-mode="Ignore">
+                <ui:VisualElement name="start-panel" class="panel start-panel">
+                    <ui:Label name="start-title" text="حكاية الأرض" class="start-ar start-title" language-direction="RTL" />
+                    <ui:Label name="start-subtitle" text="The Story of the Land" class="start-subtitle" />
+                    <ui:VisualElement class="gold-rule start-rule" />
+                    <ui:Label name="start-ar-proclamation" text="تقرر وجوب السماح بالعودة في أقرب وقت ممكن للاجئين الراغبين في العودة إلى ديارهم والعيش بسلام مع جيرانهم…" class="start-ar" language-direction="RTL" />
+                    <ui:Label name="start-en-proclamation" text="Resolves that the refugees wishing to return to their homes and live at peace with their neighbours should be permitted to do so at the earliest practicable date…" class="start-en" />
+                    <ui:Label name="start-ar-date" text="الجمعية العامة للأمم المتحدة، القرار 194 (د-3)، الفقرة 11، 11 كانون الأول/ديسمبر 1948." class="start-ar start-ar-date" language-direction="RTL" />
+                    <ui:Label name="start-en-date" text="United Nations General Assembly, resolution 194 (III), paragraph 11, 11 December 1948." class="start-en" />
+                    <ui:Label name="start-source" text="Paragraph 11 of UN General Assembly resolution 194 (III): the English as adopted, the Arabic in the United Nations&apos; official translation. Image: the game&apos;s own map." class="start-source" />
+                    <ui:VisualElement name="start-actions" class="start-actions">
+                        <ui:Button name="start-continue" text="Continue" class="start-button" />
+                        <ui:Button name="start-new-game" text="New game" class="start-button" />
+                        <ui:Button name="start-how-to-play" text="How to play" class="start-button" />
+                    </ui:VisualElement>
+                    <StoryOfTheLand.Game.UI.UiFrame />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <!-- Playtest 3: the language toggle in the top corner, each language named in its own script. -->
+            <ui:VisualElement name="start-languages" class="start-languages">
+                <ui:Button name="start-language-en" text="EN" class="start-language" />
+                <ui:Button name="start-language-ar" text="عربي" class="start-language" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <!-- F5 step 3: a new family game's chapter, then its village (FamilyPickerPresenter), over the start screen. -->
+        <ui:VisualElement name="family-picker" class="family-picker">
+            <ui:VisualElement name="picker-panel" class="panel picker-panel">
+                <ui:VisualElement class="screen-header picker-header"><ui:Label name="picker-title" class="title" /><ui:Label name="picker-intro" class="muted" /></ui:VisualElement>
+                <ui:VisualElement name="picker-chapters" class="picker-chapters" />
+                <ui:VisualElement name="picker-villages" class="picker-villages">
+                    <ui:VisualElement name="picker-search-row" class="row picker-search-row"><ui:Label name="picker-search-label" class="muted" /><ui:Label name="picker-count" class="muted picker-count" /></ui:VisualElement>
+                    <ui:ScrollView name="picker-list" mode="Vertical" horizontal-scroller-visibility="Hidden" class="picker-list" />
+                </ui:VisualElement>
+                <ui:VisualElement class="row picker-actions"><ui:Button name="picker-back" /></ui:VisualElement>
+                <StoryOfTheLand.Game.UI.UiFrame filigree="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <!-- F6: the pause menu (PausePresenter), over the game and its screens, under the toast (which says a save was made).
+             One of its three pages shows at a time: the items, the save or load slots, or a confirm. -->
+        <ui:VisualElement name="pause-menu" class="pause-menu">
+            <ui:VisualElement name="pause-panel" class="panel pause-panel">
+                <ui:Label name="pause-title" class="title pause-title" />
+                <ui:VisualElement class="gold-rule" />
+                <ui:VisualElement name="pause-items" class="pause-items">
+                    <ui:Button name="pause-resume" class="pause-item" />
+                    <ui:Button name="pause-save" class="pause-item" />
+                    <ui:Button name="pause-load" class="pause-item" />
+                    <ui:Button name="pause-chapters" class="pause-item" />
+                    <ui:Button name="pause-settings" class="pause-item" />
+                    <ui:Button name="pause-how-to-play" class="pause-item" />
+                    <ui:Button name="pause-credits" class="pause-item" />
+                    <ui:Button name="pause-main-menu" class="pause-item" />
+                    <ui:Button name="pause-quit" class="pause-item" />
+                </ui:VisualElement>
+                <ui:VisualElement name="pause-slots" class="pause-slots">
+                    <ui:Label name="pause-slots-title" class="section-title" />
+                    <ui:VisualElement name="pause-slot-list" class="pause-slot-list" />
+                    <ui:Button name="pause-slots-back" class="pause-item" />
+                </ui:VisualElement>
+                <!-- Playtest (F6): the first-turn hint, once per profile, and the chapter's end. -->
+                <ui:VisualElement name="pause-hint" class="pause-text">
+                    <ui:Label name="pause-hint-goal" class="pause-line" />
+                    <ui:Label name="pause-hint-icons" class="pause-line" />
+                    <ui:Label name="pause-hint-delta" class="pause-line" />
+                    <ui:Label name="pause-hint-turn" class="pause-line" />
+                    <ui:Button name="pause-hint-ok" class="pause-item" />
+                </ui:VisualElement>
+                <ui:VisualElement name="pause-end" class="pause-text">
+                    <ui:Label name="pause-end-summary" class="pause-summary" />
+                    <ui:Button name="pause-end-next" class="pause-item" />
+                    <ui:Button name="pause-end-choose" class="pause-item" />
+                    <ui:Button name="pause-end-menu" class="pause-item" />
+                </ui:VisualElement>
+                <ui:VisualElement name="pause-confirm" class="pause-confirm">
+                    <ui:Label name="pause-confirm-text" class="pause-confirm-text" />
+                    <ui:VisualElement class="row pause-confirm-actions">
+                        <ui:Button name="pause-confirm-yes" class="pause-item" />
+                        <ui:Button name="pause-confirm-no" class="pause-item" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <StoryOfTheLand.Game.UI.UiFrame filigree="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label name="toast" class="panel toast" />
+        <!-- Playtest 2: after a quiet month, "Skip to the next event" (GameRoot.SkipAhead); while it runs, Stop. -->
+        <ui:Button name="skip-ahead" class="skip-ahead" />
+        <!-- The name of an icon-only button, beside it on hover and on keyboard focus (HoverTip; UI Toolkit draws `tooltip`
+             only in Editor UI). Last, so it draws over the panels; it takes no clicks. -->
+        <ui:Label name="hud-tip" class="hud-tip" picking-mode="Ignore" />
+        <!-- A top-bar number's explanation under the bar, on hover or after a tap (MeterTip, #1037); it takes no clicks. -->
+        <ui:VisualElement name="meter-tip" class="meter-tip" picking-mode="Ignore">
+            <ui:Label name="meter-tip-words" class="meter-tip-line" picking-mode="Ignore" />
+            <ui:Label name="meter-tip-causes" class="meter-tip-line" picking-mode="Ignore" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

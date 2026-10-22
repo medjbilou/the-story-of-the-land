@@ -1,0 +1,1 @@
+{ "name": "StoryOfTheLand.Game", "references": ["Unity.RenderPipelines.Universal.Runtime", "Unity.RenderPipelines.Core.Runtime", "Unity.InputSystem"], "overrideReferences": true, "precompiledReferences": ["StoryOfTheLand.Sim.dll", "YamlDotNet.dll"], "autoReferenced": true }

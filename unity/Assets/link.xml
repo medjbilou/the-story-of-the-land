@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="YamlDotNet" preserve="all" />
+  <assembly fullname="StoryOfTheLand.Sim" preserve="all" />
+  <assembly fullname="StoryOfTheLand.Game"><type fullname="StoryOfTheLand.Game.Map.*" preserve="all"/><type fullname="StoryOfTheLand.Game.UI.*" preserve="all"/><type fullname="StoryOfTheLand.Game.Boot.*" preserve="all"/></assembly>
+</linker>

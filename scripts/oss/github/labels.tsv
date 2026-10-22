@@ -1,0 +1,26 @@
+accessibility	f143ab	Barrier affecting people with disabilities
+bug	d73a4a	Something isn't working
+documentation	0075ca	Improvements or additions to documentation
+duplicate	cfd3d7	This issue or pull request already exists
+enhancement	a2eeef	New feature or request
+good first issue	7057ff	Good for newcomers
+help wanted	008672	Extra attention is needed
+invalid	e4e669	This doesn't seem right
+question	d876e3	Further information is requested
+wontfix	ffffff	This will not be worked on
+content	0e8a16	Game content under content/
+historical-accuracy	1d76db	A fact or its source is disputed (docs/CONTENT_POLICY.md)
+no-changelog	cfd3d7	No player-visible change; the Changelog check passes without an entry
+spam	000000	Closed without review (CONTRIBUTING.md, AI-assisted contributions)
+area: sim	5319e7	The C# simulation (sim/)
+area: tools	bfd4f2	Python map and data tools (tools/)
+area: unity	222222	The Unity client (unity/)
+area: art	f9d0c4	3D art, portraits, visual look
+area: design	c5def5	Game design and balance
+research	0e8a16	Find and cite sources (no code needed)
+translation	fbca04	Translations and right-to-left support
+M4	b60205	Milestone M4: full 1948-1956 slice
+in progress (maintainer)	ededed	Being built in the maintainer's pipeline; comment, but please don't open a competing PR
+roadmap	3e4b9e	A tracker for a milestone or era; detailed issues follow its design
+ready for a contributor	2da44e	Every field of the Task form is filled; no question to the maintainer needed
+needs-unity	e99695	Acceptance needs the Unity editor, a player build or the WebGL check

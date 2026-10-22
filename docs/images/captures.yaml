@@ -1,0 +1,34 @@
+# The in-engine screenshots in this folder (build-*.jpg), as the website showed them. The old site/ (whose
+# site/src/lib/media.ts read this file) is gone; the list waits for a website of our own.
+# When the screenshots are retaken: replace the files, then set `build` and `date` below (the label reads
+# "In-engine capture — <build>, <date>"). A new build-*.jpg needs an entry here, and an entry needs its file: the site's
+# build fails otherwise. The first entry is the home page's hero image.
+# `ai_part` names any AI-generated part of a real screenshot, shown with the picture (the start screen's painting).
+# `video` (optional) is the real gameplay clip, the home page's hero loop (muted, looping, with a pause button):
+#   video:
+#     files: [build-gameplay.webm, build-gameplay.mp4]
+#     title: { en: "..." }
+#     description: { en: "..." }
+#     alt: { en: "..." }
+#     build: main abc1234      # optional; defaults to the build above
+#     date: 2026-10-13         # optional; defaults to the date above
+# A build-*.mp4 or .webm that is not listed there fails the site's build.
+build: main 6c54c95
+date: 2026-10-18
+# `hero` is the home page's hero still: a clean in-engine render with no interface, composed for the title, with its
+# own build and date (it is not a README screenshot, so it is not in the gallery). tools/: MapCapture.Promo with
+# -extraPose, on the Mobile tier, which is the WebGL tier (docs/visual-v1.md).
+hero:
+  file: hero-engine-coast.jpg
+  build: main 6c54c95
+  date: 2026-10-18
+  title: { en: "Tel Aviv, Jaffa and the coast, without the interface" }
+  alt:
+    en: "An in-engine render of the 1948 map with no interface: the coast at Jaffa and Tel Aviv, with sailing boats off Jaffa's breakwater, Tel Aviv's white blocks, a train on the coastal railway, groves, villages and the sub-district borders."
+# Screenshots of our build (docs/RELEASING.md), shown in the README.
+images:
+  - { file: build-card.jpg, build: "web 2026-10-21", date: 2026-10-21, title: { en: "The first card of the Nakba chapter" } }
+  - { file: build-start.jpg, build: "web 2026-10-21", date: 2026-10-21, title: { en: "The start screen" } }
+  - { file: build-people.jpg, build: "web 2026-10-21", date: 2026-10-21, title: { en: "The People screen" }, ai_part: { en: "The portraits are AI-generated." } }
+  - { file: build-why.jpg, build: "web 2026-10-21", date: 2026-10-21, title: { en: "The Why panel" } }
+  - { file: build-card-ar.jpg, build: "web 2026-10-21", date: 2026-10-21, title: { en: "The first card in Arabic" } }

@@ -1,0 +1,30 @@
+# Dev container
+
+This container runs the headless checks in a clean Linux environment, for example in a GitHub Codespace
+or for a coding agent. It has no Unity. Unity work (`unity/`, builds, edit-mode tests) needs a local machine.
+
+## What it holds
+
+| Tool | Version | Where the version comes from |
+| --- | --- | --- |
+| .NET SDK | 10.0.401 | `dotnet-version` in `.github/workflows/ci.yml`. The sim library targets `netstandard2.1` (for Unity); its tests and the CLI target `net10.0`. There is no `global.json`. |
+| uv | 0.12.5 | `version` of `astral-sh/setup-uv` in `.github/workflows/ci.yml` |
+| Python | 3.12 | Ubuntu 24.04's own `python3`, as on the `ubuntu-24.04` CI runner, and `UV_PYTHON` in `.github/workflows/ci.yml`. The scripts need `>=3.11`. |
+| OS | Ubuntu 24.04 (`devcontainers/base` 3.0.8) | `runs-on: ubuntu-24.04` in `.github/workflows/ci.yml` |
+| git | from the base image | |
+
+When CI changes one of these versions, change it here too. The base image and the uv image are pinned by version and digest and are bumped by hand. Dependabot bumps the features.
+
+`postCreateCommand` runs `dotnet restore sim/StoryOfTheLand.sln`.
+
+The container has an SSH server, so `gh codespace ssh -c <name>` can run the checks.
+
+## Run the checks
+
+```bash
+dotnet test sim/StoryOfTheLand.sln -c Release
+uv run scripts/oss/check_repo.py
+uv run --with pytest==9.1.1 --with pyyaml==6.0.3 --with requests==2.32.5 pytest scripts/oss/tests -q
+```
+
+The data tool tests (`tools/tests`) run in CI too. See `.github/workflows/ci.yml` for the full command.

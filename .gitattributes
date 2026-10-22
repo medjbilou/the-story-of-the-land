@@ -1,0 +1,4 @@
+# Text files check out with LF on every platform. Unity writes its YAML assets with LF, and the import tools and tests
+# compare bytes, so a CRLF checkout (Git for Windows defaults to core.autocrlf=true) left files rewritten and tests
+# failing (#405). Binary files are detected and left alone.
+* text=auto eol=lf

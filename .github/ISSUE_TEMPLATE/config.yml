@@ -1,0 +1,6 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability or conduct report
+    # Replace <maintainer-github-username> with the repository owner when the project is published (as in CODEOWNERS).
+    url: https://github.com/<maintainer-github-username>/the-story-of-the-land/security/advisories/new
+    about: Report privately. For a conduct report, start the title with "Conduct:". Do not open a public issue.
